@@ -1,0 +1,73 @@
+'scopeName': 'source.mbdyn'
+'name': 'MBDyn'
+'fileTypes': ['mbd', 'mbdyn', 'mdl']
+
+patterns: [
+	{
+		include: '#comments'
+	}
+	{
+		include: '#numbers'
+	}
+	{
+		include: '#strings'
+	}
+	{
+		include: '#misc'
+	}
+	{
+		include: '#keywords'
+	}
+]
+
+repository:
+	comments:
+		patterns: [
+			{
+				begin: '\#'
+				end: '\\n'
+				name: 'comment.line.pound.mbdyn'
+			}
+			{
+				begin: '/\\*'
+				beginCaptures:
+					'0':
+						name: 'punctuation.definition.comment.begin.mbdyn'
+				end: '\\*/':
+				endCaptures:
+					'0':
+						name: 'punctuation.definition.comment.end.mbdyn'
+				name: 'comment.block.mbdyn'
+			}
+		]
+	numbers:
+		patterns: [
+			{
+				match: '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((E|e)(\\+|-)?[0-9]+)?\\b'
+				name: 'constant.numeric.mbdyn'
+			}
+		]
+			
+	strings:
+		patterns: [
+			{
+				begin: '(?<![\\w\\]\)])"'
+				beginCaptures:
+					'0':
+						name:
+						'punctuation.definition.string.begin.mbdyn'
+				end: '"(?!")'
+				endCaptures:
+					'0':
+						name:
+						'punctuation.definition.string.end.mbdyn'
+				name: 'string.quoted.single.mbdyn'
+				patterns: [
+					{
+						match: '""'
+						name:
+						'constant.character.escape.mbdyn'
+					}
+				]
+			}
+		]
