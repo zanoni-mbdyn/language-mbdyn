@@ -16,7 +16,19 @@ patterns: [
 		include: '#misc'
 	}
 	{
+		include: '#invalid'
+	}
+	{
+		include: '#constants'
+	}
+	{
+		include: '#storage'
+	}
+	{
 		include: '#keywords'
+	}
+	{
+		include: '#entity'
 	}
 ]
 
@@ -47,7 +59,7 @@ repository:
 				name: 'constant.numeric.mbdyn'
 			}
 		]
-			
+
 	strings:
 		patterns: [
 			{
@@ -66,5 +78,196 @@ repository:
 						name: 'constant.character.escape.mbdyn'
 					}
 				]
+			}
+		]
+	keywords:
+		patterns: [
+			{
+				match: '\\b(include|node|initial time|final time|strategy|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b\:'
+				captures:
+					'0':
+						name: 'keyword.control.mbdyn'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(modify residual test|in assembly|skip initial joint assembly|select timeout)\\b'
+				name: 'keyword.control.mbdyn'
+			}
+			{
+				match: '\\b(begin|end)\\b\:'
+				captures:
+					'0':
+						name: 'keyword.operator.mbdyn'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(eye|null|euler|euler123|euler313|euler321|vector|matr|orientation vector|orientation matrix|anba|sym|diag|skew|guess|position|orientation|position orientation|rotation orientation)\\b'
+				name: 'keyword.other.mbdyn'
+			}
+		]
+	storage:
+			patterns: [
+				{
+					match: '\\b(integer|real|string|bool)\\b'
+					name: 'storage.type.mbdyn'
+				}
+				{
+					match: '\\b(set|ifndef|const|setenv)\\b'
+					name: 'storage.modifier.mbdyn'
+				}
+			]
+	constants:
+		patterns: [
+			{
+				match: '\\b(TRUE|FALSE)\\b'
+				name: 'constant.language.mbdyn'
+			}
+			{
+				match: '\\b(pi|deg2rad|Time|TimeStep|Step|Var|INT_MAX|INT_MIN|RAND_MAX|REAL_MAX|REAL_MIN|in2m|m2in|mm2in|ft2m|m2ft|lb2kg|kg2lb|deg2rad|rad2deg|slug2kg|kg2slug)\\b'
+				name: 'constant.numeric.mbdyn'
+			}
+		]
+	invalid:
+		patterns: [
+			{
+				match: '\\b(hinge|y12|meschach|harwell|taucs|watson|solver|rotor|deformable displacement hinge|distance with offsets|plane hinge|plane pin|rod bezier|universal hinge|universal pin|universal rotation)\\b'
+				name: 'invalid.deprecated.mbdyn'
+			}
+			{
+				match: '\\b(make restart file)\\b\:'
+				name: 'invalid.depracated.mbdyn'
+			}
+		]
+	entity:
+		patterns: [
+			{
+				match: '\\b(data|initial value|inverse dynamics|control data|drivers|nodes|elements)\\b'
+				name: 'entity.name.section.mbdyn'
+			}
+			{
+				match: '\\b(ms|hope|third order|bdf|implicit euler)\\b'
+				name: 'entity.name.type.mbdyn.method'
+			}
+			{
+				match: '\\b(naive|umfpack|klu|lapack|superlu)\\b'
+				name: 'entity.name.type.mbdyn.linsolver'
+			}
+			{
+				match: '\\b(newton raphson|line search|matrix free)\\b'
+				name: 'entity.name.type.mbdyn.nonlinsolver'
+			}
+			{
+				match: '\\b(residual|solution|jacobian matrix|messages|counter|bailout|matrix condition number|solver condition number|none)\\b'
+				name: 'entity.name.type.mbdyn.output'
+			}
+			{
+				match: '\\b(dof stats|dof description|equation description|element connection|node connection|all|none)\\b'
+				name: 'entity.name.type.mbdyn.print'
+			}
+			{
+				match: '\\b(abstract|electric|hydraulic|parameter|structural|thermal)\\b\:'
+				name: 'entity.name.type.mbdyn.nodes'
+			}
+			{
+				match: '\\b(automatic structural|beam2|beam3|body|couple|gravity|joint|joint regularization|stiffness spring)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.strelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(shell4eas|shell4easans|membrane4eas)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.platelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(loadable|user defined)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.userelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(clamp|distance|angular acceleration|angular velocity|axial rotation|beam slider|brake|cardano hinge|cardano pin|cardano rotation|deformable axial joint|deformable displacement joint|deformable hinge|deformable joint|drive displacement|drive displacement pin|drive hinge|gimbal rotation|imposed displacement|imposed displacement pin|in line|in plane|invariant deformable displacement|invariant deformable hinge|kinematic|linear acceleration|linear velocity|modal|plane displacement|plane displacement pin|prismatic|revolute hinge|revolute pin|revolute rotation|rod|rod with offsets|spherical hinge|spherical pin|total equation|total reaction|total joint|total pin joint|viscous body)\\b'
+				name: 'entity.name.type.mbdyn.joints'
+			}
+			{
+				match: '\\b(aerodynamic beam2|aerodynamic beam3|aerodynamic body|aeromodal|aircraft instruments|air properties|induced velocity|generic aerodynamic force)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.aeroelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(accelerometer|displacement|motor|discrete control)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.elecelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(hydraulic|actuator|minor loss|three way minor loss|control valve|dynamic control valve|pressure flow control valve|pressure valve|flow valve|orifice|accumulator|tank|pipe|dynamic pipe)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.hydrelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(driven)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.driven'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(RTAI output|stream output|stream motion output|inertia)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.outelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(bind|bulk|force|genel|loadable|user defined)\\b\:'
+				captures:
+					'0':
+						name: 'entity.name.type.mbdyn.genelements'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(static|dynamic|modal|dummy\\b)'
+				name: 'entity.name.type.mbdyn.strnode'
+			}
+			{
+				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|linear|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit)\\b'
+				name: 'entity.name.type.mbdyn.drive'
+			}
+			{
+				match: '\\b(abs|acos|acosh|actan|actan2|actanh|asinh|atanh|asin|atan|atan2|ceil|copysign|cos|cosh|ctan|ctanh|exp|floor|in_ee|in_el|in_le|in_ll|log|log10|min|max|par|print|ramp|rand|random|round|seed|sign|sin|sinh|sprintf|sqrt|sramp|step|stop|tan|tanh)\\b'
+				name: 'entity.name.function.mbdyn'
+			}
+			{
+				match: '\\b(sf|node|element)\\b::'
+				captures:
+					'0':
+						name: 'entity.name.function.mbdyn'
+					'1':
+						name: 'punctuation.definition.mbdyn'
+			}
+			{
+				match: '\\b(position|position2|xposition|yposition|zposition|distance|distance2|xdistance|ydistance|zdistance|xunitvec|yunitvec|zunitvec|angle|xangle|yangle|zangle|angelrel|xanglerel|yanglerel|zanglerel|velocity|velocity2|xvelocity|yvelocity|zvelocity|vrel|vrel2|xvrel|yvrel|zvrel|angvel|angvel2|xangvel|yangvel|zangvel|angvrel|angvrel2|xangvrel|yangvrel|zangvrel|current|drive)\\b'
+				name: 'entity.name.function.mbdyn'
 			}
 		]
