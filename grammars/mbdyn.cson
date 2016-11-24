@@ -54,19 +54,16 @@ repository:
 				begin: '(?<![\\w\\]\)])"'
 				beginCaptures:
 					'0':
-						name:
-						'punctuation.definition.string.begin.mbdyn'
+						name: 'punctuation.definition.string.begin.mbdyn'
 				end: '"(?!")'
 				endCaptures:
 					'0':
-						name:
-						'punctuation.definition.string.end.mbdyn'
+						name: 'punctuation.definition.string.end.mbdyn'
 				name: 'string.quoted.single.mbdyn'
 				patterns: [
 					{
 						match: '""'
-						name:
-						'constant.character.escape.mbdyn'
+						name: 'constant.character.escape.mbdyn'
 					}
 				]
 			}
