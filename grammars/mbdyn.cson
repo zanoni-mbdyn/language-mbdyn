@@ -43,11 +43,11 @@ repository:
 			{
 				begin: '/\\*'
 				beginCaptures:
-					'0':
+					'1':
 						name: 'punctuation.definition.comment.begin.mbdyn'
 				end: '\\*/'
 				endCaptures:
-					'0':
+					'1':
 						name: 'punctuation.definition.comment.end.mbdyn'
 				name: 'comment.block.mbdyn'
 			}
@@ -65,11 +65,11 @@ repository:
 			{
 				begin: '(?<![\\w\\]\)])"'
 				beginCaptures:
-					'0':
+					'1':
 						name: 'punctuation.definition.string.begin.mbdyn'
 				end: '"(?!")'
 				endCaptures:
-					'0':
+					'1':
 						name: 'punctuation.definition.string.end.mbdyn'
 				name: 'string.quoted.single.mbdyn'
 				patterns: [
@@ -83,23 +83,23 @@ repository:
 	keywords:
 		patterns: [
 			{
-				match: '\\b(include|node|initial time|final time|strategy|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b\:'
+				match: '\\b(include|node|initial time|final time|strategy|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
 				captures:
-					'0':
-						name: 'keyword.control.mbdyn'
 					'1':
+						name: 'keyword.control.mbdyn'
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(modify residual test|in assembly|skip initial joint assembly|select timeout)\\b'
+				match: '\\b(modify residual test|in assembly|skip initial joint assembly|select timeout|gravity|air properties|use lapack)\\b'
 				name: 'keyword.control.mbdyn'
 			}
 			{
-				match: '\\b(begin|end)\\b\:'
+				match: '\\b(begin|end)\\b(\:)'
 				captures:
-					'0':
-						name: 'keyword.operator.mbdyn'
 					'1':
+						name: 'keyword.operator.mbdyn'
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
@@ -167,31 +167,35 @@ repository:
 				name: 'entity.name.type.mbdyn.print'
 			}
 			{
-				match: '\\b(abstract|electric|hydraulic|parameter|structural|thermal)\\b\:'
-				name: 'entity.name.type.mbdyn.nodes'
+				match: '\\b(abstract|electric|hydraulic|parameter|structural|thermal)\\b(\:)'
+				captures:
+					'1':
+						name: 'entity.name.type.mbdyn.nodes'
+					'2':
+						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(automatic structural|beam2|beam3|body|couple|gravity|joint|joint regularization|stiffness spring)\\b\:'
+				match: '\\b(automatic structural|beam2|beam3|body|couple|gravity|joint|joint regularization|stiffness spring)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.strelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(shell4eas|shell4easans|membrane4eas)\\b\:'
+				match: '\\b(shell4eas|shell4easans|membrane4eas)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.platelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(loadable|user defined)\\b\:'
+				match: '\\b(loadable|user defined)\\b(\:)'
 				captures:
-					'0':
-						name: 'entity.name.type.mbdyn.userelements'
 					'1':
+						name: 'entity.name.type.mbdyn.userelements'
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
@@ -199,51 +203,51 @@ repository:
 				name: 'entity.name.type.mbdyn.joints'
 			}
 			{
-				match: '\\b(aerodynamic beam2|aerodynamic beam3|aerodynamic body|aeromodal|aircraft instruments|air properties|induced velocity|generic aerodynamic force)\\b\:'
+				match: '\\b(aerodynamic beam2|aerodynamic beam3|aerodynamic body|aeromodal|aircraft instruments|air properties|induced velocity|generic aerodynamic force)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.aeroelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(accelerometer|displacement|motor|discrete control)\\b\:'
+				match: '\\b(accelerometer|displacement|motor|discrete control)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.elecelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(hydraulic|actuator|minor loss|three way minor loss|control valve|dynamic control valve|pressure flow control valve|pressure valve|flow valve|orifice|accumulator|tank|pipe|dynamic pipe)\\b\:'
+				match: '\\b(hydraulic|actuator|minor loss|three way minor loss|control valve|dynamic control valve|pressure flow control valve|pressure valve|flow valve|orifice|accumulator|tank|pipe|dynamic pipe)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.hydrelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(driven)\\b\:'
+				match: '\\b(driven)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.driven'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(RTAI output|stream output|stream motion output|inertia)\\b\:'
+				match: '\\b(RTAI output|stream output|stream motion output|inertia)\\b(\:)'
 				captures:
-					'0':
+					'1':
 						name: 'entity.name.type.mbdyn.outelements'
-					'1':
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(bind|bulk|force|genel|loadable|user defined)\\b\:'
+				match: '\\b(bind|bulk|force|genel|loadable|user defined)\\b(\:)'
 				captures:
-					'0':
-						name: 'entity.name.type.mbdyn.genelements'
 					'1':
+						name: 'entity.name.type.mbdyn.genelements'
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
@@ -259,11 +263,11 @@ repository:
 				name: 'entity.name.function.mbdyn'
 			}
 			{
-				match: '\\b(sf|node|element)\\b::'
+				match: '\\b(sf|node|element)\\b(\:\:)'
 				captures:
-					'0':
-						name: 'entity.name.function.mbdyn'
 					'1':
+						name: 'entity.name.function.mbdyn'
+					'2':
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
