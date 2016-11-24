@@ -1,17 +1,17 @@
 {
-	"name": "language-mbdyn",
-	"version": "0.0.0",
-	"description": "MBDyn syntax highlighting support",
-	"engines": {
-		"atom": "*"
-	},
-	"dependencies": {},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/zanoni-mbdyn/language-mbdyn.git"
-	},
-	"bugs": {
-		"url": "https://github.com/zanoni-mbdyn/language-mbdyn/issues"
-	},
-	"licence": "GNU-GPLv3"
+  "name": "language-mbdyn",
+  "version": "0.1.0",
+  "description": "MBDyn syntax highlighting support",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zanoni-mbdyn/language-mbdyn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zanoni-mbdyn/language-mbdyn/issues"
+  },
+  "licence": "GNU-GPLv3"
 }
