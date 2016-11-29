@@ -1,0 +1,29 @@
+'.source.mbd, .source.mbdyn, .source.mdl':
+  'node-structural-type-dynamic':
+    'prefix': 'dyn'
+    'body': 'dynamic'
+  'node-structural-type-static':
+    'prefix': 'sta'
+    'body': 'static'
+  'node-structural-definition':
+    'prefix': 'structural'
+    'body': """
+      structural: ${1:label}, ${2:dynamic},
+        ${3:absolute position},
+        ${4:absolute orientation matrix},
+        ${5:[orientation description, <orientation_description>]},
+        ${6:absolute velocity},
+        ${7:absolute angular velocity};
+      """
+    'description': 'Structural node definition'
+  'node-structural-assembly':
+    'prefix': 'ass'
+    'body': """
+      assembly,
+      ${1:position initial stiffness},
+      ${2:velocity initial stiffness},
+      ${3:omega rotates}, {4:yes/no};
+    """
+  'reference-call':
+    'prefix': 'ref'
+    'body': 'reference, ${1:label}, ${2:null/eye/...}'
