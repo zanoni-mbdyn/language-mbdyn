@@ -91,6 +91,14 @@ repository:
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
+				match: '\\b(reference),'
+				captures:
+					'1':
+						name: 'keyword.operator.mbdyn'
+					'2':
+						name: 'punctuation.separator.mbdyn'
+			}
+			{
 				match: '\\b(modify residual test|in assembly|skip initial joint assembly|select timeout|gravity|air properties|use lapack)\\b'
 				name: 'keyword.control.mbdyn'
 			}
@@ -132,7 +140,7 @@ repository:
 	invalid:
 		patterns: [
 			{
-				match: '\\b(hinge|y12|meschach|harwell|taucs|watson|solver|rotor|deformable displacement hinge|distance with offsets|plane hinge|plane pin|rod bezier|universal hinge|universal pin|universal rotation)\\b'
+				match: '\\b(hinge|y12|meschach|harwell|taucs|watson|solver|rotor|deformable displacement hinge|distance with offsets|plane hinge|plane pin|rod bezier|universal hinge|universal pin|universal rotation|parameter)\\b'
 				name: 'invalid.deprecated.mbdyn'
 			}
 			{
@@ -167,7 +175,7 @@ repository:
 				name: 'entity.name.type.mbdyn.print'
 			}
 			{
-				match: '\\b(abstract|electric|hydraulic|parameter|structural|thermal)\\b(\:)'
+				match: '\\b(abstract|electric|hydraulic|structural|thermal)\\b(\:)'
 				captures:
 					'1':
 						name: 'entity.name.type.mbdyn.nodes'
