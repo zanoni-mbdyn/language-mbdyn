@@ -83,7 +83,7 @@ repository:
 	keywords:
 		patterns: [
 			{
-				match: '\\b(include|node|initial time|final time|strategy|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
+				match: '\\b(include|node|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
 				captures:
 					'1':
 						name: 'keyword.control.mbdyn'
@@ -208,6 +208,24 @@ repository:
 					'4':
 						name: 'punctuation.terminator.mbdyn'
 				contentName: 'source.mbdyn.section.initialvalue'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(strategy)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'keyword.control.mbdyn'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: '\;'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.definition.strategy'
 				patterns: [
 					{
 						include: '$self'

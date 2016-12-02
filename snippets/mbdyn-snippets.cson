@@ -3,7 +3,52 @@
     'prefix': 'problem:'
     'body': 'problem: ${1:initial value | inverse dynamics};'
     'description': 'Problem type'
-# '.source.mbdyn.section.initialvalue':
+'.source.mbdyn.section.initialvalue':
+  'initial-time':
+    'prefix': 'initial time:'
+    'body': 'initial time: ${1:<time>};'
+    'description': 'Simulation initial time'
+  'final-time':
+    'prefix': 'final time:'
+    'body': 'final time: ${1:forever | <time>};'
+    'description': 'Simulation final time'
+  'strategy':
+    'prefix': 'strategy:'
+    'body': 'strategy: ${1:<strategy_type>}'
+    'description': 'Strategy for time step change'
+  'min-time-step':
+    'prefix': 'min time step:'
+    'body': 'min time step: ${1:<min_time_step>};'
+    'description': 'Minimum allowed time step'
+  'max-time-step':
+    'prefix': 'max time step:'
+    'body': 'max time step: ${1:<max_time_step> | unlimited};'
+    'description': 'Maximum allowed time step'
+  'time-step':
+    'prefix': 'time step:'
+    'body': 'time step: ${1:<time_step>};'
+    'description': 'Initial time step. If no change is asked, constant throughout simulation'
+  'modify-residual test':
+    'prefix': 'modify residual test;'
+    'body': 'modify residual test;'
+    'description': 'Modify residual test taking in account the status rate of change'
+'.source.mbdyn.definition.strategy':
+    'strategy-factor':
+      'prefix': 'factor:'
+      'body': """
+        factor,
+        ${1:<reduction_factor>},
+        ${2:<steps_before_reduction>},
+        ${3:<raise_factor>},
+        ${4:<steps_before_raise>},
+        ${5:<min_iterations>,}
+        ${6:[<max_iterations]};
+      """
+      'description': 'Strategy for time step change: use factor'
+  'strategy-change':
+    'prefix':'change'
+    'body': 'change, ${1(DriveCaller)<time_step_pattern>}'
+    'description': 'Strategy for time step change: use drive caller'
 # '.source.mbdyn.section.inversedynamics':
 '.source.mbdyn.section.nodes':
   'node-structural-definition':
