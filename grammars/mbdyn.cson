@@ -1,6 +1,6 @@
 'scopeName': 'source.mbdyn'
 'name': 'MBDyn'
-'fileTypes': ['mbd', 'mbdyn', 'mdl']
+'fileTypes': ['mbd', 'mbdyn', 'mdl', 'set', 'ref', 'nod', 'elm']
 
 patterns: [
 	{
