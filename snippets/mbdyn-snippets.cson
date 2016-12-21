@@ -46,9 +46,42 @@
       """
       'description': 'Strategy for time step change: use factor'
   'strategy-change':
-    'prefix':'change'
-    'body': 'change, ${1(DriveCaller)<time_step_pattern>}'
+    'prefix': 'change'
+    'body': 'change, ${1:(DriveCaller)<time_step_pattern>}'
     'description': 'Strategy for time step change: use drive caller'
+  'tolerance':
+    'prefix': 'tolerance'
+    'body': """
+      tolerance: ${1:{null|<residual_tolerance>}},
+        ${2:[test, {none|norm|minmax}] [, scale]}'
+        ${3:[, {null|<solution_tolerance>}]}
+        ${4:[, test, {none|norm|minmax}];}
+    """
+    'description': 'Residual and (optional) solution tolerance'
+  'max iterations':
+    'prefix': 'max iterations'
+    'body': 'max iteraions: ${1:<max_iterations>} ${2:[, at most]};'
+    'description': 'Error out after <max_iterations> or continue after at most <max_iterations> if error is reduced'
+  'modify residual test':
+    'prefix': 'modify residual test'
+    'body': 'modify resisual test;'
+    'description': 'Modify the residual test taking into account the rate of change of the status'
+  'method':
+    'prefix': 'method'
+    'body': 'method: ${1:<method_data>};'
+    'description': 'Selection of integration scheme'
+  'crank nicolson':
+    'prefix': 'crank nicolson'
+    'body': 'crank nicolson;'
+    'descrition': 'Crank-Nicolson multistep method'
+  'ms':
+    'prefix': 'ms'
+    'body': """
+      ms,
+      ${1:(DriveCaller)<differential_radius>},
+      ${2:[(DriveCaller)<algebraic_radius>]};
+    """
+    'description': 'Multistep method.'
 # '.source.mbdyn.section.inversedynamics':
 '.source.mbdyn.section.nodes':
   'node-structural-definition':
