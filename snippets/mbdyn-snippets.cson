@@ -32,23 +32,6 @@
     'prefix': 'modify residual test;'
     'body': 'modify residual test;'
     'description': 'Modify residual test taking in account the status rate of change'
-'.source.mbdyn.definition.strategy':
-    'strategy-factor':
-      'prefix': 'factor:'
-      'body': """
-        factor,
-        ${1:<reduction_factor>},
-        ${2:<steps_before_reduction>},
-        ${3:<raise_factor>},
-        ${4:<steps_before_raise>},
-        ${5:<min_iterations>,}
-        ${6:[<max_iterations]};
-      """
-      'description': 'Strategy for time step change: use factor'
-  'strategy-change':
-    'prefix': 'change'
-    'body': 'change, ${1:(DriveCaller)<time_step_pattern>}'
-    'description': 'Strategy for time step change: use drive caller'
   'tolerance':
     'prefix': 'tolerance'
     'body': """
@@ -82,6 +65,28 @@
       ${2:[(DriveCaller)<algebraic_radius>]};
     """
     'description': 'Multistep method.'
+'.source.mbdyn.definition.strategy':
+  'strategy-factor':
+    'prefix': 'factor:'
+    'body': """
+      factor,
+      ${1:<reduction_factor>},
+      ${2:<steps_before_reduction>},
+      ${3:<raise_factor>},
+      ${4:<steps_before_raise>},
+      ${5:<min_iterations>,}
+      ${6:[<max_iterations]};
+    """
+    'description': 'Strategy for time step change: use factor'
+  'strategy-change':
+    'prefix': 'change'
+    'body': 'change, ${1:(DriveCaller)<time_step_pattern>};'
+    'description': 'Strategy for time step change: use drive caller'
+  'strategy-no-change':
+    'prefix': 'no change'
+    'body': 'no change;;'
+    'description': 'Strategy for time step change: no change. WARNING: this
+    disables termination of max iterations'
 # '.source.mbdyn.section.inversedynamics':
 '.source.mbdyn.section.nodes':
   'node-structural-definition':
