@@ -194,7 +194,7 @@ repository:
 					'2':
 						name: 'punctuation.definition.mbdyn'
 					'3':
-						name: 'entity.name.section.nodes.mbdyn'
+						name: 'entity.name.section.initialvalue.mbdyn'
 					'4':
 						name: 'punctuation.terminator.mbdyn'
 				end: '\\b(end)\\b\: *\\b(initial value)\\b\;'
@@ -285,6 +285,34 @@ repository:
 				patterns: [
 					{
 						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(begin)\\b\: *\\b(drivers)\\b\;'
+				beginCaptures:
+					'1':
+						name: 'keyword.operator.mbdyn'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+					'3':
+						name: 'entity.name.section.drivers.mbdyn'
+					'4':
+						name: 'punctuation.terminator.mbdyn'
+				end: '\\b(end)\\b\: *\\b(drivers)\\b\;'
+				endCaptures:
+					'1':
+						name: 'keyword.operator.mbdyn'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+					'3':
+						name: 'entity.name.section.drivers.mbdyn'
+					'4':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.drivers'
+				patterns: [
+					{
+						include: '$self';
 					}
 				]
 			}
@@ -428,6 +456,10 @@ repository:
 			{
 				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|linear|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit)\\b'
 				name: 'entity.name.type.mbdyn.drive'
+			}
+			{
+				match: '\\b(fixed step|variable step|RTAI input|stream|socket)\\b'
+				name: 'entity.name.type.mbdyn.driver'
 			}
 			{
 				match: '\\b(abs|acos|acosh|actan|actan2|actanh|asinh|atanh|asin|atan|atan2|ceil|copysign|cos|cosh|ctan|ctanh|exp|floor|in_ee|in_el|in_le|in_ll|log|log10|min|max|par|print|ramp|rand|random|round|seed|sign|sin|sinh|sprintf|sqrt|sramp|step|stop|tan|tanh)\\b'
