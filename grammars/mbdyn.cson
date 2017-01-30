@@ -312,7 +312,151 @@ repository:
 				contentName: 'source.mbdyn.section.drivers'
 				patterns: [
 					{
-						include: '$self';
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(stream output)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.outelements'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.streamoutput'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(aerodynamic body|aerodynamic beam2|aerodynamic beam3)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.aeroelements'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.aero'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(air properties)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.aeroelement'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.airprops'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(generic aerodynamic force)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.aeroelement'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.genaeroforce'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(induced velocity)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.aeroelement'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.inducedvel'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(beam3)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.element'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.beam3'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(beam2)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.element'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.beam2'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(body)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.element'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: ';'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.section.elements.body'
+				patterns: [
+					{
+						include: '$self'
 					}
 				]
 			}
@@ -340,7 +484,7 @@ repository:
 				contentName: 'source.mbdyn.section.elements'
 				patterns: [
 					{
-						include: '$self';
+						include: '$self'
 					}
 				]
 			}
