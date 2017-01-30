@@ -1,14 +1,97 @@
 '.source.mbdyn.section.data':
   'problem-definition':
     'prefix': 'problem:'
-    'body': 'problem: ${1:initial value | inverse dynamics};'
+    'body': 'problem: ${1:\\{initial value | inverse dynamics\\}};'
     'description': 'Problem type'
-# '.source.mbdyn.section.initialvalue':
+'.source.mbdyn.section.initialvalue':
+  'initial-time':
+    'prefix': 'initial time:'
+    'body': 'initial time: ${1:<time>};'
+    'description': 'Simulation initial time'
+  'final-time':
+    'prefix': 'final time:'
+    'body': 'final time: ${1:\\{forever | <time>\\}};'
+    'description': 'Simulation final time'
+  'strategy':
+    'prefix': 'strategy:'
+    'body': 'strategy: ${1:<strategy_type>}'
+    'description': 'Strategy for time step change'
+  'min-time-step':
+    'prefix': 'min time step:'
+    'body': 'min time step: ${1:<min_time_step>};'
+    'description': 'Minimum allowed time step'
+  'max-time-step':
+    'prefix': 'max time step:'
+    'body': 'max time step: ${1:\\{<max_time_step> | unlimited\\}};'
+    'description': 'Maximum allowed time step'
+  'time-step':
+    'prefix': 'time step:'
+    'body': 'time step: ${1:<time_step>};'
+    'description': 'Initial time step. If no change is asked, constant throughout simulation'
+  'modify-residual test':
+    'prefix': 'modify residual test;'
+    'body': 'modify residual test;'
+    'description': 'Modify residual test taking in account the status rate of change'
+  'tolerance':
+    'prefix': 'tolerance'
+    'body': """
+      tolerance: ${1:\\{null | <residual_tolerance>\\}},
+        ${2:[test, \\{none | norm | minmax\\}] [, scale]}'
+        ${3:[, \\{null | <solution_tolerance>\\}]}
+        ${4:[, test, \\{none | norm | minmax\\}];}
+    """
+    'description': 'Residual and (optional) solution tolerance'
+  'max iterations':
+    'prefix': 'max iterations'
+    'body': 'max iteraions: ${1:<max_iterations>} ${2:[, at most]};'
+    'description': 'Error out after <max_iterations> or continue after at most <max_iterations> if error is reduced'
+  'modify residual test':
+    'prefix': 'modify residual test'
+    'body': 'modify resisual test;'
+    'description': 'Modify the residual test taking into account the rate of change of the status'
+  'method':
+    'prefix': 'method'
+    'body': 'method: ${1:<method_data>};'
+    'description': 'Selection of integration scheme'
+  'crank nicolson':
+    'prefix': 'crank nicolson'
+    'body': 'crank nicolson;'
+    'descrition': 'Crank-Nicolson multistep method'
+  'ms':
+    'prefix': 'ms'
+    'body': """
+      ms,
+      ${1:(DriveCaller)<differential_radius>},
+      ${2:[(DriveCaller)<algebraic_radius>]};
+    """
+    'description': 'Multistep method.'
+'.source.mbdyn.definition.strategy':
+  'strategy-factor':
+    'prefix': 'factor:'
+    'body': """
+      factor,
+      ${1:<reduction_factor>},
+      ${2:<steps_before_reduction>},
+      ${3:<raise_factor>},
+      ${4:<steps_before_raise>},
+      ${5:<min_iterations>,}
+      ${6:[<max_iterations]};
+    """
+    'description': 'Strategy for time step change: use factor'
+  'strategy-change':
+    'prefix': 'change'
+    'body': 'change, ${1:(DriveCaller)<time_step_pattern>};'
+    'description': 'Strategy for time step change: use drive caller'
+  'strategy-no-change':
+    'prefix': 'no change'
+    'body': 'no change;;'
+    'description': 'Strategy for time step change: no change. WARNING: this
+    disables termination of max iterations'
 # '.source.mbdyn.section.inversedynamics':
 '.source.mbdyn.section.nodes':
   'node-structural-definition':
     'prefix': 'structural:'
-    'body': 'structural: ${1:<label>}, ${2:{static|dynamic|modal|dummy}}'
+    'body': 'structural: ${1:<label>}, ${2:\\{static | dynamic | modal | dummy\\}}'
     'description': 'Structural node definition'
   'node-structural-dynamic-definition':
     'prefix': 'dynamic'
@@ -60,7 +143,7 @@
     'description': 'Modal structural node definition'
   'node-structural-dummy-definition':
     'prefix': 'dummy'
-    'body': 'dummy, ${1:<base node label>,}, ${2:{offset|relative frame}}'
+    'body': 'dummy, ${1:<base node label>,}, ${2:\\{offset | relative frame\\}}'
     'description': 'Dummy structural node definition'
   'node-structural-dummy-offset-definition':
     'prefix': 'offset'
@@ -88,7 +171,7 @@
       assembly,
         ${1:<position_initial_stiffness>},
         ${2:<velocity_initial_stiffness>},
-        ${3:<omega_rotates>}, {4:{yes|no};}
+        ${3:<omega_rotates>}, {4:\\{yes | no\\};}
     """
     'description': 'Assembly-related parameters of structural node'
   'node-electic-definition':
@@ -102,7 +185,7 @@
   'node-abstract-definition':
     'prefix': 'abstract'
     'body': """
-      abstract: ${1:<label>}, ${2:{algebraic|differential},}
+      abstract: ${1:<label>}, ${2:\\{algebraic | differential\\},}
         value, ${3:<initial_value>},
         derivative, ${4:<derivative_initial_value>;}
     """
@@ -116,7 +199,7 @@
     'description': 'Hydraulic node definition'
   'node-parameter-definition':
     'prefix': 'parameter'
-    'body': 'parameter: ${1:<label>}, value, ${2:<initial_value>,} ${3:{element|sample and hold|beam strain gage},}'
+    'body': 'parameter: ${1:<label>}, value, ${2:<initial_value>,} ${3:\\{element | sample and hold | beam strain gage\\},}'
     'description': 'Parameter node definition (WARNING: parameter nodes are obsolete)'
   'node-parameter-sampleandhold-definition':
     'prefix': 'sample and hold'
@@ -128,25 +211,94 @@
     'description': 'Parameter node (beam strain gage) definition.'
   'node-output-global':
     'prefix': 'output:'
-    'body': 'output: ${1:{structural|abstract|electric|hydraulic|parameter}, ;'
+    'body': 'output: ${1:\\{structural | abstract | electric | hydraulic | parameter\\}, ;'
     'description': 'Node output card'
   'output-structural-nodes-global':
     'prefix': 'structural,'
-    'body': 'structural, ${1:[accelerations,]} ${2:<node_label>|range}'
+    'body': 'structural, ${1:[accelerations,]} ${2:\\{<node_label> | range\\}}'
     'description': 'Structural nodes output control'
   'output-electric-nodes-global':
     'prefix': 'electric,'
-    'body': 'electric, ${1:<node_label>|range}'
+    'body': 'electric, ${1:\\{<node_label> | range\\}}'
     'description': 'Electric nodes output control'
   'output-abstract-nodes-global':
     'prefix': 'abstract,'
-    'body': 'abstract, ${1:<node_label>|range}'
+    'body': 'abstract, ${1:\\{<node_label> | range\\}}'
     'description': 'Abstract nodes output control'
   'output-hydraulic-nodes-global':
     'prefix': 'hydraulic,'
-    'body': 'hydraulic, ${1:<node_label>|range}'
+    'body': 'hydraulic, ${1:\\{<node_label> | range\\}}'
     'description': 'Hydraulic nodes output control'
   'output-nodes-global-range':
     'prefix': 'range'
     'body': 'range, ${1:<node_start_label>}, ${2:<node_end_label>}'
+'.source.mbdyn.section.drivers':
+  'file-driver':
+    'prefix': 'file:'
+    'body': 'file: ${2:\\{fixed step | variable step | socket | RTAI input | stream\\}}'
+    'description': 'File driver definition'
+  'fixed-step-driver':
+    'prefix': 'fixed step'
+    'body': """
+      fixed step,
+        ${1:\\{count | <steps_number>\\}},
+        ${2:<columns_number>},
+        initial time, ${3:\\{from file | <initial_time\\}},
+        time step, ${4:\\{from file | <time_step>\\}},
+        ${4:[interpolation, {linear | const}],}
+        ${5:[pad zeroes, {yes | no}
+          bailout, \\{none | upper | lower | any\\}],}
+        "${6:<file_name>}";
+    """
+    'description': 'Fixed step file driver definition'
+  'variable-step-driver':
+    'prefix': 'variable step'
+    'body': """
+      variable step,
+        ${1:<channels_number>},
+        ${2:[interpolation, \\{linear | const\\}],}
+        ${3:[pad zeroes, \\{yes | no\\}
+          bailout, \\{none | upper | lower | any\\}],}
+        "${4:<file_name>}";
+    """
+    'description': 'Variable step file driver definition'
+  'socket-driver':
+    'prefix': 'socket'
+    'body': """
+      socket,
+        ${1:<columns_number>},
+        ${2:[initial values, <value #1>, ...],}
+        ${3:\\{local, "<file_name"> | [port, <port_number>, ] (AuthenticationMethod) <authentication>\\}};
+    """
+    'description': 'Socket file driver definition'
+  'RTAI-mailbox-driver':
+    'prefix': 'RTAI input'
+    'body': """
+      RTAI input,
+        stream driver name, "${1:<stream_name>}",
+          ${2:[create, {yes | no}],}
+          ${3:[host, "<host_name>"],}
+          ${4:[\\{[non] blocking, [...]\\}],}
+          ${5:<columns_number>};
+    """
+    'description': 'RTAI mailbox driver definition'
+  'stream-driver':
+    'prefix': 'stream'
+    'body': """
+      stream,
+        name, ${1:"<stream_name>"},
+        create, ${2:\\{yes | no\\}},
+        ${3:[{local, "<path>" | [port, <port_number>, ] [host, "<host_name>" , ]}],}
+        ${4:[ \\{ [no] signal | [non] blocking \\} , [...] ,]}
+        ${5:[input every, <steps>,]}
+        ${6:[receive first, {yes | no},]}
+        ${7:[timeout, <timeout>],}
+        ${8: [echo, "<echo_file_name>",]}
+          ${9: [precision, <precision>,]}
+          ${9: [shift, <shift>,]}
+        ${10:<columns_number>}
+        ${11:[, initial values, <value #1>, ... ,]}
+        ;
+    """
+    'description': 'Stream driver definition'
 # '.source.mbdyn.section.elements':
