@@ -414,6 +414,26 @@
       ${4:[, gust, <gust_model> [, ...]]};
     """
     'description': 'Air properties definition'
+  'generic-aerodynamic-force':
+    'prefix': 'generic aerodynamic force:'
+    'body': """
+      generic aerodynamic force: ${1:<label>},
+        ${2:[position, (Vec3)<relative_position>, ]}
+        ${3:[orientation, (OrientationMatrix)<relative_orientation>, ]}
+        ${4:[reference surface, (real)<reference_surface>, ]}
+        ${5:[reference length, (real)<reference_length>, ]}
+        ${6:[alpha first, \\{ no | yes \\}, ]}
+        ${7:\\{file, <data_file_specification> | reference, <gaf_data_label>\\}};
+    """
+    'description': 'Generic aerodynamic force definition (WARNING: Does not contribute to Jacobian!)'
+  'induced-velocity':
+    'prefix': 'induced velocity:'
+    'body': """
+      induced velocity: ${1:<label>},
+        ${2:<induced_velocity_type>, <induced_velocity_data>}
+        ;
+    """
+    'description': 'Induced velocity element definition.'
   'automatic-structural':
     'prefix': 'automatic structural:'
     'body': """
@@ -473,26 +493,23 @@
         \\}}
     """
     'description': 'Body element definition'
-  'generic-aerodynamic-force':
-    'prefix': 'generic aerodynamic force:'
+  'bulk':
+    'prefix': 'bulk:'
     'body': """
-      generic aerodynamic force: ${1:<label>},
-        ${2:[position, (Vec3)<relative_position>, ]}
-        ${3:[orientation, (OrientationMatrix)<relative_orientation>, ]}
-        ${4:[reference surface, (real)<reference_surface>, ]}
-        ${5:[reference length, (real)<reference_length>, ]}
-        ${6:[alpha first, \\{ no | yes \\}, ]}
-        ${7:\\{file, <data_file_specification> | reference, <gaf_data_label>\\}};
+      bulk: ${1:<label>},
+        stiffness spring,
+          ${2:(NodeDof)<dof>},
+          ${3:(DriveCaller)<stiffness_drive>};
     """
-    'description': 'Generic aerodynamic force definition (WARNING: Does not contribute to Jacobian!)'
-  'induced-velocity':
-    'prefix': 'induced velocity:'
+    'description': 'Bulk element definition'
+  'electric':
+    'prefix': 'electric:'
     'body': """
-      induced velocity: ${1:<label>},
-        ${2:<induced_velocity_type>, <induced_velocity_data>}
+      electric: ${1:<label>},
+        ${2:<electric_type>, <electric_arglist>}
         ;
     """
-    'description': 'Induced velocity element definition.'
+    'description': 'Electric element definition'
   'stream-output':
     'prefix': 'stream output:'
     'body': """
@@ -559,7 +576,7 @@
   'aerodynamic-elements-c81-data-multiple':
     'prefix': 'multiple'
     'body': 'multiple, <airfoil_number>, <c81_label>, <end_point>, [, ...]'
-    'description': 'c81 airfoil data defninition. Type: multiple.'
+    'description': 'c81 airfoil data definition. Type: multiple.'
   'aerodynamic-elements-c81-data-interpolates':
     'prefix': 'interpolated'
     'body': 'interplolated, <airfoil_number>, <c81_label>, <position>, [, ...]'
@@ -671,6 +688,117 @@
     'prefix': 'initial value'
     'body': 'initial value, ${1:(real)<const_vel>}, ${2:(real)<cosine_vel>}, ${3:(real)<sine_vel>}'
     'description': 'Initialization of dynamic inflow induced velocity model'
+'.source.mbdyn.section.elements.electric':
+  'electric-accelerometer':
+    'prefix': 'accelerometer'
+    'body': """
+      accelerometer,
+        ${1:<struct_node_label>},
+        ${2:<abstract_node_label>},
+        ${3:(Vec3)<measure_direction>},
+        ${4:(real)<omega>},
+        ${5:(real)<tau>},
+        ${6:(real)<csi>},
+        ${7:(real)<kappa>}
+    """
+    'description': 'Accelerometer electric element definition. NOTE: A legacy version, with built-in transfer function, is available. See section 8.7 of input manual.'
+  'electric-displacement':
+    'prefix': 'displacement'
+    'body': """
+      displacement,
+        ${1:<struct_node_1_label>}, ${2:(Vec3)<relative_offset_1>},
+        ${3:<struct_node_2_label>}, ${4:(Vec3)<relative_offset_2>},
+        ${5:<abstract_node_label>}
+    """
+    'description': 'Electric displacement element'
+  'electric-motor':
+    'prefix': 'motor'
+    'body': """
+      motor,
+        ${1:<struct_node_1_label>},
+        ${2:<struct_node_2_label>},
+        ${3:(Vec3)<direction_relative_to_node_1>},
+        ${4:<abstract_node_1_label},
+        ${5:<abstract_node_2_label},
+        ${6:(real)<dG>},
+        ${7:(real)<dL>},
+        ${8:(real)<dR>}
+    """
+    'description': 'Electric motor element definition'
+  'electric-discete-control':
+    'prefix': 'discete control'
+    'body': """
+      discrete control,
+        ${1:(integer)<num_outputs>}, ${2:(integer)<num_inputs>},
+        ${3:(integer)<order_A>} ${4:[, fir, (integer)<order_B>]},
+        ${5:(integer)<num_iter>},
+        ${6:<control_data>},
+        outputs,
+          ${7:(ScalarValue)<output_value>}
+            ${8:[, scale, (DriveCaller)<scale>]}
+          ${9:[, ...]}
+        inputs,
+          ${10:(NodeDof)<input_dof>}
+          ${11:[, ...]}
+          ;
+    """
+    'description': 'Discrete control electric element definition.'
+'.source.mbdyn.section.elements.electric.dcontrol':
+  'electric-discete-control-control':
+    'prefix': 'control'
+    'body': 'control, ${1:"<control_matrices_file>"},'
+    'description': 'Control data for discrete control element definition'
+  'electric-discete-control-identification':
+    'prefix': 'identification'
+    'body': """
+      identification,
+        ${1:\\{ arx | armax \\} }
+        ${2:[, forgettingfactor,
+                  \\{
+                      const, (real)<d>
+                      | dynamic, (real)<n1>, (real)<n2>, (real)<rho>, (real)<fact>, (real)<kref>, (real)<klim>
+                  \\}] }
+        ${3:[, excitation, (DriveCaller)<excitation_drive> [, ...]]}
+        ${4:[, file, "<output_file_name>"]},
+    """
+    'description': 'Identification data for discrete control element definition'
+  'electric-discete-control-adaptive':
+    'prefix': 'adaptive control'
+    'body': """
+      adaptive control,
+        ${1:[\\{arx | armax \\} , ]}
+        ${2:[periodic, <periodic_factor>, ]}
+        ${3:\\{gpc, <gpc_args> | deadbeat <deadbeat_args> \\}}
+        ${4:[, forgettingfactor,
+                  \\{
+                      const, (real)<d>
+                      | dynamic, (real)<n1>, (real)<n2>, (real)<rho>, (real)<fact>, (real)<kref>, (real)<klim>
+                  \\}] }
+        ${5:[, excitation, (DriveCaller)<excitation_drive> [, ...]]}
+        ${6:[, trigger, (DriveCaller)<trigger_drive>]}
+        ${7:[, desired output, (DriveCaller)<output_drive>, [, ...]]}
+        ${8:[, file, "<file_name>"]},
+    """
+    'description': 'Adaptative discrete control definition'
+  'electric-discete-control-adaptive-gpc':
+    'prefix': 'gpc'
+    'body': """
+      gpc,
+        ${1:(integer)<periodic_advancing_horizon>},
+        ${2:(integer)<control_advancing_horizon>},
+        ${3:[prediction weights, (real)<Wi>, [, ...], ]}
+        ${4:[control weights, (real)<Ri>, [, ...], ]}
+        ${5:(DriveCaller)<weight_drive>}
+    """
+    'description': 'GPC Adaptive discrete control definition'
+  'electric-discete-control-adaptive-deadbeat':
+      'prefix': 'deadbeat'
+      'body': """
+        deadbeat,
+          ${1:(integer)<periodic_advancing_horizon>},
+          ${2:(integer)<control_advancing_horizon>}
+      """
+      'description': 'Deadbeat Adaptive discrete control definition'
 '.source.mbdyn.section.elements.streamoutput':
   'stream-output-values':
     'prefix': 'values'

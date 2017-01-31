@@ -110,7 +110,7 @@ repository:
 	storage:
 			patterns: [
 				{
-					match: '\\b(integer|real|string|bool|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|TplDriveCaller|Shape)\\b'
+					match: '\\b(integer|real|string|bool|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|NodeDof|ScalarValue|Shape|TplDriveCaller)\\b'
 					name: 'storage.type.mbdyn'
 				}
 				{
@@ -541,6 +541,72 @@ repository:
 							{
 								match: '\\b(piezoelectric actuator|same|from nodes)\\b'
 								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(bulk)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.bulk'
+						patterns: [
+							{
+								match: '\\b(stiffness spring)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(electric)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element.electric'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.electric'
+						patterns: [
+							{
+								match: '\\b(translational|rotational|position)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								begin: '\\b(discrete control)\\b\,'
+								beginCaptures:
+									'1':
+										name: 'entity.name.type.mbdyn.element'
+									'2':
+										name: 'punctuation.definition.mbdyn'
+								end: '\;'
+								endCaptures:
+									'1':
+										name: 'punctuation.terminator.mbdyn'
+								contentName: 'source.mbdyn.section.elements.electric.dcontrol'
+								patterns: [
+									{
+										match: '\\b(fir|outputs|scale|inputs|node dof|drive|control|identification|adaptive control|arx|armax|file|forgettingfactor|dynamic|excitation|periodic|gpc|prediction weights|control weights|deadbeat|trigger|desired output)\\b'
+										name: 'keyword.other.mbdyn'
+									}
+									{
+										include: '$self'
+									}
+								]
 							}
 							{
 								include: '$self'
