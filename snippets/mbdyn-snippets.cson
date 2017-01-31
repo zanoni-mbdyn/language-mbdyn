@@ -211,8 +211,9 @@
     'description': 'Parameter node (beam strain gage) definition.'
   'node-output-global':
     'prefix': 'output:'
-    'body': 'output: ${1:\\{structural | abstract | electric | hydraulic | parameter\\}, ;'
+    'body': 'output: ${1:\\{structural | abstract | electric | hydraulic | parameter\\}, };'
     'description': 'Node output card'
+'.source.mbdyn.section.nodes.output':
   'output-structural-nodes-global':
     'prefix': 'structural,'
     'body': 'structural, ${1:[accelerations,]} ${2:\\{<node_label> | range\\}}'
@@ -305,7 +306,7 @@
   'aerodynamic-body':
     'prefix': 'aerodynamic-body:'
     'body': """
-      aerodynamic body, ${1:<label>},
+      aerodynamic body: ${1:<label>},
       ${2:<node_label>},
       ${3:[ [user defined] induced velocity, <induced_velocity_label> [, passive] ,]}
       ${4:(Vec3)<relative_surface_offset>},
@@ -329,7 +330,7 @@
   'aerodynamic-beam2':
     'prefix': 'aerodynamic-beam2:'
     'body': """
-      aerodynamic beam2, ${1:<label>},
+      aerodynamic beam2: ${1:<label>},
       ${2:<beam2_label>},
       ${3:[ [user defined] induced velocity, <induced_velocity_label> [, passive] ,]}
       ${4:(Vec3)<relative_surface_offset_1>},
@@ -354,7 +355,7 @@
   'aerodynamic-beam3':
     'prefix': 'aerodynamic-beam3:'
     'body': """
-      aerodynamic beam3, ${1:<label>},
+      aerodynamic beam3: ${1:<label>},
       ${2:<beam3_label>},
       ${3:[ [user defined] induced velocity, <induced_velocity_label> [, passive] ,]}
       ${4:(Vec3)<relative_surface_offset_1>},
@@ -377,11 +378,11 @@
       ${21:[\\{std | gauss | node \\}]}
       ;
     """
-    'description': 'Aerodynamic beam2 element definition'
+    'description': 'Aerodynamic beam3 element definition'
   'aeromodal':
-    'prefix': 'aeromodal:',
+    'prefix': 'aeromodal:'
     'body': """
-      aeromodal, ${1:<label>},
+      aeromodal: ${1:<label>},
         ${2:<reference_modal_joint>},
         ${3:<(OrientationMatrix)<orientation>},
         ${4:<reference_chord>},
@@ -402,21 +403,21 @@
   'air-properties':
     'prefix': 'air properties:'
     'body': """
-      air properties, ${1:<label>},
+      air properties: ${1:<label>},
       ${2:\\{(DriveCaller) <air_density>, (real) <sound_celerity>
         | std, \\{ \\{ SI | British \\}
-               [, temperature variation, <delta_T>]
-               | <p0>, (DriveCaller) <rho0> ,
-                 <T0>, <dT/dz>, <R>, <g0>, <z1>, <z2>\\}
-        [, reference altitude, <z0> ] \\} ,
-      ${3:(TplDriveCaller<Vec3>) <air_speed>}
+               [, temperature variation, (real)<delta_T>]
+               | (real)<p0>, (DriveCaller)<rho0> ,
+                 (real)<T0>, (real)<dT/dz>, (real)<R>, (real)<g0>, (real)<z1>, (real)<z2>\\}
+        [, reference altitude, (real)<z0> ] \\} },
+      ${3:(TplDriveCaller<Vec3>)<air_speed>}
       ${4:[, gust, <gust_model> [, ...]]};
     """
     'description': 'Air properties definition'
   'automatic-structural':
     'prefix': 'automatic structural:'
     'body': """
-      automatic structural, ${1:<label>},
+      automatic structural: ${1:<label>},
         ${2:(Vec3)<momentum>},
         ${3:(Vec3)<momenta_moment>},
         ${4:(Vec3)<momentum_derivative>},
@@ -424,9 +425,9 @@
     """
     'description': 'Automatic structural element. Used to improve convergence in derivatives phase. WARNING: <momenta_moment> and <momenta_moment_derivative> make sense only for 6DOF structural nodes'
   'beam3':
-    'prefix': 'beam3':
+    'prefix': 'beam3:'
     'body':"""
-      beam3, ${1:<label>},
+      beam3: ${1:<label>},
         ${2:<node_1_label>},
           position, ${3:(Vec3)<relative_offset_1>},
           orientation, ${4:(OrientationMatrix)<relative_orientation_1>},
@@ -439,7 +440,7 @@
         ${11:\\{(OrientationMatrix)<orientation_matrix_section_I> | from nodes \\}},
         ${12:(ConstitutiveLaw<6D>)<constitutive_law_section_I>},
         ${13:\\{same | (OrientationMatrix)<orientation_matrix_section_II> | from nodes \\}},
-        ${14:\\{same | (ConstitutiveLaw<6D>)<constitutive_law_section_II>\\}
+        ${14:\\{same | (ConstitutiveLaw<6D>)<constitutive_law_section_II>\\}},
         ${15:[, piezoelectric actuator, [...] ]}
         ${16:[, custom_output]};
     """
@@ -447,7 +448,7 @@
   'beam2':
     'prefix': 'beam2:'
     'body': """
-      beam2, ${1:<label>},
+      beam2: ${1:<label>},
         ${2:<node_1_label>},
           position, ${3:(Vec3)<relative_offset_1>},
           orientation, ${4:(OrientationMatrix)<relative_orientation_1>},
@@ -463,8 +464,8 @@
   'body-element':
     'prefix': 'body:'
     'body': """
-      body: ${1:<label>},
-        ${2:\\{
+      body: ${1:<label>}, ${2:<node_label>}
+        ${3:\\{
             <one_body>
             | <one_pointmass>
             | variable mass, <one_vm_body>
@@ -475,7 +476,7 @@
   'generic-aerodynamic-force':
     'prefix': 'generic aerodynamic force:'
     'body': """
-      generic aerodynamic force, ${1:<label>},
+      generic aerodynamic force: ${1:<label>},
         ${2:[position, (Vec3)<relative_position>, ]}
         ${3:[orientation, (OrientationMatrix)<relative_orientation>, ]}
         ${4:[reference surface, (real)<reference_surface>, ]}
@@ -486,7 +487,11 @@
     'description': 'Generic aerodynamic force definition (WARNING: Does not contribute to Jacobian!)'
   'induced-velocity':
     'prefix': 'induced velocity:'
-    'body': 'indced velocity: ${1<label>}, ${2:<induced_velocity_type>, <induced_velocity_data>};'
+    'body': """
+      induced velocity: ${1:<label>},
+        ${2:<induced_velocity_type>, <induced_velocity_data>}
+        ;
+    """
     'description': 'Induced velocity element definition.'
   'stream-output':
     'prefix': 'stream output:'
@@ -506,30 +511,30 @@
     'prefix': 'front 1D'
     'body': """
       front 1D,
-      ${1:(Vec3), <front_direction>},
-      ${2:(Vec3), <perturbation_directio>},
-      ${3:(real), <front_velocity>},
-      ${4:(DriveCaller), <front_profile>};
+        ${1:(Vec3), <front_direction>},
+        ${2:(Vec3), <perturbation_directio>},
+        ${3:(real), <front_velocity>},
+        ${4:(DriveCaller), <front_profile>}
     """
     'description': 'Front 1D gust model definition'
   'gust-model-scalar-function':
     'prefix': 'scalar function'
     'body': """
       scalar function,
-      ${1:reference position, (Vec3)<X0>},
-      ${2:reference orientation, (OrientationMatrix)<R0>},
-      ${3:(ScalarFunction), <sf>};
+        ${1:reference position, (Vec3)<X0>},
+        ${2:reference orientation, (OrientationMatrix)<R0>},
+        ${3:(ScalarFunction), <sf>}
     """
     'description': 'Scalar function gust model definition'
   'gust-model-power-law':
     'prefix': 'power law'
     'body': """
       power law,
-      ${1:reference position, (Vec3)<X0>},
-      ${2:reference orientation, (OrientationMatrix)<R0>},
-      ${3:reference elevation, (real)<z_ref>},
-      ${4:reference velocity, (DriveCaller)<v_ref>},
-      ${5:exponend, (real)<exponent>};
+        ${1:reference position, (Vec3)<X0>},
+        ${2:reference orientation, (OrientationMatrix)<R0>},
+        ${3:reference elevation, (real)<z_ref>},
+        ${4:reference velocity, (DriveCaller)<v_ref>},
+        ${5:exponend, (real)<exponent>};
     """
     'description': 'Power law wind profile gust model definition'
   'gust-model-logarithmic':
@@ -560,34 +565,34 @@
     'body': 'interplolated, <airfoil_number>, <c81_label>, <position>, [, ...]'
     'description': 'c81 airfoil data definition. Type: interpolated.'
 '.source.mbdyn.section.elements.beam3':
-  'piezoeletric-actuator':
-    'prefix': 'piezoeletric actuator'
+  'piezoelectric-actuator':
+    'prefix': 'piezoelectric actuator'
     'body': """
       piezoelectric actuator,
-        ${1:(int)<electrodes_number>},
+        ${1:(integer)<electrodes_number>},
         ${2:<abstract_node_label_list>},
-        ${3:(Mat6xN)<piezoeletric_matrix_I>},
-        ${4:\\{same | (Mat6xN)<piezoeletric_matrix_II>\\} }
+        ${3:(Mat6xN)<piezoelectric_matrix_I>},
+        ${4:\\{same | (Mat6xN)<piezoelectric_matrix_II>\\} }
     """
-    'description': 'Piezoeletric actuator (beam3 element) definition'
+    'description': 'piezoelectric actuator (beam3 element) definition'
 '.source.mbdyn.section.elements.beam2':
-  'piezoeletric-actuator':
-    'prefix': 'piezoeletric actuator'
+  'piezoelectric-actuator':
+    'prefix': 'piezoelectric actuator'
     'body': """
       piezoelectric actuator,
-        ${1:(int)<electrodes_number>},
+        ${1:(integer)<electrodes_number>},
         ${2:<abstract_node_label_list>},
-        ${3:(Mat6xN)<piezoeletric_matrix_I>}
+        ${3:(Mat6xN)<piezoelectric_matrix_I>}
     """
-    'description': 'Piezoeletric actuator (beam2 element) definition'
+    'description': 'piezoelectric actuator (beam2 element) definition'
 '.source.mbdyn.section.elements.body':
   'body-one-body':
     'prefix': 'one_body'
     'body': """
       ${1:(real)<mass>},
-      ${2:(Vec3)<relative_center_of_mass>},
+        ${2:(Vec3)<relative_center_of_mass>},
       ${3:(Mat3x3)<inertia_matrix>}
-      ${4:[, inertial, \\{node | (OrientationMatrix)<orientation_matrix>\\} ]};
+        ${4:[, inertial, \\{node | (OrientationMatrix)<orientation_matrix>\\} ]};
     """
     'description': 'One body (rigid, constant mass) definition.'
   'body-one-pointmass':
@@ -632,9 +637,10 @@
   'inflow-dynamic-inflow':
     'prefix': 'dynamic inflow'
     'body': """
-      ${1:(real)<reference_omega>},
-      ${2:(real)<reference_radius>},
-      ${3:[, option, [, ...]]}
+      dynamic inflow,
+        ${1:(real)<reference_omega>},
+        ${2:(real)<reference_radius>},
+        ${3:[, option, [, ...]]}
     """
     'description': 'Dynamic inflow induced velocity model'
   'inflow-option-ground':
@@ -647,11 +653,11 @@
     'description': 'Memory factor definition in inflow model. Together with hover_correction_factor and ff_correction_factor are used to correct nominal induced velocity'
   'inflow-option-max-iterations':
     'prefix': 'max iterations'
-    'body': 'max iterations, ${1:<max_iterations>}'
+    'body': 'max iterations, ${1:(integer)<max_iterations>}'
     'description': 'Max iterations to compute nominal induced velocity'
   'inflow-option-eta':
     'prefix': 'eta'
-    'body': 'eta, ${1<eta>}'
+    'body': 'eta, ${1:(real)<eta>}'
     'description': 'Fraction of the difference betwee two iterations of the nominal induced velocity actually used in computation. Defaults to 1.'
   'inflow-option-tolerance':
     'prefix': 'tolerance',

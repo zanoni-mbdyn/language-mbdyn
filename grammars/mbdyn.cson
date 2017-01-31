@@ -83,7 +83,7 @@ repository:
 	keywords:
 		patterns: [
 			{
-				match: '\\b(include|node|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
+				match: '\\b(include|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
 				captures:
 					'1':
 						name: 'keyword.control.mbdyn'
@@ -103,18 +103,18 @@ repository:
 				name: 'keyword.control.mbdyn'
 			}
 			{
-				match: '\\b(eye|null|euler|euler123|euler313|euler321|vector|matr|orientation vector|orientation matrix|anba|sym|diag|skew|guess|position|orientation|position orientation|rotation orientation)\\b'
+				match: '\\b(eye|null|euler|euler123|euler313|euler321|vector|matr|orientation vector|orientation matrix|anba|sym|diag|skew|guess|position|orientation|position orientation|rotation orientation|gust)\\b'
 				name: 'keyword.other.mbdyn'
 			}
 		]
 	storage:
 			patterns: [
 				{
-					match: '\\b(integer|real|string|bool)\\b'
+					match: '\\b(integer|real|string|bool|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|TplDriveCaller|Shape)\\b'
 					name: 'storage.type.mbdyn'
 				}
 				{
-					match: '\\b(set|ifndef|const|setenv)\\b'
+					match: '\\b(set|ifndef|const|setenv|1D|3D|6D)\\b'
 					name: 'storage.modifier.mbdyn'
 				}
 			]
@@ -177,7 +177,7 @@ repository:
 								'name:': 'punctuation.definition.mbdyn'
 					}
 					{
-						match: '\\b(initial value|inverse dynamics)\\b;'
+						match: '\\b(initial value|inverse dynamics)\\b\;'
 						captures:
 							'1':
 								'name': 'entity.name.type.mbdyn.problem'
@@ -284,6 +284,24 @@ repository:
 				contentName: 'source.mbdyn.section.nodes'
 				patterns: [
 					{
+						begin: '\\b(output)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.nodes.output'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.nodes.output'
+						patterns: [
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
 						include: '$self'
 					}
 				]
@@ -296,7 +314,7 @@ repository:
 					'2':
 						name: 'punctuation.definition.mbdyn'
 					'3':
-						name: 'entity.name.section.drivers.mbdyn'
+						name: 'entity.name.section.mbdyn.drivers'
 					'4':
 						name: 'punctuation.terminator.mbdyn'
 				end: '\\b(end)\\b\: *\\b(drivers)\\b\;'
@@ -310,150 +328,6 @@ repository:
 					'4':
 						name: 'punctuation.terminator.mbdyn'
 				contentName: 'source.mbdyn.section.drivers'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(stream output)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.outelements'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.streamoutput'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(aerodynamic body|aerodynamic beam2|aerodynamic beam3)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.aeroelements'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.aero'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(air properties)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.aeroelement'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.airprops'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(generic aerodynamic force)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.aeroelement'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.genaeroforce'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(induced velocity)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.aeroelement'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.inducedvel'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(beam3)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.element'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.beam3'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(beam2)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.element'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.beam2'
-				patterns: [
-					{
-						include: '$self'
-					}
-				]
-			}
-			{
-				begin: '\\b(body)\\b\:'
-				beginCaptures:
-					'1':
-						name: 'entity.name.type.mbdyn.element'
-					'2':
-						name: 'punctuation.definition.mbdyn'
-				end: ';'
-				endCaptures:
-					'1':
-						name: 'punctuation.terminator.mbdyn'
-				contentName: 'source.mbdyn.section.elements.body'
 				patterns: [
 					{
 						include: '$self'
@@ -483,6 +357,196 @@ repository:
 						name: 'punctuation.terminator.mbdyn'
 				contentName: 'source.mbdyn.section.elements'
 				patterns: [
+					{
+						begin: '\\b(air properties)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.elements.airprops'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.airprops'
+						patterns: [
+							{
+								match: '\\b(reference position|reference velocity|reference orientation|reference elevation|surface roughness length)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(aerodynamic body|aerodynamic beam2|aerodynamic beam3)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.aeroelements'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.aero'
+						patterns: [
+							{
+								match: '\\b(user defined|induced velocity|passive|tip loss|control|naca 0012|rae 9671|theodorsen|c81|unsteady|bielawa|jacobian|yes|no|std|gauss|node)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(aeromodal)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.aeromodal'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: ';'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.aeromodal'
+						patterns: [
+							{
+								match: '\\b(rigid|gust)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(generic aerodynamic force)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.aeroelement'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: ';'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.genaeroforce'
+						patterns: [
+							{
+								match: '\\b(reference surface|reference length|alpha first|file)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(induced velocity)\\b\:'
+						beginCaptures:
+							'1':
+							  name: 'entity.name.type.mbdyn.aeroelement'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.inducedvel'
+						patterns: [
+							{
+								match: '\\b(induced velocity|no|uniform|glauert|mangler|dynamic inflow|rotor|type|ground|delay|max iterations|tolerance|eta|correction)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(stream output)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.outelements'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.streamoutput'
+						patterns: [
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(body)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: ';'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.body'
+						patterns: [
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(beam3)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: ';'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.beam3'
+						patterns: [
+							{
+								match: '\\b(piezoelectric actuator|same|from nodes)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(beam2)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.beam2'
+						patterns: [
+							{
+								match: '\\b(piezoelectric actuator|same|from nodes)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
 					{
 						include: '$self'
 					}
