@@ -743,6 +743,254 @@
           ;
     """
     'description': 'Discrete control electric element definition.'
+  'force':
+    'prefix': 'force:'
+    'body': 'force: ${1:<label>}, ${2:<force_type>, <force_arglist>};'
+    'description': 'Force element definition'
+  'couple':
+    'prefix': 'couple:'
+    'body': 'couple: ${1:<label>}, ${2:<couple_type>, <couple_arglist>};'
+    'description': 'Couple element definition'
+'.source.mbdyn.section.elements.force':
+  'force-abstract':
+    'prefix': 'abstract'
+    'body': """
+      abstract,
+        ${1:(NodeDof)<dof>},
+        ${2:(DriveCaller)<force_magnitude>},
+    """
+    'description': 'Abstract force element definition. No order required since force applies directly to the equation of the node.'
+  'force-abstract-internal':
+    'prefix': 'abstract internal'
+    'body': """
+      abstract internal,
+        ${1:(NodeDof)<dof_1>},
+        ${2:(NodeDof)<dof_2>},
+        ${3:(DriveCaller)<force_magnitude>}
+    """
+    'description': 'Abstract internal force element definition.No order required since force applies directly to the equation of the nodes, with opposite magnitude.'
+  'force-absolute':
+    'prefix': 'absolute'
+    'body': """
+      absolute,
+        ${1:<node_label>},
+          position, ${2:(Vec3)<relative_arm>},
+          ${3:(TplDriveCaller<Vec3>)<force_value>}
+    """
+    'description': 'Absolute force element definition'
+  'force-absolute-internal':
+    'prefix': 'absolute internal'
+    'body': """
+      absolute internal,
+        ${1:<node_1_label>},
+          position, ${2:(Vec3)<relative_arm_1>},
+        ${3:<node_2_label>},
+          position, ${4:(Vec3)<relative_arm_2>},
+          ${5:(TplDriveCaller<Vec3>)<force_value>}
+    """
+    'description': 'Absolute internal force element definition'
+  'force-follower':
+    'prefix': 'follower'
+    'body': """
+      follower,
+        ${1:<node_label>},
+          position, ${2:(Vec3)<relative_arm>},
+          ${3:(TplDriveCaller<Vec3>)<force_value>}
+    """
+    'description': 'Follower force element definition'
+  'force-follower-internal':
+    'prefix': 'follower internal'
+    'body': """
+      follower internal,
+        ${1:<node_1_label>},
+          position, ${2:(Vec3)<relative_arm_1>},
+        ${3:<node_2_label>},
+          position, ${4:(Vec3)<relative_arm_2>},
+          ${5:(TplDriveCaller<Vec3>)<force_value>}
+    """
+    'description': 'Follower internal force element definition'
+  'force-total':
+    'prefix': 'total'
+    'body': """
+      total,
+        ${1:<node_label>}
+          ${2:[, position, (Vec3)<relative_arm> ]},
+          ${3:[, force orientation, (OrientationMatrix)<force_orientation>]}
+          ${4:[, moment orientation, (OrientationMatrix)<moment_orientation>]}
+        ${5:[, force, (TplDriveCaller<Vec3>)<force_value>]}
+        ${6:[, moment, (TplDriveCaller<Vec3>)<moment_value>]}
+    """
+    'description': 'Total force element definition'
+  'force-total-internal':
+    'prefix': 'total internal'
+    'body': """
+      total internal,
+        ${1:<node_1_label>},
+          ${2:[, position, (Vec3)<relative_arm_1>]}
+          ${3:[, force orientation, (OrientationMatrix)<force_orientation_1>]}
+          ${4:[, moment orientation, (OrientationMatrix)<moment_orientation_1>]}
+        ${5:<node_2_label>},
+          ${6:[, position, (Vec3)<relative_arm_2>]}
+          ${7:[, force orientation, (OrientationMatrix)<force_orientation_2>]}
+          ${8:[, moment orientation, (OrientationMatrix)<moment_orientation_2>]}
+        ${9:[, force, (TplDriveCaller<Vec3>)<force_value>]}
+        ${10:[, moment, (TplDriveCaller<Vec3>)<moment_value>]}
+    """
+    'description': 'Total internal force element definition'
+  'force-modal':
+    'prefix': 'modal'
+    'body': """
+      modal,
+        ${1:<modal_label>},
+          ${2:[list, (integer)<number_of_modes>, <mode1>, [, ...], ]}
+        ${3:(DriveCaller<force1>)}
+          ${4:[, resultant, (Vec3)<f>, (Vec3)<m>]}
+        ${5:[, ...]}
+    """
+    'description': 'Modal force element definition'
+  'force-external-structural':
+    'prefix': 'external structural'
+    'body': """
+      external structural,
+        ${1:<external_force_communicator>},
+          ${2:[ reference node, <ref_node_label>], }
+          ${3:[ \\{ labels, \\{yes | no\\}
+                    | sorted, \\{yes | no\\}
+                    | orientation,
+                      \\{none | orientation matrix | orientation vector | euler 123 \\}
+                    | accelerations, \\{yes | no\\}
+                    | use reference node forces, \\{yes | no\\}
+                    [, rotate reference node forces, \\{yes | no\\}]
+              \\}
+              [, ...] ,
+            ]}
+          ${4:(integer)<num_nodes>},
+            ${5:<node_label>} ${6:[, offset, (Vec3)<offset>]}
+            ${7:[, ...]}
+            ${8:[, echo, "<echo_file_name>"]}
+    """
+    'description': 'External structural force element definition'
+  'force-external-structural-mapping':
+    'prefix': 'external structural mapping'
+    'body': """
+      external structural mapping,
+        ${1:<external_force_communicator>},
+          ${2:[ reference node, <ref_node_label>], }
+          ${3:[ \\{ labels, \\{yes | no\\}
+                    | sorted, \\{yes | no\\}
+                    | orientation,
+                      \\{none | orientation matrix | orientation vector | euler 123 \\}
+                    | accelerations, \\{yes | no\\}
+                    | use reference node forces, \\{yes | no\\}
+                    [, rotate reference node forces, \\{yes | no\\}]
+                \\}
+              [, ...] ,
+            ]}
+          ${4:(integer)<num_points>},
+            ${5:<node_label>}, offset ${6:[, <point_label>], (Vec3)<offset>}
+              ${7:[, ...]}
+            ${8:[, echo, "<echo_file_name>"
+              ${9:[, \\{ precision, (integer)<digits>
+                       | , surface, "<surface_file_name>"
+                       | , output, "<output_file_name>"
+                       | , order, <order>
+                       | , basenode, <basenode>
+                       | , weight, \\{inf | (real)<weight> \\}
+                   \\}
+                [, ...]
+              ]}
+                [, stop]
+            ]}
+          ${10:[, mapped points number, \\{from file | (integer)<mapped_points>\\}
+            \\{ full | sparse \\} mapping file, "<mapping_file_name>"
+                [, threshold, <threshold>]
+              [, \\{mapped labels file, "<mapped_labels_file_name>"]
+                | <mapped_label>, [, ...] \\}
+                ]}
+
+    """
+    'description': 'External structural mapping force element definition'
+  'force-external-modal':
+    'prefix': 'external modal'
+    'body': """
+      external modal,
+        ${1:<modal_label>}
+          ${2:[, accelerations]}
+          ${3:[, type, \\{rigid | modal | all \\}]}
+    """
+    'description': 'External modal force element definition'
+  'force-external-modal-mapping':
+    'prefix': 'external modal mapping'
+    'body': """
+      external modal mapping,
+        ${1:<external_force_communicator>},
+          ${2:[reference node, <ref_node_label>], }
+          ${3:[use rigid body forces, \\{yes | no\\},
+                [rotate rigid body forces, \\{yes | no\\} ,] ]}
+          ${4:[accelerations, \\{yes | no\\} ,]}
+          ${5:[type, \\{rigid | modal | all \\} , ]}
+          nodes number, ${6:(integer)<num_nodes>},
+            ${7:<node_1_label>}, ${8:[, ...]},
+          modes number, ${9:\\{from file | <num_modes>\\}},
+          ${10:\\{full | sparse\\}} mapping file, ${11:"<mapping_file_name>"}
+            ${11:[, threshold, <threshold>]}
+    """
+    'description': 'External modal mapping force element definition'
+'.source.mbdyn.section.elements.couple':
+  'couple-absolute':
+    'prefix': 'absolute'
+    'body': """
+      absolute,
+        ${1:<node_label>},
+        ${2:[position, (Vec3)<relative_arm>, ]}
+        ${3:(TplDriveCaller<Vec3>)<couple_value>, ]}
+    """
+    'description': 'Absolute couple element definition'
+  'couple-absolute-internal':
+    'prefix': 'absolute internal'
+    'body': """
+      absolute internal,
+        ${1:<node_1_label>},
+        ${2:[position, (Vec3)<relative_arm_1>, ]}
+        ${3:<node_2_label>},
+        ${4:[position, (Vec3)<relative_arm_2>, ]}
+        ${5:(TplDriveCaller<Vec3>)<couple_value>, ]}
+    """
+    'description': 'Absolute internal couple element definition'
+  'couple-follower':
+    'prefix': 'follower'
+    'body': """
+      follower,
+        ${1:<node_label>},
+        ${2:[position, (Vec3)<relative_arm>, ]}
+        ${3:(TplDriveCaller<Vec3>)<couple_value>, ]}
+    """
+    'description': 'Follower couple element definition'
+  'couple-follower-internal':
+    'prefix': 'follower internal'
+    'body': """
+      follower internal,
+        ${1:<node_1_label>},
+        ${2:[position, (Vec3)<relative_arm_1>, ]}
+        ${3:<node_2_label>},
+        ${4:[position, (Vec3)<relative_arm_2>, ]}
+        ${5:(TplDriveCaller<Vec3>)<couple_value>, ]}
+    """
+    'description': 'Follower internal couple element definition'
+#  'couple-total': # TODO: CHECK IF IMPLEMENTED
+#    'prefix': 'total'
+#    'body': """
+#      total,
+#        # TODO
+#    """
+#    'description': 'Total couple element definition'
+  'couple-total-internal':
+    'prefix': 'total internal'
+    'body': """
+      total internal,
+        # TODO
+    """
+    'description': 'Total internal couple element definition'
 '.source.mbdyn.section.elements.electric.dcontrol':
   'electric-discete-control-control':
     'prefix': 'control'

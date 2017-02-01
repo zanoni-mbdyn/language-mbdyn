@@ -614,6 +614,50 @@ repository:
 						]
 					}
 					{
+						begin: '\\b(force)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.force'
+						patterns: [
+							{
+								match: '\\b(abstract|internal|absolute|follower|total|modal|external|structural|mapping|position|force|moment|orientation)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(couple)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.section.elements.couple'
+						patterns: [
+							{
+								match: '\\b(internal|absolute|follower|total|yes|no|sorted|reference|node|orientation|matrix|vector|euler|123|accelerations|forces|rotate|offset|echo|precision|surface|output|order|basenode|weight|inf|stop|mapped points number|from file|full|sparse|mapping file|threshold|mapped labels file)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
 						include: '$self'
 					}
 				]
