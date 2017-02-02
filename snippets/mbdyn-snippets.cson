@@ -510,6 +510,22 @@
         ;
     """
     'description': 'Electric element definition'
+  'force':
+    'prefix': 'force:'
+    'body': """
+        force: ${1:<label>},
+            ${2:<force_type>, <force_arglist>}
+            ;
+    """
+    'description': 'Force element definition'
+  'couple':
+    'prefix': 'couple:'
+    'body': """
+      couple: ${1:<label>},
+                ${2:<couple_type>, <couple_arglist>}
+              ;
+      """
+    'description': 'Couple element definition'
   'stream-output':
     'prefix': 'stream output:'
     'body': """
@@ -743,21 +759,13 @@
           ;
     """
     'description': 'Discrete control electric element definition.'
-  'force':
-    'prefix': 'force:'
-    'body': 'force: ${1:<label>}, ${2:<force_type>, <force_arglist>};'
-    'description': 'Force element definition'
-  'couple':
-    'prefix': 'couple:'
-    'body': 'couple: ${1:<label>}, ${2:<couple_type>, <couple_arglist>};'
-    'description': 'Couple element definition'
 '.source.mbdyn.section.elements.force':
   'force-abstract':
     'prefix': 'abstract'
     'body': """
       abstract,
         ${1:(NodeDof)<dof>},
-        ${2:(DriveCaller)<force_magnitude>},
+        ${2:(DriveCaller)<force_magnitude>}
     """
     'description': 'Abstract force element definition. No order required since force applies directly to the equation of the node.'
   'force-abstract-internal':
@@ -907,7 +915,6 @@
               [, \\{mapped labels file, "<mapped_labels_file_name>"]
                 | <mapped_label>, [, ...] \\}
                 ]}
-
     """
     'description': 'External structural mapping force element definition'
   'force-external-modal':
@@ -954,7 +961,7 @@
         ${2:[position, (Vec3)<relative_arm_1>, ]}
         ${3:<node_2_label>},
         ${4:[position, (Vec3)<relative_arm_2>, ]}
-        ${5:(TplDriveCaller<Vec3>)<couple_value>, ]}
+        ${5:(TplDriveCaller<Vec3>)<couple_value>}
     """
     'description': 'Absolute internal couple element definition'
   'couple-follower':
@@ -963,7 +970,7 @@
       follower,
         ${1:<node_label>},
         ${2:[position, (Vec3)<relative_arm>, ]}
-        ${3:(TplDriveCaller<Vec3>)<couple_value>, ]}
+        ${3:(TplDriveCaller<Vec3>)<couple_value>}
     """
     'description': 'Follower couple element definition'
   'couple-follower-internal':
@@ -974,7 +981,7 @@
         ${2:[position, (Vec3)<relative_arm_1>, ]}
         ${3:<node_2_label>},
         ${4:[position, (Vec3)<relative_arm_2>, ]}
-        ${5:(TplDriveCaller<Vec3>)<couple_value>, ]}
+        ${5:(TplDriveCaller<Vec3>)<couple_value>}
     """
     'description': 'Follower internal couple element definition'
 #  'couple-total': # TODO: CHECK IF IMPLEMENTED
@@ -984,13 +991,13 @@
 #        # TODO
 #    """
 #    'description': 'Total couple element definition'
-  'couple-total-internal':
-    'prefix': 'total internal'
-    'body': """
-      total internal,
-        # TODO
-    """
-    'description': 'Total internal couple element definition'
+#  'couple-total-internal': # TODO: CHECK IF IMPLEMENTED
+#    'prefix': 'total internal'
+#    'body': """
+#      total internal,
+#        # TODO
+#    """
+#    'description': 'Total internal couple element definition'
 '.source.mbdyn.section.elements.electric.dcontrol':
   'electric-discete-control-control':
     'prefix': 'control'
