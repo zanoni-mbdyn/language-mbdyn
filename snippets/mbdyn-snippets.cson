@@ -541,6 +541,26 @@
       ;
     """
     'description': 'Gravity element'
+  'hydraulic-element':
+    'prefix': 'hydraulic:'
+    'body': """
+      hydraulic: ${1:<label>},
+        ${2:<hydraulic_element_type>, <hydraulic_element_data>}
+        ;
+    """
+    'description': 'Hydraulic element'
+  'joint-regulatization-element':
+    'prefix': 'joint regularization:'
+    'body': 'joint regularization: ${1:<joint_label>}, tikhonov, ${2:(real)<coef>};'
+    'description': 'Joint regularization element. Used to modify algebraic constraints in order to improve ill-conditioned problems.'
+  'joint-element':
+    'prefix': 'joint:'
+    'body': """
+      joint: ${1:<label>},
+        ${2:<joint_type>, <joint_arglist>}
+        ;
+    """
+    'description': 'Joint element.'
   'stream-output':
     'prefix': 'stream output:'
     'body': """
@@ -1246,6 +1266,606 @@
         G, ${3:\\{si | (real)<universal_gravity_constant>}
     """
     'description': 'Gravity element (central gravity field)'
+'.source.mbdyn.element.hydraulic':
+  'hydraulic-actuator':
+    'prefix': 'actuator'
+    'body': """
+      actuator,
+        ${1:<hydraulic_node_1_label>}, ${2:<hydraulic_node_2_label>},
+        ${3:<structural_node_1_label>}, ${4:(Vec3)<offset_1>},
+        ${5:<structural_node_2_label>}, ${6:(Vec3)<offset_2>},
+        ${7:[ direction, (Vec3)<direction>,]}
+        ${8:(real)<area_1>},
+        ${9:(real)<area_2>},
+        ${10:(real)<cylinder_length>},
+        fluid, ${11:(HydraulicFluid)<fluid_1>} ,
+        ${12:\\{same | fluid, (HydraulicFluid)<fluid_2>}
+    """
+    'description': 'Hydraulic actuator element'
+  'hydraulic-minor-loss':
+    'prefix': 'minor loss'
+    'body': """
+      minor loss,
+        ${1:<hydraulic_node_1_label>}, ${2:<hydraulic_node_2_label>},
+        ${3:(real)<k12>}, ${4:(real)<k21>}, ${5:(real)<area>}
+        fluid, ${6:(HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic minor loss element. Turbulent flow is assumed.'
+  'hydraulic-three-way-minor-loss':
+    'prefix': 'three way minor loss'
+    'body': """
+      three way minor loss,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:<hydraulic_node_3_label>},
+        ${4:(real)<k12>}, ${5:(real)<k31>},
+        ${6:(real)<area_12>}, ${7:(real)<area_31>}
+        fluid, ${8:(HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic three way minor loss element. Turbulent flow is assumed.'
+  'hydraulic-control-valve':
+    'prefix': 'control valve'
+    'body': """
+      control valve,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:<hydraulic_node_3_label>},
+        ${4:<hydraulic_node_4_label>},
+        ${5:(real)<area>},
+        ${6:[loss, (real)<loss_factor>,]}
+        ${7:(DriveCaller)<state>},
+        ${8:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic control valve element.'
+  'hydraulic-dynamic-control-valve':
+    'prefix': 'dynamic control valve'
+    'body': """
+      dynamic control valve,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:<hydraulic_node_3_label>},
+        ${4:<hydraulic_node_4_label>},
+        ${5:(DriveCaller)<force>},
+        ${6:(real)<initial_displacement>},
+        ${7:(real)<max_displacement>},
+        ${8:(real)<duct_width>},
+        ${9:[loss, (real)<loss_factor>,]}
+        ${10:(real)<valve_diameter>},
+        ${11:(real)<valve_density>},
+        ${12:(real)<displacement_penalty>},
+        ${13:(real)<velocity_penalty>},
+        ${14:(real)<acceleration_penalty>},
+        ${15:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic dynamic control valve element.'
+  'hydraulic-pressure-flow-control-valve':
+    'prefix': 'pressure flow control valve'
+    'body': """
+      pressure flow control valve,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:<hydraulic_node_3_label>},
+        ${4:<hydraulic_node_4_label>},
+        ${5:<hydraulic_node_5_label>},
+        ${6:<hydraulic_node_6_label>},
+        ${7:(DriveCaller)<force>},
+        ${8:(real)<initial_displacement>},
+        ${9:(real)<max_displacement>},
+        ${10:(real)<duct_width>},
+        ${11:[loss, (real)<loss_factor>,]}
+        ${12:(real)<valve_diameter>},
+        ${13:(real)<valve_density>},
+        ${14:(real)<displacement_penalty>},
+        ${15:(real)<velocity_penalty>},
+        ${16:(real)<acceleration_penalty>},
+        ${17:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic pressure flow control valve element.'
+  'hydraulic-pressure-valve':
+    'prefix': 'pressure valve'
+    'body': """
+      pressure valve,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:(real)<area>},
+        ${4:(real)<mass>},
+        ${5:(real)<max_area>},
+        ${6:(real)<spring_stiffness>},
+        ${7:(real)<spring_preload>},
+        ${8:(real)<width>},
+        ${9:(real)<displacement_penalty>},
+        ${10:(real)<velocity_penalty>},
+        ${11:(real)<acceleration_penalty>},
+        ${12:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic pressure valve element'
+  'hydraulic-flow-valve':
+    'prefix': 'flow valve'
+    'body': """
+      flow valve,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:<hydraulic_node_3_label>},
+        ${4:(real)<area>},
+        ${5:(real)<mass>},
+        ${6:(real)<max_area>},
+        ${7:(real)<spring_stiffness>},
+        ${8:(real)<spring_preload>},
+        ${9:(real)<width>},
+        ${10:(real)<displacement_penalty>},
+        ${11:(real)<velocity_penalty>},
+        ${12:(real)<acceleration_penalty>},
+        ${13:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic flow valve element.'
+  'hydraulic-orifice':
+    'prefix': 'orifice'
+    'body': """
+      orifice,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:(real)<orifice_area>},
+        ${4:[ area, (real)<pipe_area>,]}
+        ${5:[ reynolds, (real)<critical_reynolds_number>,]}
+        ${6:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic orifice element.'
+  'hydraulic-pipe':
+    'prefix': 'pipe'
+    'body': """
+      pipe,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:(real)<hydraulic_diameter>},
+        ${4:[ area, (real)<pipe_area>,]}
+        ${5:(real)<length>}
+        ${6:[turbolent, ]}
+        ${7:[initial value, (real)<flow>, ]}
+        ${8:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic pipe element.'
+  'hydraulic-dynamic-pipe':
+    'prefix': 'dynamic pipe'
+    'body': """
+      dynamic pipe,
+        ${1:<hydraulic_node_1_label>},
+        ${2:<hydraulic_node_2_label>},
+        ${3:(real)<hydraulic_diameter>},
+        ${4:[ area, (real)<pipe_area>,]}
+        ${5:(real)<length>}
+        ${6:[turbolent, ]}
+        ${7:[initial value, (real)<flow>, ]}
+        ${8:fluid, (HydraulicFluid)<fluid>}
+    """
+    'description': 'Hydraulic dynamic pipe element.'
+'.source.mbdyn.element.joint':
+  'joint-angular-acceleration':
+    'prefix': 'angular acceleration'
+    'body': """
+      angular acceleration,
+        ${1:<node_label>},
+          ${2:(Vec3)<relative_direction>},
+          ${3:(DriveCaller)<acceleration>}
+    """
+    'description': 'Angular acceleration joint element'
+  'joint-angular-velocity':
+    'prefix': 'angular velocity'
+    'body': """
+      angular velocity,
+        ${1:<node_label>},
+          ${2:(Vec3)<relative_direction>},
+          ${3:(DriveCaller)<velocity>}
+    """
+    'description': 'Angular velocity joint element'
+  'joint-axial-rotation':
+    'prefix': 'axial rotation'
+    'body': """
+      axial rotation,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>},
+          ${3:[orientation, (OrientationMatrix)<relative_orientation_matrix_1>, ]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>},
+          ${6:[orientation, (OrientationMatrix)<relative_orientation_matrix_2>, ]}
+        ${7:(DriveCaller)<angular_velocity>}
+    """
+    'description': 'Axial rotation joint element. Node 1 and 2 rotate about relative axis 3 with imposed angular velocity angular_velocity.'
+  'joint-brake':
+    'prefix': 'brake'
+    'body': """
+      brake,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        friction, ${7:(real)<average_radius>},
+          ${8:[preload, (real)<const_value>, ]}
+          ${9:<friction_model>},
+          ${10:<shape_function>},
+          ${11:(DriveCaller)<normal_force>}
+    """
+    'description': 'Brake joint element. WARNING: a revolute hinge must be present between Node 1 and 2.'
+  'joint-cardano-hinge':
+    'prefix': 'cardano hinge'
+    'body': """
+      cardano hinge,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+    """
+    'description': 'Cardano hinge joint element.'
+  'joint-cardano-pin':
+    'prefix': 'cardano pin'
+    'body': """
+      cardano pin,
+        ${1:<node_label>},
+          ${2:[position, ] (Vec3)<relative_offset>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix>]}
+    """
+    'description': 'Cardano pin joint element. Equivalent to a Cardano hinge joint when Node 2 is grounded.'
+  'joint-cardano-rotation':
+    'prefix': 'cardano rotation'
+    'body': """
+      cardano rotation,
+        ${1:<node_1_label>},
+          ${2:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${3:<node_2_label>},
+          ${4:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+    """
+    'description': 'Cardano rotation joint element. Equivalent to Cardano hinge, but without position constraints applied.'
+  'joint-clamp':
+    'prefix': 'clamp'
+    'body': """
+      clamp,
+        ${1:<node_1_label>},
+          ${2:[position, ]} ${3:\\{node | (Vec3)<relative_offset>\\}},
+          ${4:[orientation, ]} ${5:\\{node | (OrientationMatrix)<relative_orientation_matrix>\\}},
+    """
+    'description': 'Clamp joint element'
+  'joint-deformable-axial-joint':
+    'prefix': 'deformable axial joint'
+    'body': """
+      deformable axial joint,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:(ConstitutiveLaw<1D>)<const_law>}
+    """
+    'description': 'Deformable axial joint element. Relative rotation about axis 3 is used as strain in the constitutive law.'
+  'joint-deformable-displacement-joint':
+    'prefix': 'deformable displacement joint'
+    'body': """
+      deformable displacement joint,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:(ConstitutiveLaw<3D>)<const_law>}
+    """
+    'description': 'Deformable displacement joint element. Relative position and velocity (w.r.t. Node 1) are used as strain and strain derivative in constitutive law.'
+  'joint-deformable-hinge':
+    'prefix': 'deformable hinge'
+    'body': """
+      deformable hinge,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:(ConstitutiveLaw<3D>)<const_law>}
+        ${8:[, orientation description,
+                \\{
+                   euler123
+                   | euler313
+                   | euler321
+                   | orientation vector
+                   | orientation matrix
+                \\} ] }
+    """
+    'description': 'Deformable hinge joint element. Relative orientation and angular velocity (w.r.t. Node 1) are used as strain and strain derivative in consitutive law.'
+  'joint-deformable-joint':
+    'prefix': 'deformable joint'
+    'body': """
+      deformable joint,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:(ConstitutiveLaw<6D>)<const_law>}
+        ${8:[, orientation description,
+                \\{
+                   euler123
+                   | euler313
+                   | euler321
+                   | orientation vector
+                   | orientation matrix
+                \\} ] }
+    """
+    'description': 'Deformable joint element. Combination of deformable hinge and deformable displacement, with cross terms in (6D) constitutive law.'
+  'joint-distance':
+    'prefix': 'distance'
+    'body': """
+      distance,
+        ${1:<node_1_label>},
+          ${2:[position, (Vec3)<relative_offset_1>,]}
+        ${3:<node_2_label>},
+          ${4:[position, (Vec3)<relative_offset_2>,]}
+        ${5:\\{(DriveCaller)<distance> | from nodes\\}}
+    """
+    'description': 'Distance joint element.'
+  'joint-drive-displacement':
+    'prefix': 'drive displacement'
+    'body': """
+      drive displacement,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>},
+        ${3:<node_2_label>},
+          ${4:[position, ] (Vec3)<relative_offset_2>},
+        ${5:(DriveCaller<Vec3>)<relative_position>}
+    """
+    'description': 'Drive displacement joint element. WARNING: Superseded by the total joint element.'
+  'joint-drive-displacement-pin':
+    'prefix': 'drive displacement pin'
+    'body': """
+      drive displacement pin,
+        ${1:<node_label>},
+          ${2:[position, ] (Vec3)<relative_offset>},
+        ${3:(DriveCaller<Vec3>)<relative_position>}
+    """
+    'description': 'Drive displacement pin joint element. WARNING: Superseded by the total pin joint element.'
+  'joint-drive-hinge':
+    'prefix': 'drive hinge'
+    'body': """
+      drive hinge,
+        ${1:<node_1_label>},
+          ${2:[orientation, ] (OrientationMatrix)<relative_orientation_matrix_1>},
+        ${3:<node_2_label>},
+          ${4:[orientation, ] (OrientationMatrix)<relative_orientation_matrix_2>},
+        ${5:(DriveCaller<Vec3>)<relative_orientation_vector>}
+    """
+    'description': 'Drive hinge joint element. WARNING: Superseded by the total joint element.'
+  'joint-gimbal-rotation':
+    'prefix': 'gimbal rotation'
+    'body': """
+      gimbal rotation,
+        ${1:<node_1_label>},
+          ${2:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${3:<node_2_label>},
+          ${4:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${5:[, orientation description,
+                \\{
+                   euler123
+                   | euler313
+                   | euler321
+                   | orientation vector
+                   | orientation matrix
+                \\} ] }
+    """
+    'description': 'Gimbal rotation joint element. Does not impose position constraints.'
+  'joint-imposed-displacement':
+    'prefix': 'imposed displacement'
+    'body': """
+      imposed displacement,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>},
+        ${3:<node_2_label>},
+          ${4:[position, ] (Vec3)<relative_offset_2>},
+        ${5:(Vec3)<direction>},
+        ${6:(DriveCaller<Vec3>)<relative_position>}
+    """
+    'description': 'Imposed displacement joint element. WARNING: Superseded by the total joint element.'
+  'joint-imposed-displacement-pin':
+    'prefix': 'imposed displacement pin'
+    'body': """
+      imposed displacement pin,
+        ${1:<node_label>},
+          ${2:[position, ] (Vec3)<node_offset>},
+        ${3:(Vec3)<offset>},
+        ${4:(Vec3)<direction>},
+        ${5:(DriveCaller<Vec3>)<position>}
+    """
+    'description': 'Imposed displacement pin joint element. WARNING: Superseded by the total pin joint element.'
+  'joint-in-line':
+    'prefix': 'in line'
+    'body': """
+      in line,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_line_position>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset>}
+    """
+    'description': 'In line joint element.'
+  'joint-in-plane':
+    'prefix': 'in plane'
+    'body': """
+      in plane,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_plane_position>}
+          ${3:(Vec3)<relative_normal_direction>}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset>}
+    """
+    'description': 'In plane joint element.'
+  'joint-deformable-hinge':
+    'prefix': 'invariant deformable hinge'
+    'body': """
+      invariant deformable hinge,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:(ConstitutiveLaw<3D>)<const_law>}
+        ${8:[, orientation description,
+                \\{
+                   euler123
+                   | euler313
+                   | euler321
+                   | orientation vector
+                   | orientation matrix
+                \\} ] }
+    """
+    'description': 'Invariant deformable hinge joint element. EXPERIMENTAL. The constitutive law is referred to an orientation that is intermediate between those of the nodes.'
+  'joint-linear-acceleration':
+    'prefix': 'linear acceleration'
+    'body': """
+      linear acceleration,
+        ${1:<node_label>},
+          ${2:(Vec3)<relative_direction>},
+          ${3:(DriveCaller<Vec3>)<acceleration>}
+    """
+    'description': 'Linear acceleration joint element. Imposes absolute linear acceleration at node.'
+  'joint-linear-velocity':
+    'prefix': 'linear velocity'
+    'body': """
+      linear velocity,
+        ${1:<node_label>},
+          ${2:(Vec3)<relative_direction>},
+          ${3:(DriveCaller<Vec3>)<velocity>}
+    """
+    'description': 'Linear valocity joint element. Imposes absolute linear velocity at node.'
+  'joint-prismatic':
+    'prefix': 'prismatic'
+    'body': """
+      prismatic,
+        ${1:<node_1_label>},
+          ${2:[orientation, ] (OrientationMatrix)<relative_orientation_matrix_1>},
+        ${3:<node_2_label>},
+          ${4:[orientation, ] (OrientationMatrix)<relative_orientation_matrix_2>},
+    """
+    'description': 'Prismatic joint element.'
+  'joint-revolute-hinge':
+    'prefix': 'revolute hinge'
+    'body': """
+      revolute hinge,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+        ${7:[, initial theta, (real)<initial_theta>]}
+        ${8:[, friction, (real)<average_radius>,
+          ${9:[, preload, (real)<const_value>]}
+          ${10:<friction_model>},
+          ${11:<shape_function>}
+          ]}
+    """
+    'description': 'Revolute hinge joint.'
+  'joint-revolute-pin':
+    'prefix': 'revolute pin'
+    'body': """
+      revolute pin,
+        ${1:<node_label>},
+          ${2:[position, ] (Vec3)<relative_offset>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix>]}
+        ${4:[, initial theta, (real)<initial_theta>]}
+    """
+    'description': 'Revolute pin joint. Equivalent to a revolute hinge joint when one node is grounded.'
+  'joint-revolute-rotation':
+    'prefix': 'revolute rotation'
+    'body': """
+      revolute rotation,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+    """
+    'description': 'Revolute rotation joint. Equivalent to a revolute hinge joint without any positional constraint.'
+  'joint-rod':
+    'prefix': 'rod'
+    'body': """
+      rod,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+        ${3:<node_2_label>},
+          ${4:[position, ] (Vec3)<relative_offset_2>}
+        ${5:(real)<rod_length> | from nodes}
+        ${6:(ConstitutiveLaw<1D>)<const_law>}
+    """
+    'description': 'Rod joint element. Axial strain and axial strain rate are used in constitutive law.'
+  'joint-spherical-hinge':
+    'prefix': 'spherical hinge'
+    'body': """
+      spherical hinge,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, orientation, (OrientationMatrix)<relative_orientation_matrix_1>]}
+        ${4:<node_2_label>},
+          ${5:[position, ] (Vec3)<relative_offset_2>}
+          ${6:[, orientation, (OrientationMatrix)<relative_orientation_matrix_2>]}
+    """
+    'description': 'Spherical hinge joint. Relative orientation offsets are used for output purposes only.'
+  'joint-total-joint':
+    'prefix': 'total joint'
+    'body': """
+      total joint,
+        ${1:<node_1_label>},
+          ${2:[position, ] (Vec3)<relative_offset_1>}
+          ${3:[, position orientation, (OrientationMatrix)<rel_pos_orientation_matrix_1>]}
+          ${4:[, rotation orientation, (OrientationMatrix)<rel_rot_orientation_matrix_1>]}
+        ${5:<node_2_label>},
+          ${6:[position, ] (Vec3)<relative_offset_2>}
+          ${7:[, position orientation, (OrientationMatrix)<rel_pos_orientation_matrix_2>]}
+          ${8:[, rotation orientation, (OrientationMatrix)<rel_rot_orientation_matrix_2>]}
+        ${9:[, position constraint,
+                ${10:<position_status>}, ${11:<position_status>}, ${12:<position_status>},
+                ${13:(TplDriveCaller<Vec3>)<imposed_relative_position>}
+            ]}
+        ${14:[, orientation constraint,
+                ${15:<orientation_status>}, ${16:<orientation_status>}, ${17:<orientation_status>},
+                ${18:(TplDriveCaller<Vec3>)<imposed_relative_orientation>}
+            ]}
+    """
+    'description': 'Total joint element'
+  'joint-total-pin-joint':
+    'prefix': 'total pin joint'
+    'body': """
+      total pin joint,
+        ${1:<node_label>},
+          ${2:[position, ] (Vec3)<relative_offset>}
+          ${3:[, position orientation, (OrientationMatrix)<rel_pos_orientation_matrix>]}
+          ${4:[, rotation orientation, (OrientationMatrix)<rel_rot_orientation_matrix>]}
+          ${5:[position, ] (Vec3)<absolute_position>}
+          ${6:[, position orientation, (OrientationMatrix)<abs_pos_orientation_matrix_2>]}
+          ${7:[, rotation orientation, (OrientationMatrix)<abs_rot_orientation_matrix_2>]}
+        ${8:[, position constraint,
+                ${9:<position_status>}, ${10:<position_status>}, ${11:<position_status>},
+                ${13:(TplDriveCaller<Vec3>)<imposed_absolute_position>}
+            ]}
+        ${14:[, orientation constraint,
+                ${15:<orientation_status>}, ${16:<orientation_status>}, ${17:<orientation_status>},
+                ${18:(TplDriveCaller<Vec3>)<imposed_absolute_orientation>}
+            ]}
+    """
+    'description': 'Total pin joint element. Equivalent to a total joint element when one node is grounded.'
+  'joint-viscous-body':
+    'prefix': 'viscous body'
+    'body': """
+      viscous body,
+        ${1:node_label>},
+          ${2:[position, ] (Vec3)<relative_offset>}
+          ${3:[, position orientation, (OrientationMatrix)<rel_pos_orientation_matrix>]}
+          ${4:(ConstitutiveLaw<6D>)<const_law>}
+    """
+    'description': 'Viscous body joint element. Defines forces and moments depending on absolute linear and angular velocity of node. See also the deformable joint element.'
 '.source.mbdyn.element.streamoutput':
   'stream-output-values':
     'prefix': 'values'
