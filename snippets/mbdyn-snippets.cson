@@ -1,3 +1,16 @@
+'.source.mbdyn':
+  'reference-definition':
+    'prefix': 'reference:'
+    'body': """
+      reference: ${1:<label>},
+        ${2:[name, "name",]}
+        ${3:(Vec3)<absolute_position>},
+        ${4:(OrientationMatrix)<absolute_orientation_matrix>},
+        ${5:(Vec3)<absolute_velocity>}
+        ${6:(Vec3)<absolute_angular_velocity>}
+        ;
+    """
+    'description': 'Reference frame.'
 '.source.mbdyn.section.data':
   'problem-definition':
     'prefix': 'problem:'
@@ -89,22 +102,26 @@
     disables termination of max iterations'
 # '.source.mbdyn.section.inversedynamics':
 '.source.mbdyn.section.nodes':
-  'node-structural-definition':
+  'node-structural':
     'prefix': 'structural:'
-    'body': 'structural: ${1:<label>}, ${2:\\{static | dynamic | modal | dummy\\}}'
+    'body': """
+      structural: ${1:<label>},
+        ${2:<node_type>, <node_args>}
+        ;
+    """
     'description': 'Structural node'
-  'node-structural-dynamic-definition':
+  'node-structural-dynamic':
     'prefix': 'dynamic'
     'body': """
       dynamic,
-      ${1:<absolute_position>,}
-      ${2:<absolute_orientation_matrix>,}
-      ${3:[orientation description, <orientation_description>],}
-      ${4:<absolute_velocity>,}
-      ${5:<absolute_angular_velocity>;}
+        ${1:<absolute_position>,}
+        ${2:<absolute_orientation_matrix>,}
+        ${3:[orientation description, <orientation_description>],}
+        ${4:<absolute_velocity>,}
+        ${5:<absolute_angular_velocity>}
     """
     'description': 'Dynamic structural node'
-  'node-structural-static-definition':
+  'node-structural-static':
     'prefix': 'static'
     'body': """
       static,
@@ -115,7 +132,7 @@
       ${5:<absolute_angular_velocity>};
     """
     'description': 'Static (inertia-less) structural node'
-  'node-structural-static-displacement-definition':
+  'node-structural-static-displacement':
     'prefix': 'static displacement'
     'body': """
       static displacement,
@@ -123,7 +140,7 @@
       ${2:<absolute_velocity>;}
     """
     'description': 'Static displacement (massless point) structural node'
-  'node-structural-dynamic-displacement-definition':
+  'node-structural-dynamic-displacement':
     'prefix': 'dispdyn'
     'body': """
       dynamic displacement,
@@ -131,7 +148,7 @@
       ${2:<absolute_velocity>;}
     """
     'description': 'Dynamic displacement (point mass) structural node'
-  'node-structural-modal-definition':
+  'node-structural-modal':
     'prefix': 'modal'
     'body': """
       modal,
@@ -141,11 +158,11 @@
       ${7:<absolute_angular_velocity>;}
     """
     'description': 'Modal structural node'
-  'node-structural-dummy-definition':
+  'node-structural-dummy':
     'prefix': 'dummy'
     'body': 'dummy, ${1:<base node label>,}, ${2:\\{offset | relative frame\\}}'
     'description': 'Dummy structural node'
-  'node-structural-dummy-offset-definition':
+  'node-structural-dummy-offset':
     'prefix': 'offset'
     'body': """
       offset,
@@ -153,7 +170,7 @@
         ${2:<relative_orientation_matrix>;}
     """
     'description': 'Dummy node (offset)'
-  'node-structural-dummy-relframe-definition':
+  'node-structural-dummy-relframe':
     'prefix': 'relative frame'
     'body': """
       relative frame,
@@ -174,7 +191,7 @@
         ${3:<omega_rotates>}, {4:\\{yes | no\\};}
     """
     'description': 'Assembly-related parameters of structural node'
-  'node-electic-definition':
+  'node-electic':
     'prefix': 'electric'
     'body': """
       electric: ${1:<label>},
@@ -182,7 +199,7 @@
         derivative, ${3:<derivative_initial_value>;}
     """
     'description': 'Electric node'
-  'node-abstract-definition':
+  'node-abstract':
     'prefix': 'abstract'
     'body': """
       abstract: ${1:<label>}, ${2:\\{algebraic | differential\\},}
@@ -190,22 +207,22 @@
         derivative, ${4:<derivative_initial_value>;}
     """
     'description': 'Abstract node'
-  'node-hydraulic-definition':
+  'node-hydraulic':
     'prefix': 'hydraulic'
     'body': """
       'hyraulic: ${1:<label>},
         value, ${2:<initial_value>;}'
     """
     'description': 'Hydraulic node'
-  'node-parameter-definition':
+  'node-parameter':
     'prefix': 'parameter'
     'body': 'parameter: ${1:<label>}, value, ${2:<initial_value>,} ${3:\\{element | sample and hold | beam strain gage\\},}'
     'description': 'Parameter node (WARNING: parameter nodes are obsolete)'
-  'node-parameter-sampleandhold-definition':
+  'node-parameter-sampleandhold':
     'prefix': 'sample and hold'
     'body': 'sample and hold, ${1:<signal>}, ${2:<sample_time>};'
     'description': 'Parameter node (sample and hold)'
-  'node-parameter-beamstraingage-definition':
+  'node-parameter-beamstraingage':
     'prefix': 'beam strain gage'
     'body': 'beam strain gage, ${1:<y>}, ${2:<z>};'
     'description': 'Parameter node (beam strain gage).'

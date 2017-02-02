@@ -335,6 +335,28 @@ repository:
 				]
 			}
 			{
+				begin: '\\b(reference)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'entity.name.type.mbdyn.reference'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: '\;'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.reference'
+				patterns: [
+					{
+						match: '\\b(name|Denavit Hartenberg|global)\\b'
+						name: 'keyword.other.mbdyn'
+					}
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
 				begin: '\\b(begin)\\b\: *\\b(elements)\\b\;'
 				beginCaptures:
 					'1':
