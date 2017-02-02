@@ -534,6 +534,13 @@
               ;
       """
     'description': 'GENEL element.'
+  'gravity':
+    'prefix': 'gravity:'
+    'body': """
+      gravity: ${1:<gravity_model>, <gravity_data>}
+      ;
+    """
+    'description': 'Gravity element'
   'stream-output':
     'prefix': 'stream output:'
     'body': """
@@ -1225,6 +1232,20 @@
           ${20:[, trigger (DriveCaller)<trigger>]}
     """
     'description': 'GENEL (rotorcraft) rotor trim (generic) element.'
+'.source.mbdyn.element.gravity':
+  'gravity-uniform':
+    'prefix': 'uniform'
+    'body': 'uniform, (TplDriveCaller<Vec3>)<gravity_acceleration>'
+    'description': 'Gravity element (uniform field)'
+  'gravity-central':
+    'prefix': 'central'
+    'body': """
+      central,
+        ${1:[origin, (Vec3)<absolute_origin>]}
+        mass, ${2:(real)<central_gravity_field_mass>},
+        G, ${3:\\{si | (real)<universal_gravity_constant>}
+    """
+    'description': 'Gravity element (central gravity field)'
 '.source.mbdyn.element.streamoutput':
   'stream-output-values':
     'prefix': 'values'

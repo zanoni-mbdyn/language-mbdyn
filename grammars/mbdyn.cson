@@ -692,6 +692,32 @@ repository:
 						]
 					}
 					{
+						begin: '\\b(gravity)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.element.gravity'
+						patterns: [
+							{
+								match: '\\b(uniform|central)(?![^\\<]*\\>)\\b'
+								name: 'entity.name.type.mbdyn.gravity'
+							}
+							{
+								match: '\\b(norigin|mass|G|si)(?![^\\<]*\\>)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
 						include: '$self'
 					}
 				]
