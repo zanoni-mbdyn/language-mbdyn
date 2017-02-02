@@ -368,7 +368,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.airprops'
+						contentName: 'source.mbdyn.element.airprops'
 						patterns: [
 							{
 								match: '\\b(reference position|reference velocity|reference orientation|reference elevation|surface roughness length)\\b'
@@ -390,7 +390,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.aero'
+						contentName: 'source.mbdyn.element.aero'
 						patterns: [
 							{
 								match: '\\b(user defined|induced velocity|passive|tip loss|control|naca 0012|rae 9671|theodorsen|c81|unsteady|bielawa|jacobian|yes|no|std|gauss|node)\\b'
@@ -412,7 +412,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.aeromodal'
+						contentName: 'source.mbdyn.element.aeromodal'
 						patterns: [
 							{
 								match: '\\b(rigid|gust)\\b'
@@ -434,7 +434,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.genaeroforce'
+						contentName: 'source.mbdyn.element.genaeroforce'
 						patterns: [
 							{
 								match: '\\b(reference surface|reference length|alpha first|file)\\b'
@@ -456,7 +456,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.inducedvel'
+						contentName: 'source.mbdyn.element.inducedvel'
 						patterns: [
 							{
 								match: '\\b(induced velocity|no|uniform|glauert|mangler|dynamic inflow|rotor|type|ground|delay|max iterations|tolerance|eta|correction)\\b'
@@ -478,7 +478,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.streamoutput'
+						contentName: 'source.mbdyn.element.streamoutput'
 						patterns: [
 							{
 								include: '$self'
@@ -496,7 +496,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.body'
+						contentName: 'source.mbdyn.element.body'
 						patterns: [
 							{
 								include: '$self'
@@ -514,7 +514,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.beam3'
+						contentName: 'source.mbdyn.element.beam3'
 						patterns: [
 							{
 								match: '\\b(piezoelectric actuator|same|from nodes)\\b'
@@ -536,7 +536,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.beam2'
+						contentName: 'source.mbdyn.element.beam2'
 						patterns: [
 							{
 								match: '\\b(piezoelectric actuator|same|from nodes)\\b'
@@ -558,7 +558,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.bulk'
+						contentName: 'source.mbdyn.element.bulk'
 						patterns: [
 							{
 								match: '\\b(stiffness spring)\\b'
@@ -580,7 +580,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.electric'
+						contentName: 'source.mbdyn.element.electric'
 						patterns: [
 							{
 								match: '\\b(translational|rotational|position)\\b'
@@ -597,7 +597,7 @@ repository:
 								endCaptures:
 									'1':
 										name: 'punctuation.terminator.mbdyn'
-								contentName: 'source.mbdyn.section.elements.electric.dcontrol'
+								contentName: 'source.mbdyn.element.electric.dcontrol'
 								patterns: [
 									{
 										match: '\\b(fir|outputs|scale|inputs|node dof|drive|control|identification|adaptive control|arx|armax|file|forgettingfactor|dynamic|excitation|periodic|gpc|prediction weights|control weights|deadbeat|trigger|desired output)\\b'
@@ -624,7 +624,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.couple'
+						contentName: 'source.mbdyn.element.couple'
 						patterns: [
 							{
 								match: '\\b(absolute|follower|internal)\\b'
@@ -650,7 +650,7 @@ repository:
 						endCaptures:
 							'1':
 								name: 'punctuation.terminator.mbdyn'
-						contentName: 'source.mbdyn.section.elements.force'
+						contentName: 'source.mbdyn.element.force'
 						patterns: [
 							{
 								match: '\\b(abstract|absolute|absolute|follower|internal|total|total|modal|external structural|external structural|external modal|external modal|mapping)\\b'
@@ -658,6 +658,32 @@ repository:
 							}
 							{
 								match: '\\b(internal|absolute|follower|total|yes|no|sorted|reference|node|orientation|matrix|vector|euler|123|accelerations|forces|rotate|offset|echo|precision|surface|output|order|basenode|weight|inf|stop|mapped points number|from file|full|sparse|mapping file|threshold|mapped labels file|resultant|list|force|moment|none|use|labels|type|rigid|body|all|nodes number|modes number)\\b'
+								name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
+						begin: '\\b(genel)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'entity.name.type.mbdyn.element'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'1':
+								name: 'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.element.genel'
+						patterns: [
+							{
+								match: '\\b(clamp|distance|cross spring support|spring support|mass|scalar filter|state space SISO|state space MIMO|swashplate|rotor trim|spring)(?![^\\<]*\\>)\\b'
+								name: 'entity.name.type.mbdyn.genel'
+							}
+							{
+								match: '\\b(node dof|drive|canonical form|controllable|observable|gain|balance|yes|no|matrix E|matrix A|matrix B|matrix C|matrix D|value|derivative|limits|trigger|rotor|generic|reference node)(?![^\\<]*\\>)\\b'
 								name: 'keyword.other.mbdyn'
 							}
 							{
@@ -776,11 +802,11 @@ repository:
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(static|dynamic|modal|dummy\\b)'
+				match: '\\b(static|dynamic|modal|dummy\\b)(?![^\\<]*\\>)'
 				name: 'entity.name.type.mbdyn.strnode'
 			}
 			{
-				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|linear|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit)\\b'
+				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|linear|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit)\\b(?![^\\<]*\\>)'
 				name: 'entity.name.type.mbdyn.drive'
 			}
 			{

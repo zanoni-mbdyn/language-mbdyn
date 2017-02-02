@@ -92,7 +92,7 @@
   'node-structural-definition':
     'prefix': 'structural:'
     'body': 'structural: ${1:<label>}, ${2:\\{static | dynamic | modal | dummy\\}}'
-    'description': 'Structural node definition'
+    'description': 'Structural node'
   'node-structural-dynamic-definition':
     'prefix': 'dynamic'
     'body': """
@@ -103,7 +103,7 @@
       ${4:<absolute_velocity>,}
       ${5:<absolute_angular_velocity>;}
     """
-    'description': 'Dynamic structural node definition'
+    'description': 'Dynamic structural node'
   'node-structural-static-definition':
     'prefix': 'static'
     'body': """
@@ -114,7 +114,7 @@
       ${4:<absolute_velocity>,}
       ${5:<absolute_angular_velocity>};
     """
-    'description': 'Static (inertia-less) structural node definition'
+    'description': 'Static (inertia-less) structural node'
   'node-structural-static-displacement-definition':
     'prefix': 'static displacement'
     'body': """
@@ -122,7 +122,7 @@
       ${1:<absolute_position>,}
       ${2:<absolute_velocity>;}
     """
-    'description': 'Static displacement (massless point) structural node definition'
+    'description': 'Static displacement (massless point) structural node'
   'node-structural-dynamic-displacement-definition':
     'prefix': 'dispdyn'
     'body': """
@@ -130,7 +130,7 @@
       ${1:<absolute_position>,}
       ${2:<absolute_velocity>;}
     """
-    'description': 'Dynamic displacement (point mass) structural node definition'
+    'description': 'Dynamic displacement (point mass) structural node'
   'node-structural-modal-definition':
     'prefix': 'modal'
     'body': """
@@ -140,11 +140,11 @@
       ${6:<absolute_velocity>,}
       ${7:<absolute_angular_velocity>;}
     """
-    'description': 'Modal structural node definition'
+    'description': 'Modal structural node'
   'node-structural-dummy-definition':
     'prefix': 'dummy'
     'body': 'dummy, ${1:<base node label>,}, ${2:\\{offset | relative frame\\}}'
-    'description': 'Dummy structural node definition'
+    'description': 'Dummy structural node'
   'node-structural-dummy-offset-definition':
     'prefix': 'offset'
     'body': """
@@ -152,7 +152,7 @@
         ${1:<relative_offset>,}
         ${2:<relative_orientation_matrix>;}
     """
-    'description': 'Dummy node (offset) definition'
+    'description': 'Dummy node (offset)'
   'node-structural-dummy-relframe-definition':
     'prefix': 'relative frame'
     'body': """
@@ -164,7 +164,7 @@
             position, ${5:<pivot_offset>,}
             orientation, ${6:<pivot_orientation_matrix>;}
     """
-    'description': 'Dummy node (relative frame) definition'
+    'description': 'Dummy node (relative frame)'
   'node-structural-assembly':
     'prefix': 'assembly'
     'body': """
@@ -181,7 +181,7 @@
         value, ${2:<initial_value>},
         derivative, ${3:<derivative_initial_value>;}
     """
-    'description': 'Electric node definition'
+    'description': 'Electric node'
   'node-abstract-definition':
     'prefix': 'abstract'
     'body': """
@@ -189,26 +189,26 @@
         value, ${3:<initial_value>},
         derivative, ${4:<derivative_initial_value>;}
     """
-    'description': 'Abstract node definition'
+    'description': 'Abstract node'
   'node-hydraulic-definition':
     'prefix': 'hydraulic'
     'body': """
       'hyraulic: ${1:<label>},
         value, ${2:<initial_value>;}'
     """
-    'description': 'Hydraulic node definition'
+    'description': 'Hydraulic node'
   'node-parameter-definition':
     'prefix': 'parameter'
     'body': 'parameter: ${1:<label>}, value, ${2:<initial_value>,} ${3:\\{element | sample and hold | beam strain gage\\},}'
-    'description': 'Parameter node definition (WARNING: parameter nodes are obsolete)'
+    'description': 'Parameter node (WARNING: parameter nodes are obsolete)'
   'node-parameter-sampleandhold-definition':
     'prefix': 'sample and hold'
     'body': 'sample and hold, ${1:<signal>}, ${2:<sample_time>};'
-    'description': 'Parameter node (sample and hold) definition'
+    'description': 'Parameter node (sample and hold)'
   'node-parameter-beamstraingage-definition':
     'prefix': 'beam strain gage'
     'body': 'beam strain gage, ${1:<y>}, ${2:<z>};'
-    'description': 'Parameter node (beam strain gage) definition.'
+    'description': 'Parameter node (beam strain gage).'
   'node-output-global':
     'prefix': 'output:'
     'body': 'output: ${1:\\{structural | abstract | electric | hydraulic | parameter\\}, };'
@@ -237,7 +237,7 @@
   'file-driver':
     'prefix': 'file:'
     'body': 'file: ${2:\\{fixed step | variable step | socket | RTAI input | stream\\}}'
-    'description': 'File driver definition'
+    'description': 'File driver'
   'fixed-step-driver':
     'prefix': 'fixed step'
     'body': """
@@ -251,7 +251,7 @@
           bailout, \\{none | upper | lower | any\\}],}
         "${6:<file_name>}";
     """
-    'description': 'Fixed step file driver definition'
+    'description': 'Fixed step file driver'
   'variable-step-driver':
     'prefix': 'variable step'
     'body': """
@@ -262,7 +262,7 @@
           bailout, \\{none | upper | lower | any\\}],}
         "${4:<file_name>}";
     """
-    'description': 'Variable step file driver definition'
+    'description': 'Variable step file driver'
   'socket-driver':
     'prefix': 'socket'
     'body': """
@@ -271,7 +271,7 @@
         ${2:[initial values, <value #1>, ...],}
         ${3:\\{local, "<file_name"> | [port, <port_number>, ] (AuthenticationMethod) <authentication>\\}};
     """
-    'description': 'Socket file driver definition'
+    'description': 'Socket file driver'
   'RTAI-mailbox-driver':
     'prefix': 'RTAI input'
     'body': """
@@ -282,7 +282,7 @@
           ${4:[\\{[non] blocking, [...]\\}],}
           ${5:<columns_number>};
     """
-    'description': 'RTAI mailbox driver definition'
+    'description': 'RTAI mailbox driver'
   'stream-driver':
     'prefix': 'stream'
     'body': """
@@ -301,7 +301,7 @@
         ${11:[, initial values, <value #1>, ... ,]}
         ;
     """
-    'description': 'Stream driver definition'
+    'description': 'Stream driver'
 '.source.mbdyn.section.elements':
   'aerodynamic-body':
     'prefix': 'aerodynamic-body:'
@@ -326,7 +326,7 @@
       ${18:[\\{std | gauss | node \\}]}
       ;
     """
-    'description': 'Aerodynamic body element definition'
+    'description': 'Aerodynamic body element'
   'aerodynamic-beam2':
     'prefix': 'aerodynamic-beam2:'
     'body': """
@@ -351,7 +351,7 @@
       ${19:[\\{std | gauss | node \\}]}
       ;
     """
-    'description': 'Aerodynamic beam2 element definition'
+    'description': 'Aerodynamic beam2 element'
   'aerodynamic-beam3':
     'prefix': 'aerodynamic-beam3:'
     'body': """
@@ -378,7 +378,7 @@
       ${21:[\\{std | gauss | node \\}]}
       ;
     """
-    'description': 'Aerodynamic beam3 element definition'
+    'description': 'Aerodynamic beam3 element'
   'aeromodal':
     'prefix': 'aeromodal:'
     'body': """
@@ -391,7 +391,7 @@
         ${7:[gust, ]}
         ${8:"<modal_matrices_file>"};
     """
-    'description': 'Aeromodal element definition'
+    'description': 'Aeromodal element'
   'aircraft-instruments':
     'prefix': 'aircraft instruments:'
     'body': """
@@ -399,7 +399,7 @@
         ${2:<aircraft_node>}
         ${3:[, orientation, \\{flight mechanics | aeroelasticity | (OrientationMatrix) <relative_orientation_matrix>\\}]};
     """
-    'description': 'Aircraft instruments element definition'
+    'description': 'Aircraft instruments element'
   'air-properties':
     'prefix': 'air properties:'
     'body': """
@@ -413,7 +413,7 @@
       ${3:(TplDriveCaller<Vec3>)<air_speed>}
       ${4:[, gust, <gust_model> [, ...]]};
     """
-    'description': 'Air properties definition'
+    'description': 'Air properties'
   'generic-aerodynamic-force':
     'prefix': 'generic aerodynamic force:'
     'body': """
@@ -425,7 +425,7 @@
         ${6:[alpha first, \\{ no | yes \\}, ]}
         ${7:\\{file, <data_file_specification> | reference, <gaf_data_label>\\}};
     """
-    'description': 'Generic aerodynamic force definition (WARNING: Does not contribute to Jacobian!)'
+    'description': 'Generic aerodynamic force (WARNING: Does not contribute to Jacobian!)'
   'induced-velocity':
     'prefix': 'induced velocity:'
     'body': """
@@ -433,7 +433,7 @@
         ${2:<induced_velocity_type>, <induced_velocity_data>}
         ;
     """
-    'description': 'Induced velocity element definition.'
+    'description': 'Induced velocity element.'
   'automatic-structural':
     'prefix': 'automatic structural:'
     'body': """
@@ -464,7 +464,7 @@
         ${15:[, piezoelectric actuator, [...] ]}
         ${16:[, custom_output]};
     """
-    'description': 'beam3 element definition'
+    'description': 'beam3 element'
   'beam2':
     'prefix': 'beam2:'
     'body': """
@@ -480,7 +480,7 @@
         ${10:[, piezoelectric actuator, [...] ]}
         ${11:[, custom_output]};
     """
-    'description': 'beam2 element definition'
+    'description': 'beam2 element'
   'body-element':
     'prefix': 'body:'
     'body': """
@@ -492,7 +492,7 @@
             | condense, <num_masses>, \\{ <one_body | <one_pointmass> \\}, [, ...]
         \\}}
     """
-    'description': 'Body element definition'
+    'description': 'Body element'
   'bulk':
     'prefix': 'bulk:'
     'body': """
@@ -501,7 +501,7 @@
           ${2:(NodeDof)<dof>},
           ${3:(DriveCaller)<stiffness_drive>};
     """
-    'description': 'Bulk element definition'
+    'description': 'Bulk element'
   'electric':
     'prefix': 'electric:'
     'body': """
@@ -509,7 +509,7 @@
         ${2:<electric_type>, <electric_arglist>}
         ;
     """
-    'description': 'Electric element definition'
+    'description': 'Electric element'
   'force':
     'prefix': 'force:'
     'body': """
@@ -517,7 +517,7 @@
             ${2:<force_type>, <force_arglist>}
             ;
     """
-    'description': 'Force element definition'
+    'description': 'Force element'
   'couple':
     'prefix': 'couple:'
     'body': """
@@ -525,7 +525,15 @@
                 ${2:<couple_type>, <couple_arglist>}
               ;
       """
-    'description': 'Couple element definition'
+    'description': 'Couple element.'
+  'genel':
+    'prefix': 'genel:'
+    'body': """
+      genel: ${1:<label>},
+                ${2:<genel_type>, <genel_arglist>}
+              ;
+      """
+    'description': 'GENEL element.'
   'stream-output':
     'prefix': 'stream output:'
     'body': """
@@ -538,8 +546,8 @@
         ${7:[echo, <file_name> [, precision, <precision>] [, shift, <shift>] ,]}
         ${8:<content>};
     """
-    'description': 'Stream output element definition'
-'.source.mbdyn.section.elements.airprops':
+    'description': 'Stream output element'
+'.source.mbdyn.element.airprops':
   'gust-model-front-1D':
     'prefix': 'front 1D'
     'body': """
@@ -549,7 +557,7 @@
         ${3:(real), <front_velocity>},
         ${4:(DriveCaller), <front_profile>}
     """
-    'description': 'Front 1D gust model definition'
+    'description': 'Front 1D gust model'
   'gust-model-scalar-function':
     'prefix': 'scalar function'
     'body': """
@@ -558,7 +566,7 @@
         ${2:reference orientation, (OrientationMatrix)<R0>},
         ${3:(ScalarFunction), <sf>}
     """
-    'description': 'Scalar function gust model definition'
+    'description': 'Scalar function gust model'
   'gust-model-power-law':
     'prefix': 'power law'
     'body': """
@@ -569,7 +577,7 @@
         ${4:reference velocity, (DriveCaller)<v_ref>},
         ${5:exponend, (real)<exponent>};
     """
-    'description': 'Power law wind profile gust model definition'
+    'description': 'Power law wind profile gust model'
   'gust-model-logarithmic':
     'prefix': 'logarithmic'
     'body': """
@@ -580,23 +588,23 @@
         ${4:reference velocity, (DriveCaller)<v_ref>},
         ${5:surface roughness length, (real)<z_0>}
     """
-    'description': 'Logarithmic wind profile gust model definition'
-'.source.mbdyn.section.elements.aero':
+    'description': 'Logarithmic wind profile gust model'
+'.source.mbdyn.element.aero':
   'aerodynamic-elements-c81-data':
     'prefix': 'c81'
     'body': """
       c81,
         ${1:\\{<c81_label> | multiple, [...] | interpolated, [...]\\}};
     """
-    'description': 'c81 airfoil data definition'
+    'description': 'c81 airfoil data'
   'aerodynamic-elements-c81-data-multiple':
     'prefix': 'multiple'
     'body': 'multiple, <airfoil_number>, <c81_label>, <end_point>, [, ...]'
-    'description': 'c81 airfoil data definition. Type: multiple.'
+    'description': 'c81 airfoil data. Type: multiple.'
   'aerodynamic-elements-c81-data-interpolates':
     'prefix': 'interpolated'
     'body': 'interplolated, <airfoil_number>, <c81_label>, <position>, [, ...]'
-    'description': 'c81 airfoil data definition. Type: interpolated.'
+    'description': 'c81 airfoil data. Type: interpolated.'
 '.source.mbdyn.section.elements.beam3':
   'piezoelectric-actuator':
     'prefix': 'piezoelectric actuator'
@@ -607,7 +615,7 @@
         ${3:(Mat6xN)<piezoelectric_matrix_I>},
         ${4:\\{same | (Mat6xN)<piezoelectric_matrix_II>\\} }
     """
-    'description': 'piezoelectric actuator (beam3 element) definition'
+    'description': 'piezoelectric actuator (beam3 element)'
 '.source.mbdyn.section.elements.beam2':
   'piezoelectric-actuator':
     'prefix': 'piezoelectric actuator'
@@ -617,7 +625,7 @@
         ${2:<abstract_node_label_list>},
         ${3:(Mat6xN)<piezoelectric_matrix_I>}
     """
-    'description': 'piezoelectric actuator (beam2 element) definition'
+    'description': 'piezoelectric actuator (beam2 element)'
 '.source.mbdyn.section.elements.body':
   'body-one-body':
     'prefix': 'one_body'
@@ -627,13 +635,13 @@
       ${3:(Mat3x3)<inertia_matrix>}
         ${4:[, inertial, \\{node | (OrientationMatrix)<orientation_matrix>\\} ]};
     """
-    'description': 'One body (rigid, constant mass) definition.'
+    'description': 'One body (rigid, constant mass).'
   'body-one-pointmass':
     'prefix': 'one_pointmass'
     'body': """
       ${1:(real)<mass>};
     """
-    'description': 'One pointmass (rigid body, constant mass) definition. WARNING: the node has to be a displacement node.'
+    'description': 'One pointmass (rigid body, constant mass). WARNING: the node has to be a displacement node.'
   'body-one-vm-body':
     'prefix': 'one_vm_body'
     'body': """
@@ -642,8 +650,8 @@
       ${3:(TplDriveCaller<Mat3x3>)<variable_mass_inertia_matrix>},
       ${4:(TplDriveCaller<Mat3x3>)<variable_geometry_inertia_matrix>};
     """
-    'description': 'One body (rigid body, variable mass) definition.'
-'.source.mbdyn.section.elements.genaeroforce':
+    'description': 'One body (rigid body, variable mass).'
+'.source.mbdyn.element.genaeroforce':
   'data-file-specification':
     'prefix': 'file'
     'body': """
@@ -654,7 +662,7 @@
         ${3: "<data_file_name>"}
     """
     'description': "Data file specification for generic aerodynamic force"
-'.source.mbdyn.section.elements.inducedvel':
+'.source.mbdyn.element.inducedvel':
   'rotor':
     'prefix': 'rotor'
     'body': """
@@ -666,7 +674,7 @@
         ${4:(real)<reference_omega>}, ${5:(real)<reference_radius>}
         ${5:[, <option>, [, ...] ]}
     """
-    'description': 'Induced velocity element definition. Type: rotor (helicopter).'
+    'description': 'Induced velocity element. Type: rotor (helicopter).'
   'inflow-dynamic-inflow':
     'prefix': 'dynamic inflow'
     'body': """
@@ -679,11 +687,11 @@
   'inflow-option-ground':
     'prefix': 'ground'
     'body': 'ground, ${1:<ground_node>}'
-    'description': 'Ground node definition in inflow model: informs the rotor about ground proximity'
+    'description': 'Ground node in inflow model: informs the rotor about ground proximity'
   'inflow-option-delay':
     'prefix': 'delay'
     'body': 'delay, ${1:(DriveCaller)<memory_factor>}'
-    'description': 'Memory factor definition in inflow model. Together with hover_correction_factor and ff_correction_factor are used to correct nominal induced velocity'
+    'description': 'Memory factor in inflow model. Together with hover_correction_factor and ff_correction_factor are used to correct nominal induced velocity'
   'inflow-option-max-iterations':
     'prefix': 'max iterations'
     'body': 'max iterations, ${1:(integer)<max_iterations>}'
@@ -695,7 +703,7 @@
   'inflow-option-tolerance':
     'prefix': 'tolerance',
     'body': 'tolerance, ${1:(real)<tolerance>}'
-    'description': 'Tolerance factor definition in inflow model'
+    'description': 'Tolerance factor in inflow model'
   'inflow-option-corretion':
     'prefix': 'correction'
     'body': 'correction, ${1:(real)<hover_correction_factor>}, ${2:(real)<ff_correction_factor>}'
@@ -704,7 +712,7 @@
     'prefix': 'initial value'
     'body': 'initial value, ${1:(real)<const_vel>}, ${2:(real)<cosine_vel>}, ${3:(real)<sine_vel>}'
     'description': 'Initialization of dynamic inflow induced velocity model'
-'.source.mbdyn.section.elements.electric':
+'.source.mbdyn.element.electric':
   'electric-accelerometer':
     'prefix': 'accelerometer'
     'body': """
@@ -717,7 +725,7 @@
         ${6:(real)<csi>},
         ${7:(real)<kappa>}
     """
-    'description': 'Accelerometer electric element definition. NOTE: A legacy version, with built-in transfer function, is available. See section 8.7 of input manual.'
+    'description': 'Accelerometer electric element. NOTE: A legacy version, with built-in transfer function, is available. See section 8.7 of input manual.'
   'electric-displacement':
     'prefix': 'displacement'
     'body': """
@@ -740,7 +748,7 @@
         ${7:(real)<dL>},
         ${8:(real)<dR>}
     """
-    'description': 'Electric motor element definition'
+    'description': 'Electric motor element'
   'electric-discete-control':
     'prefix': 'discete control'
     'body': """
@@ -758,8 +766,8 @@
           ${11:[, ...]}
           ;
     """
-    'description': 'Discrete control electric element definition.'
-'.source.mbdyn.section.elements.force':
+    'description': 'Discrete control electric element.'
+'.source.mbdyn.element.force':
   'force-abstract':
     'prefix': 'abstract'
     'body': """
@@ -767,7 +775,7 @@
         ${1:(NodeDof)<dof>},
         ${2:(DriveCaller)<force_magnitude>}
     """
-    'description': 'Abstract force element definition. No order required since force applies directly to the equation of the node.'
+    'description': 'Abstract force element. No order required since force applies directly to the equation of the node.'
   'force-abstract-internal':
     'prefix': 'abstract internal'
     'body': """
@@ -776,7 +784,7 @@
         ${2:(NodeDof)<dof_2>},
         ${3:(DriveCaller)<force_magnitude>}
     """
-    'description': 'Abstract internal force element definition.No order required since force applies directly to the equation of the nodes, with opposite magnitude.'
+    'description': 'Abstract internal force element.No order required since force applies directly to the equation of the nodes, with opposite magnitude.'
   'force-absolute':
     'prefix': 'absolute'
     'body': """
@@ -785,7 +793,7 @@
           position, ${2:(Vec3)<relative_arm>},
           ${3:(TplDriveCaller<Vec3>)<force_value>}
     """
-    'description': 'Absolute force element definition'
+    'description': 'Absolute force element'
   'force-absolute-internal':
     'prefix': 'absolute internal'
     'body': """
@@ -796,7 +804,7 @@
           position, ${4:(Vec3)<relative_arm_2>},
           ${5:(TplDriveCaller<Vec3>)<force_value>}
     """
-    'description': 'Absolute internal force element definition'
+    'description': 'Absolute internal force element'
   'force-follower':
     'prefix': 'follower'
     'body': """
@@ -805,7 +813,7 @@
           position, ${2:(Vec3)<relative_arm>},
           ${3:(TplDriveCaller<Vec3>)<force_value>}
     """
-    'description': 'Follower force element definition'
+    'description': 'Follower force element'
   'force-follower-internal':
     'prefix': 'follower internal'
     'body': """
@@ -816,7 +824,7 @@
           position, ${4:(Vec3)<relative_arm_2>},
           ${5:(TplDriveCaller<Vec3>)<force_value>}
     """
-    'description': 'Follower internal force element definition'
+    'description': 'Follower internal force element'
   'force-total':
     'prefix': 'total'
     'body': """
@@ -828,7 +836,7 @@
         ${5:[, force, (TplDriveCaller<Vec3>)<force_value>]}
         ${6:[, moment, (TplDriveCaller<Vec3>)<moment_value>]}
     """
-    'description': 'Total force element definition'
+    'description': 'Total force element'
   'force-total-internal':
     'prefix': 'total internal'
     'body': """
@@ -844,7 +852,7 @@
         ${9:[, force, (TplDriveCaller<Vec3>)<force_value>]}
         ${10:[, moment, (TplDriveCaller<Vec3>)<moment_value>]}
     """
-    'description': 'Total internal force element definition'
+    'description': 'Total internal force element'
   'force-modal':
     'prefix': 'modal'
     'body': """
@@ -855,7 +863,7 @@
           ${4:[, resultant, (Vec3)<f>, (Vec3)<m>]}
         ${5:[, ...]}
     """
-    'description': 'Modal force element definition'
+    'description': 'Modal force element'
   'force-external-structural':
     'prefix': 'external structural'
     'body': """
@@ -877,7 +885,7 @@
             ${7:[, ...]}
             ${8:[, echo, "<echo_file_name>"]}
     """
-    'description': 'External structural force element definition'
+    'description': 'External structural force element'
   'force-external-structural-mapping':
     'prefix': 'external structural mapping'
     'body': """
@@ -916,7 +924,7 @@
                 | <mapped_label>, [, ...] \\}
                 ]}
     """
-    'description': 'External structural mapping force element definition'
+    'description': 'External structural mapping force element'
   'force-external-modal':
     'prefix': 'external modal'
     'body': """
@@ -925,7 +933,7 @@
           ${2:[, accelerations]}
           ${3:[, type, \\{rigid | modal | all \\}]}
     """
-    'description': 'External modal force element definition'
+    'description': 'External modal force element'
   'force-external-modal-mapping':
     'prefix': 'external modal mapping'
     'body': """
@@ -942,8 +950,8 @@
           ${10:\\{full | sparse\\}} mapping file, ${11:"<mapping_file_name>"}
             ${11:[, threshold, <threshold>]}
     """
-    'description': 'External modal mapping force element definition'
-'.source.mbdyn.section.elements.couple':
+    'description': 'External modal mapping force element'
+'.source.mbdyn.element.couple':
   'couple-absolute':
     'prefix': 'absolute'
     'body': """
@@ -952,7 +960,7 @@
         ${2:[position, (Vec3)<relative_arm>, ]}
         ${3:(TplDriveCaller<Vec3>)<couple_value>, ]}
     """
-    'description': 'Absolute couple element definition'
+    'description': 'Absolute couple element'
   'couple-absolute-internal':
     'prefix': 'absolute internal'
     'body': """
@@ -963,7 +971,7 @@
         ${4:[position, (Vec3)<relative_arm_2>, ]}
         ${5:(TplDriveCaller<Vec3>)<couple_value>}
     """
-    'description': 'Absolute internal couple element definition'
+    'description': 'Absolute internal couple element'
   'couple-follower':
     'prefix': 'follower'
     'body': """
@@ -972,7 +980,7 @@
         ${2:[position, (Vec3)<relative_arm>, ]}
         ${3:(TplDriveCaller<Vec3>)<couple_value>}
     """
-    'description': 'Follower couple element definition'
+    'description': 'Follower couple element'
   'couple-follower-internal':
     'prefix': 'follower internal'
     'body': """
@@ -983,26 +991,26 @@
         ${4:[position, (Vec3)<relative_arm_2>, ]}
         ${5:(TplDriveCaller<Vec3>)<couple_value>}
     """
-    'description': 'Follower internal couple element definition'
+    'description': 'Follower internal couple element'
 #  'couple-total': # TODO: CHECK IF IMPLEMENTED
 #    'prefix': 'total'
 #    'body': """
 #      total,
 #        # TODO
 #    """
-#    'description': 'Total couple element definition'
+#    'description': 'Total couple element'
 #  'couple-total-internal': # TODO: CHECK IF IMPLEMENTED
 #    'prefix': 'total internal'
 #    'body': """
 #      total internal,
 #        # TODO
 #    """
-#    'description': 'Total internal couple element definition'
-'.source.mbdyn.section.elements.electric.dcontrol':
+#    'description': 'Total internal couple element'
+'.source.mbdyn.element.electric.dcontrol':
   'electric-discete-control-control':
     'prefix': 'control'
     'body': 'control, ${1:"<control_matrices_file>"},'
-    'description': 'Control data for discrete control element definition'
+    'description': 'Control data for discrete control element'
   'electric-discete-control-identification':
     'prefix': 'identification'
     'body': """
@@ -1016,7 +1024,7 @@
         ${3:[, excitation, (DriveCaller)<excitation_drive> [, ...]]}
         ${4:[, file, "<output_file_name>"]},
     """
-    'description': 'Identification data for discrete control element definition'
+    'description': 'Identification data for discrete control element'
   'electric-discete-control-adaptive':
     'prefix': 'adaptive control'
     'body': """
@@ -1034,7 +1042,7 @@
         ${7:[, desired output, (DriveCaller)<output_drive>, [, ...]]}
         ${8:[, file, "<file_name>"]},
     """
-    'description': 'Adaptative discrete control definition'
+    'description': 'Adaptative discrete control'
   'electric-discete-control-adaptive-gpc':
     'prefix': 'gpc'
     'body': """
@@ -1045,7 +1053,7 @@
         ${4:[control weights, (real)<Ri>, [, ...], ]}
         ${5:(DriveCaller)<weight_drive>}
     """
-    'description': 'GPC Adaptive discrete control definition'
+    'description': 'GPC Adaptive discrete control'
   'electric-discete-control-adaptive-deadbeat':
       'prefix': 'deadbeat'
       'body': """
@@ -1053,8 +1061,171 @@
           ${1:(integer)<periodic_advancing_horizon>},
           ${2:(integer)<control_advancing_horizon>}
       """
-      'description': 'Deadbeat Adaptive discrete control definition'
-'.source.mbdyn.section.elements.streamoutput':
+      'description': 'Deadbeat Adaptive discrete control'
+'.source.mbdyn.element.genel':
+  'genel-clamp':
+    'prefix': 'clamp'
+    'body': """
+      clamp,
+        ${1:(NodeDof)<clamped_node>},
+        ${2:(DriveCaller)<imposed_value>}
+    """
+    'description': 'GENEL clamp element'
+  'genel-distance':
+    'prefix': 'distance'
+    'body': """
+      distance,
+        ${1:(NodeDof)<node_1_dof>},
+        ${2:(NodeDof)<node_2_dof>},
+        ${3:(DriveCaller)<imposed_distance>}
+    """
+    'description': 'GENEL distance element'
+  'genel-spring':
+    'prefix': 'spring'
+    'body': """
+      spring,
+        ${1:(NodeDof)<node_1_dof>},
+        ${2:(NodeDof)<node_2_dof>},
+        ${3:(ConstitutiveLaw<1D>)<const_law>}
+    """
+    'description': 'GENEL spring element. The constitutive law must be elastic.'
+  'genel-spring-support':
+    'prefix': 'spring support'
+    'body': """
+      spring support,
+        ${1:(NodeDof)<node>},
+        ${2:(ConstitutiveLaw<1D>)<const_law>}
+    """
+    'description': 'GENEL spring support element. Must use algebraic value of differential node. Constlaw can be arbitrary.'
+  'genel-cross-spring-support':
+    'prefix': 'cross spring support'
+    'body': """
+      cross spring support,
+        ${1:(NodeDof)<row_node>},
+        ${2:(NodeDof)<col_node>},
+        ${3:(ConstitutiveLaw<1D>)<const_law>}
+    """
+    'description': 'GENEL cross spring support element. Writes a term depending on <col_node> degree of freedom on <row_node> equation. Must use algebraic value of differential node. Constlaw can be arbitrary.'
+  'genel-mass':
+    'prefix': 'mass'
+    'body': """
+      mass,
+        ${1:(NodeDof)<node>},
+        ${2:(DriveCaller)<mass>}
+    """
+    'description': 'GENEL mass element. Must use algebraic value of differential node.'
+  'genel-scalar-filter':
+    'prefix': 'scalar filter'
+    'body': """
+      scalar filter,
+        ${1:(NodeDof)<output_node>}.
+        ${2:\\{[node dof,] (NodeDof)<input_node> | drive, (DriveCaller)<input_value>\\}},
+        ${3:[canonical form, \\{controllable | observable\\}, ]}
+        ${4:(integer)<output_order>} ${5:[, <output_coef_list>]},
+        ${6:(integer)<input_order>} ${7:[, <input_coef_list>]}
+        ${8:[, gain, (real)<gain>]}
+        ${9:[, balance, \\{yes | no\\}]}
+    """
+    'description': 'GENEL scalar filtr element.'
+  'genel-state-space-SISO':
+    'prefix': 'state space SISO'
+    'body': """
+      state space SISO,
+        ${1:(NodeDof)<output_node>},
+        ${2:\\{[node dof,] (NodeDof)<input_node> | drive, (DriveCaller)<input_value>\\}},
+        ${3:(integer)<state_order>}
+        ${4:[, matrix E, <matrix_E_coef_list>]},
+        matrix A, ${5:<matrix_A_coef_list>},
+        matrix B, ${6:<matrix_B_coef_list>},
+        matrix C, ${7:<matrix_C_coef_list>}
+        ${8:[, matrix D, <D_coef>]}
+        ${9:[, gain, <gain>]}
+        ${10:[, balance, \\{yes | no\\}]}
+        ${11:[, value, <x0_list>]}
+          ${12:[, derivative, <x0p_list>]}
+    """
+    'description': 'GENEL state space SISO element.'
+  'genel-state-space-MIMO':
+    'prefix': 'state space MIMO'
+    'body': """
+      state space MIMO,
+        ${1:(integer)<num_outputs>}, ${2:(NodeDof)<output_node_list>},
+        ${3:(integer)<num_inputs>},
+          ${4:\\{[node dof,] (NodeDof)<input_node> | drive, (DriveCaller)<input_value>\\}
+                [, ...]},
+        ${5:(integer)<state_order>}
+        ${6:[, matrix E, <matrix_E_coef_list>]},
+        matrix A, ${7:<matrix_A_coef_list>},
+        matrix B, ${8:<matrix_B_coef_list>},
+        matrix C, ${9:<matrix_C_coef_list>}
+        ${10:[, matrix D, <matrix_D_coef_list>]}
+        ${11:[, gain, <gain>]}
+        ${12:[, balance, \\{yes | no\\}]}
+        ${13:[, value, <x0_list>]}
+          ${14:[, derivative, <x0p_list>]}
+    """
+    'description': 'GENEL state space SISO element.'
+  'genel-swashplate':
+    'prefix': 'swashplate'
+    'body': """
+      swashplate,
+        ${1:<collective_abstract_node>}
+          ${2:[, limits, (real)<min_collective>, (real)<max_collective>]},
+            ${3:<fore/aft_abstract_node>}
+          ${4:[, limits, (real)<min_fore/aft>, (real)<max_fore/aft>]},
+            ${5:<lateral_abstract_node>}
+          ${6:[, limits, (real)<min_lateral>, (real)<max_lateral>]},
+          ${7:<actuator_1_abstract_node_label>},
+          ${8:<actuator_2_abstract_node_label>},
+          ${9:<actuator_3_abstract_node_label>}
+          ${10:[, (real)<dynamic_coef>, (real)<cyclic_factor>, (real)<collective_factor>]}
+    """
+    'description': 'GENEl (rotorcraft) swashplate element'
+  'genel-rotor-trim-rotor':
+    'prefix': 'rotor trim, rotor'
+    'body': """
+      rotor trim,
+        rotor,
+          ${1:<rotor_label>},
+          ${2:<trust_node_label>},
+          ${3:<longitudinal_moment_node_label>},
+          ${4:<lateral_moment_node_label>},
+          ${5:(DriveCaller)<desired_thrust_coefficient>},
+          ${6:(DriveCaller)<desired_longitudinal_moment_coefficient>},
+          ${7:(DriveCaller)<desired_lateral_moment_coefficient>},
+          ${8:(real)<rotor_lock_number>},
+          ${9:(real)<rotor_nondimensional_flap_frequency>},
+          ${10:(real)<thrust_time_constant>}, ${11:(real)<moments_time_constant>},
+          ${12:(real)<thrust_gain>}, ${13:(real)<moments_gain>}
+          ${14:[, trigger (DriveCaller)<trigger>]}
+    """
+    'description': 'GENEL (rotorcraft) rotor trim (rotor) element.'
+  'genel-rotor-trim-generic':
+    'prefix': 'rotor trim, generic'
+    'body': """
+      rotor trim,
+        generic,
+          ${1:[ reference node, <ref_node_label>, ]}
+          ${2:(DriveCaller)<thrust>},
+          ${3:(DriveCaller)<longitudinal_moment>},
+          ${4:(DriveCaller)<lateral_moment>},
+          ${5:(real)<rotor_radius>}
+          ${6:(DriveCaller)<angular_velocity>},
+          ${7:(DriveCaller)<advance_ratio>},
+          ${8:<trust_node_label>},
+          ${9:<longitudinal_moment_node_label>},
+          ${10:<lateral_moment_node_label>},
+          ${11:(DriveCaller)<desired_thrust_coefficient>},
+          ${12:(DriveCaller)<desired_longitudinal_moment_coefficient>},
+          ${13:(DriveCaller)<desired_lateral_moment_coefficient>},
+          ${14:(real)<rotor_lock_number>},
+          ${15:(real)<rotor_nondimensional_flap_frequency>},
+          ${16:(real)<thrust_time_constant>}, ${17:(real)<moments_time_constant>},
+          ${18:(real)<thrust_gain>}, ${19:(real)<moments_gain>}
+          ${20:[, trigger (DriveCaller)<trigger>]}
+    """
+    'description': 'GENEL (rotorcraft) rotor trim (generic) element.'
+'.source.mbdyn.element.streamoutput':
   'stream-output-values':
     'prefix': 'values'
     'body': """
