@@ -11,6 +11,23 @@
         ;
     """
     'description': 'Reference frame.'
+  'costlaw-definition':
+    'prefix': 'constitutive law:'
+    'body': """
+      constitutive law: ${1:<label>},
+        ${2:[name, "<name>"], }
+        ${3:(integer)<dim>}, ${4:(ConstitutiveLaw<(integer)<dim>D>>)<constitutive_law>}
+        ;
+    """
+    'description': 'Constitutive law'
+  'hydraulic-fluid-definition':
+    'prefix': 'hydraulic fluid:'
+    'body': """
+      hydraulic fluid: ${1:<label>},
+        ${2:<fluid_type>, <fluid_properties>}
+        ;
+    """
+    'description': 'Hydraulic fluid'
 '.source.mbdyn.section.data':
   'problem-definition':
     'prefix': 'problem:'
@@ -101,6 +118,10 @@
     'description': 'Strategy for time step change: no change. WARNING: this
     disables termination of max iterations'
 # '.source.mbdyn.section.inversedynamics':
+'.source.mbdyn.definition.constlaw, .source.mbdyn.section.elements':
+  'constlaw-linear-elastic':
+    'prefix': 'linear elastic'
+    'body': 'linear elastic ${1:[isotropic]}, ${2:(real)<stiffness>}'
 '.source.mbdyn.section.nodes':
   'node-structural':
     'prefix': 'structural:'
@@ -1283,7 +1304,7 @@
         G, ${3:\\{si | (real)<universal_gravity_constant>}
     """
     'description': 'Gravity element (central gravity field)'
-'.source.mbdyn.element.hydraulic':
+'.source.mbdyn.definition.hydraulic-fluid, .source.mbdyn.element.hydraulic':
   'hydraulic-actuator':
     'prefix': 'actuator'
     'body': """
@@ -1455,6 +1476,61 @@
         ${8:fluid, (HydraulicFluid)<fluid>}
     """
     'description': 'Hydraulic dynamic pipe element.'
+  'hydraulic-fluid-incompressible':
+    'prefix': 'incompressible'
+    'body': """
+      incompressible,
+        density, ${1:(real)<density>},
+        viscosity, ${2:(real)<viscosity>},
+        pressure, ${3:(real)<pressure>},
+        temperature, ${4:(real)<temperature>}
+    """
+    'description': 'Hydraulic fluid: incompressible'
+  'hydraulic-fluid-linearly-compressible':
+    'prefix': 'linearly compressible'
+    'body': """
+      linear compressible,
+        density, ${1:(real)<reference_density>},
+          ${2:\\{sound celerity, (real)<sound_celerity> | (real)<beta>\\}},
+          ${3:(real)<reference_pressure>},
+          viscosity, ${4:(real)<viscosity>},
+          temperature, ${5:(real)<temperature>}
+    """
+    'description': 'Hydraulic fluid: linearly compressible'
+  'hydraulic-fluid-linearly-compressible-thermal':
+    'prefix': 'linear thermal compressible'
+    'body': """
+      linear thermal compressible,
+        density, ${1:(real)<reference_density>},
+          ${2:\\{sound celerity, (real)<sound_celerity> | (real)<beta>\\}},
+          ${3:(real)<reference_pressure>},
+          ${4:(real)<alpha>}, ${5:(real)<reference_temperature>},
+          viscosity, ${6:(real)<viscosity>}
+    """
+    'description': 'Hydraulic fluid: linearly compressible, with termal dependency'
+  'hydraulic-fluid-super':
+    'prefix': 'super'
+    'body': """
+      super,
+        density, ${1:(real)<reference_density>},
+          ${2:\\{sound celerity, (real)<sound_celerity> | (real)<beta>\\}},
+          ${3:(real)<reference_pressure>},
+          viscosity, ${4:(real)<viscosity>},
+          temperature, ${5:(real)<temperature>}
+    """
+    'description': 'Hydraulic fluid: super (linearly compressible, with thermal dependency)'
+  'hydraulic-fluid-exponential':
+    'prefix': 'exponential'
+    'body': """
+      exponential,
+        density, ${1:(real)<reference_density>},
+          ${2:\\{sound celerity, (real)<sound_celerity> | (real)<beta>\\}},
+          ${3:(real)<reference_pressure>},
+          viscosity, ${4:(real)<viscosity>},
+          temperature, ${5:(real)<temperature>},
+          ${6:(real)<saturation_pressure>}
+    """
+    'description': 'Hydraulic fluid: exponential (loosely inspired by AMESim\'s simply corrected compressible fluid)'
 '.source.mbdyn.element.joint':
   'joint-angular-acceleration':
     'prefix': 'angular acceleration'

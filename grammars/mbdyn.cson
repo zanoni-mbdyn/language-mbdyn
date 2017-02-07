@@ -83,7 +83,8 @@ repository:
 	keywords:
 		patterns: [
 			{
-				match: '\\b(include|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|constitutive law|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|hydraulic fluid|module load|print symbol table|remark|file)\\b(\:)'
+				match: '\\b(include|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|module load|print symbol table|remark|file)\\b(\:)'
+
 				captures:
 					'1':
 						name: 'keyword.control.mbdyn'
@@ -229,6 +230,54 @@ repository:
 				patterns: [
 					{
 						include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(constitutive law)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'keyword.control.mbdyn'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: '\;'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.definition.constlaw'
+				patterns: [
+					{
+						match: '\\b(linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
+						name: 'entity.name.type.mbdyn.constlaw'
+					}
+					{
+					include: '$self'
+					}
+				]
+			}
+			{
+				begin: '\\b(hydraulic fluid)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'keyword.control.mbdyn'
+					'2':
+						name: 'punctuation.definition.mbdyn'
+				end: '\;'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mbdyn'
+				contentName: 'source.mbdyn.definition.hydraulic-fluid'
+				patterns: [
+					{
+						match: '\\b(exponential|super|linear thermal compressible|linear compressible|incompressible)\\b'
+						name: 'entity.name.type.mbdyn.hydraulicfluid'
+					}
+					{
+						match: '\\b(density|viscosity|pressure|temperature|sound celerity)\\b(?![^\\<]*\\>)'
+						name: 'keyword.other.mbdyn'
+					}
+					{
+					include: '$self'
 					}
 				]
 			}
@@ -727,11 +776,10 @@ repository:
 						contentName: 'source.mbdyn.element.gravity'
 						patterns: [
 							{
-								match: '\\b(uniform|central)(?![^\\<]*\\>)\\b'
+								match: '\\b(uniform|central)\\b(?![^\\<]*\\>)'
 								name: 'entity.name.type.mbdyn.gravity'
 							}
 							{
-								match: '\\b(origin|mass|G|si)(?![^\\<]*\\>)\\b'
 								name: 'keyword.other.mbdyn'
 							}
 							{
@@ -805,7 +853,7 @@ repository:
 								name: 'entity.name.type.mbdyn.joints'
 							}
 							{
-								match: '\\b(position orientation|rotation orientation|inactive|active|angular velocity|velocity|position|orientation vector|orientation matrix|orientation description|orientation|initial theta|from nodes|type|spherical|classic|spline|same|friction|preload)\\b(?![^\\<]*\\>)'
+								match: '\\b(position orientation|rotation orientation|position constraint|orientation constraint|inactive|active|angular velocity|velocity|position|orientation vector|orientation matrix|orientation description|orientation|initial theta|from nodes|type|spherical|classic|spline|same|friction|preload)\\b(?![^\\<]*\\>)'
 								name: 'keyword.other.mbdyn'
 							}
 							{
@@ -924,7 +972,7 @@ repository:
 				name: 'entity.name.type.mbdyn.strnode'
 			}
 			{
-				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|linear|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit)\\b(?![^\\<]*\\>)'
+				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit|linear)\\b(?![^\\<]*\\>)'
 				name: 'entity.name.type.mbdyn.drive'
 			}
 			{
