@@ -801,6 +801,14 @@ repository:
 						contentName: 'source.mbdyn.element.hydraulic'
 						patterns: [
 							{
+								match: '\\b(exponential|super|linear thermal compressible|linear compressible|incompressible)\\b'
+								name: 'entity.name.type.mbdyn.hydraulicfluid'
+							}
+							{
+								match: '\\b(density|viscosity|pressure|temperature|sound celerity)\\b(?![^\\<]*\\>)'
+								name: 'keyword.other.mbdyn'
+							}
+							{
 								match: '\\b(actuator|three way minor loss|minor loss|dynamic control valve|pressure flow control valve|control valve|pressure valve|flow valve|orifice|accumulator|tank|dynamic pipe|pipe|imposed pressure|imposed flow)(?![^\\<]*\\>)\\b'
 								name: 'entity.name.type.mbdyn.hydraulic'
 							}
