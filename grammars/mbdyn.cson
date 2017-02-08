@@ -115,7 +115,7 @@ repository:
 					name: 'storage.type.mbdyn'
 				}
 				{
-					match: '\\b(set|ifndef|const|setenv|1D|3D|6D)\\b'
+					match: '\\b(set|ifndef|const|setenv|1D|3D|6D|Entity)\\b'
 					name: 'storage.modifier.mbdyn'
 				}
 			]

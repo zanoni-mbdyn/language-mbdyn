@@ -17,9 +17,62 @@
       constitutive law: ${1:<label>},
         ${2:[name, "<name>"], }
         ${3:(integer)<dim>}, ${4:(ConstitutiveLaw<(integer)<dim>D>>)<constitutive_law>}
+        ${5:[, prestress, (Entity)<prestress>]}
+        ${6:[, prestrain, (TplDriveCaller<<Entity>>)<prestrain>]}
         ;
     """
     'description': 'Constitutive law'
+  'c81-data-definition':
+    'prefix': 'c81 data:'
+    'body': """
+      c81 data: ${1:<label>},
+        ${2:[name, "<name>", ]}
+        ${3:"<filename>"}
+        ${4:[, tolerance, (real)<tolerance>]}
+        ${5:[, \\{free format | nrel | fc511 \\}}
+        ${6:[, flip ]}
+        ${7:[, echo, "<output_file_name>" [, free format] ]}
+        ;
+    """
+    'description': 'c81 airfoil data'
+  'drive-caller-definition':
+    'prefix': 'drive caller:'
+    'body': """
+      drive caller: ${1:<label>},
+        ${2:[ name, "<name>", ]}
+        ${3:(DriveCaller)<drive_caller>}
+        ;
+    """
+    'description': 'Drive caller'
+  'template-drive-caller':
+    'prefix': 'template drive caller:'
+    'body': """
+      template drive caller: ${1:<label>}, ${2:\\{"<dim_name>" | (integer)<dim>\\}},
+        ${3:(TplDriveCaller<<dim>D>)<tpl_drive_caller>}
+        ;
+    """
+    'description': 'Template drive caller'
+  'include':
+    'prefix': 'include:'
+    'body': 'include: ${1:"<file_name>"};'
+    'description': 'Include statement. Allows to include the contents of file_name into the current input file.'
+  'module-load':
+    'prefix': 'module load:'
+    'body': """
+      module load: ${1:"<file_name>"},
+        ${2:[, <module_arglist>]}
+        ;
+    """
+    'description': 'Module (runtime loadable object) loading'
+  'setenv':
+    'prefix': 'setenv:'
+    'body': """
+      setenv:
+        ${1:[overwrite, \\{yes | no | (bool)<overwrite>\\}, ]}
+        ${2:"<varname> [= <value>]"}
+        ;
+    """
+    'description': 'Sets the environment variable varname to value, if given'
   'hydraulic-fluid-definition':
     'prefix': 'hydraulic fluid:'
     'body': """
