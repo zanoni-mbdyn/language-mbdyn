@@ -104,7 +104,7 @@ repository:
 				name: 'keyword.control.mbdyn'
 			}
 			{
-				match: '\\b(eye|null|euler|euler123|euler313|euler321|vector|matr|orientation vector|orientation matrix|anba|sym|diag|skew|guess|position|orientation|position orientation|rotation orientation|gust)\\b'
+				match: '\\b(eye|null|euler|euler123|euler313|euler321|vector|matr|orientation vector|orientation matrix|anba|sym|diag|skew|guess|position orientation|rotation orientation|position|orientation|gust|initial value|one|half|forever|component|amplitude|seed|time|hint)\\b'
 				name: 'keyword.other.mbdyn'
 			}
 		]
@@ -115,7 +115,11 @@ repository:
 					name: 'storage.type.mbdyn'
 				}
 				{
-					match: '\\b(set|ifndef|const|setenv|1D|3D|6D|Entity)\\b'
+					match: '\\b(const)\\b(?=\\s+\\b(integer|real|bool|string)\\b)'
+					name: 'storage.type.mbdyn'
+				}
+				{
+					match: '\\b(set|ifndef|setenv|1D|3D|6D|Entity)\\b'
 					name: 'storage.modifier.mbdyn'
 				}
 			]
@@ -133,7 +137,7 @@ repository:
 	invalid:
 		patterns: [
 			{
-				match: '\\b(hinge|y12|meschach|harwell|taucs|watson|solver|rotor|deformable displacement hinge|distance with offsets|plane displacement pin|plane displacement|plane hinge|plane pin|universal hinge|universal pin|universal rotation|parameter|kinematic)\\b'
+				match: '\\b(hinge|y12|meschach|harwell|index|taucs|watson|solver|rotor|deformable displacement hinge|distance with offsets|plane displacement pin|plane displacement|plane hinge|plane pin|universal hinge|universal pin|universal rotation|parameter|kinematic)\\b'
 				name: 'invalid.deprecated.mbdyn'
 			}
 			{
@@ -976,11 +980,11 @@ repository:
 						name: 'punctuation.definition.mbdyn'
 			}
 			{
-				match: '\\b(static|dynamic|modal|dummy\\b)(?![^\\<]*\\>)'
+				match: '\\b(static|dynamic|modal|dummy)\\b(?![^\\<]*\\>)'
 				name: 'entity.name.type.mbdyn.strnode'
 			}
 			{
-				match: '\\b(array|closest next|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit|linear)\\b(?![^\\<]*\\>)'
+				match: '\\b(array|closest next|const|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit|linear)\\b(?![^\\<]*\\>)'
 				name: 'entity.name.type.mbdyn.drive'
 			}
 			{

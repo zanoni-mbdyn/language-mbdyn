@@ -35,7 +35,7 @@
         ;
     """
     'description': 'c81 airfoil data'
-  'drive-caller-definition':
+  'drive-definition':
     'prefix': 'drive caller:'
     'body': """
       drive caller: ${1:<label>},
@@ -44,6 +44,305 @@
         ;
     """
     'description': 'Drive caller'
+  'drive-array':
+    'prefix': 'array'
+    'body': """
+      array,
+        ${1:(integer)<num_drives>},
+          ${2:(DriveCaller)<drive_caller_1>}
+          ${3:[, ...]}
+    """
+    'description': 'Array drive caller: linear combination of drive callers'
+  'drive-closest-next':
+    'prefix': 'closest next'
+    'body': """
+      closest next,
+        ${1:(real)<initial_time>},
+          ${2:\\{forever | (real)<final_time>\\}},
+          ${3:(DriveCaller)<increment>}
+    """
+    'description': 'Closest next driver'
+  'drive-const':
+    'prefix': 'const'
+    'body': '${1:[const, ]} ${2:(real)<const_coef>}'
+    'description': 'Const(ant) drive caller'
+  'drive-cosine':
+    'prefix': 'cosine'
+    'body': """
+      cosine,
+        ${1:(real)<initial_time>},
+        ${2:(real)<angular_velocity>},
+        ${3:(real)<amplitude>},
+        ${4:\\{[-] (integer)<number_of_cycles> | half | one | forever\\}},
+        ${5:(real)<initial_value>}
+    """
+    'description': 'Cosine drive caller. f(t) = initial_value + amplitude*(1 - cos(angular_velocity*(t - initial_time)))'
+  'drive-cubic':
+    'prefix': 'cubic'
+    'body': """
+      cubic,
+        ${1:(real)<const_coef>},
+        ${2:(real)<linear_coef>},
+        ${3:(real)<parabolic_coef>},
+        ${4:(real)<cubic_coef>}
+    """
+    'description': 'Cubic drive caller. f(t) = const_coef + linear_coef*t + parabolic_coef*t^2 + cubic_coef*t^3'
+  'drive-direct':
+    'prefix': 'direct'
+    'body': 'direct'
+    'description': 'Direct drive caller. Transparently returns the input value. The arglist is empty'
+  'drive-dof':
+    'prefix': 'dof'
+    'body': """
+      dof,
+        ${1:(NodeDof)<driving_dof>},
+        ${2:(DriveCaller)<func_drive>}
+    """
+    'description': 'Dof drive caller. Reference to a degree of fredom of a node.'
+  'drive-double-ramp':
+    'prefix': 'double ramp'
+    'body': """
+      double ramp,
+        ${1:(real)<a_slope>},
+        ${2:(real)<a_initial_time>},
+        ${3:(real)<a_final_time},
+        ${4:(real)<d_slope>},
+        ${5:(real)<d_initial_time>},
+        ${6:\\{forever | (real)<d_final_time>\\}},
+        ${7:(real)<initial_value>}
+    """
+    'description': 'Double ramp drive caller. Ramp from initial_value with slope a_slope from a_initial_time to a_final_time, constant, then ramp with slope d_slope from d_initial_time to d_final_time.'
+  'drive-double-step':
+    'prefix': 'double step'
+    'body': """
+      double step,
+        ${1:(real)<initial_time>},
+        ${2:(real)<final_time>},
+        ${3:(real)<step_value>},
+        ${4:(real)<initial_value>}
+    """
+    'description': 'Double step drive caller. Step up (or down) to step_value from initial_time to final_time, starting from initial_value '
+  'drive-drive':
+    'prefix': 'drive'
+    'body': """
+      drive,
+        ${1:(DriveCaller)<drive_caller_1>},
+        ${2:(DriveCaller)<drive_caller_2>}
+    """
+    'description': 'Drive drive: drive_caller_e is fed to drive_caller_1'
+  'drive-element':
+    'prefix': 'element'
+    'body': """
+      element,
+        ${1:<element_label>},
+        ${2:<element_type>},
+        ${3:[string, "<private_data_name>",]}
+        ${4:(DriveCaller)<func_drive>}
+    """
+    'description': 'Element drive caller. A reference to the private data of an element is read'
+  'drive-exponential':
+    'prefix': 'exponential'
+    'body': """
+      exponential,
+        ${1:(real)<amplitude_value>},
+        ${2:(real)<time_constant_value>},
+        ${3:(real)<initial_time>},
+        ${4:(real)<initial_value>}
+    """
+    'description': 'Exponential drive. f(t) = initial_value + amplitude_value*(1 - exp((-t - initial_time)/time_constant_value)'
+  'drive-file-drive':
+    'prefix': 'file'
+    'body': """
+      file,
+        ${1:<drive_label>},
+        ${2:[, (integer)<column_number>]}
+        ${4:[, amplitude, (real)<amplitude>]}
+    """
+    'description': 'File drive caller. Attached to a file drive object defined in the drivers section'
+  'drive-fourier-series':
+    'prefix': 'fourier series'
+    'body': """
+      fourier series,
+        ${1:(real)<initial_time>},
+        ${2:(real)<angular_velocity>},
+        ${3:(integer)<number_of_terms>},
+          ${4:(real)<a_0>},
+          ${5:(real)<a_1>}, ${6:(real)<a_2>},
+          ${7:[, ...]}
+          ${8:\\{(integer)<number_of_cycles> | one | forever\\}},
+          ${9:(real)<initial_value>}
+    """
+    'description': 'Fourier series drive caller.'
+  'drive-frequency-sweep':
+    'prefix': 'frequency sweep'
+    'body': """
+      frequency sweep,
+        ${1:(real)<initial_time>},
+        ${2:(DriveCaller)<angular_velocity_drive>},
+        ${3:(DriveCaller)<amplitude_drive>},
+        ${4:(real)<initial_value>},
+        ${5:\\{forever | (real)<final_time>\\}},
+        ${6:(real)<final_value>}
+    """
+    'description': 'Frequency sweep drive caller. Recursively calls angular_velocity_drive and amplitude_drive to regulate the oscillation'
+  'drive-ginac':
+    'prefix': 'ginac'
+    'body': """
+      ginac,
+        ${1:[symbol, "<symbol>"]},
+        ${2:"<expression>"}
+    """
+    'description': 'GiNaC (symbolic) drive caller. WARNING: GiNaC support must be enabled during build!'
+  'drive-linear':
+    'prefix': 'linear'
+    'body': """
+      linear,
+        ${1:(real)<const_coef>},
+        ${2:(real)<slope_coef>}
+    """
+    'description': 'Linear drive caller. f(t) = const_coef + slope_coef*t'
+  'drive-meter':
+    'prefix': 'meter'
+    'body': """
+      meter,
+        ${1:(real)<initial_time>},
+        ${2:\\{forever | (real)<final_time>\\}}
+        ${3:[, steps, (integer)<steps_between_spikes>]}
+    """
+    'description': 'Meter drive caller. Has zero value except every steps_between_spikes steps, where it goes to unity'
+  'drive-mult':
+    'prefix': 'mult'
+    'body': """
+      mult,
+        ${1:(DriveCaller)<drive_caller_1>},
+        ${2:(DriveCaller)<drive_caller_2>}
+    """
+    'description': 'Mult drive caller. Multiplies the value of two drives.'
+  'drive-node':
+    'prefix': 'node'
+    'body': """
+      node,
+        ${1:<node_label>},
+        ${2:<node_type>},
+        ${3:[string, "<private_data_name>",]}
+        ${4:(DriveCaller)<func_drive>}
+    """
+    'description': 'Node drive caller. A reference to the private data of a node is read'
+  'drive-parabolic':
+    'prefix': 'parabolic'
+    'body': """
+      parabolic,
+        ${1:(real)<const_coef>},
+        ${2:(real)<linear_coef>},
+        ${3:(real)<parabolic_coef>}
+    """
+    'description': 'Parabolic drive caller. f(t) = const_coef + linear_coef*t + parabolic_coef*t^2'
+  'drive-periodic':
+    'prefix': 'periodic'
+    'body': """
+      periodic,
+        ${1:(real)<initial_time>},
+        ${2:(real)<period>},
+        ${3:(DriveCaller)<func_drive>}
+    """
+    'description': 'Periodic drive caller. f(t) = func_drive(t - initial_time - period*floor((t- initial_time)/period))'
+  'drive-piecewise-linear':
+    'prefix': 'piecewise linear'
+    'body': """
+      piecewise linear,
+        ${1:(integer)<num_points>},
+          ${2:(real)<point>}, ${3:(real)<value>}
+          ${4:[, ...]}
+    """
+    'description': 'Piecewise linear drive caller.'
+  'drive-postponed':
+    'prefix': 'postponed'
+    'body': 'postponed, ${1:<label>}'
+    'description': 'Postpones the definition of a drive caller.'
+  'drive-ramp':
+    'prefix': 'ramp'
+    'body': """
+      ramp,
+        ${1:(real)<slope>},
+        ${2:(real)<initial_time>},
+        ${3:\\{forever | (real)<final_time>\\}},
+        ${4:(real)<initial_value>}
+    """
+    'description': 'Ramp drive caller. f(t) = initial_value + slope*(t - initial_time) from initial_time to final_time, then constant'
+  'drive-random':
+    'prefix': 'random'
+    'body': """
+      random,
+        ${1:(real)<amplitude_value>},
+        ${2:(real)<mean_value>},
+        ${3:(real)<initial_time>},
+        ${4:\\{forever | (real)<final_time>\\}}
+        ${5:[, steps, (integer)<steps_to_hold_value>]}
+        ${6:[, seed, \\{time | (real)<seed_value\\}]}
+    """
+    'description': 'Random drive caller. Generates pseudo-random values in the range mean +- amplitude_value'
+  'drive-sample-and-hold':
+    'prefix': 'sample and hold'
+    'body': """
+      sample and hold,
+        ${1:(DriveCaller)<function>},
+        ${2:(DriveCaller)<trigger>}
+        ${3:[, initial value, (real)<initial_value>]}
+    """
+    'description': 'Sample and hold drive caller. When trigger is non-zero, the value of function is recorded and returned'
+  'drive-scalar-function':
+    'prefix': 'scalar function'
+    'body': """
+      scalar function, ${1:"<scalar_function_name>"}
+        ${2:[, <scalar_function_definition>]}
+    """
+    'description': 'Scalar function drive.'
+  'drive-sine':
+    'prefix': 'sine'
+    'body': """
+      sine,
+        ${1:(real)<initial_time>},
+        ${2:(real)<angular_velocity>},
+        ${3:(real)<amplitude>},
+        ${4:\\{[-] (integer)<number_of_cycles> | half | one | forever\\}},
+        ${5:(real)<initial_value>}
+    """
+    'description': 'Sine drive caller. f(t) = initial_value + amplitude*sin(angular_velocity*(t - initial_time))'
+  'drive-step':
+    'prefix': 'step'
+    'body': """
+      step,
+        ${1:(real)<initial_time>},
+        ${2:(real)<step_value>},
+        ${3:(real)<initial_value>}
+    """
+    'description': 'Step drive caller'
+  'drive-string':
+    'prefix': 'string'
+    'body': 'string, "<expression_string>"'
+    'description': 'String drive caller: expression_string is parsed by the math parser. Time and Var are special variables: see input manual for details'
+  'drive-tanh':
+    'prefix': 'tanh'
+    'body': """
+      tanh,
+        ${1:(real)<initial_time>},
+        ${2:(real)<amplitude>},
+        ${3:(real)<slope>},
+        ${4:(real)<initial_value>}
+    """
+    'description': 'Hyperbolic tangent drive. f(t) = initial_value + amplitude*tanh(slope*(t - initial_time))'
+  'drive-time':
+    'prefix': 'time'
+    'body': 'time'
+    'description': 'Yields the current time. The arglist is empty'
+  'drive-timestep':
+    'prefix': 'timestep'
+    'body': 'timestep'
+    'description': 'Yields the current timestep. The arglist is empty'
+  'drive-unit':
+    'prefix': 'unit'
+    'body': 'unit'
+    'description': 'Always 1. The arglist is empty'
   'template-drive-caller':
     'prefix': 'template drive caller:'
     'body': """
