@@ -83,7 +83,7 @@ repository:
 	keywords:
 		patterns: [
 			{
-				match: '\\b(include|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|output results|output|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|reference|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|module load|print symbol table|remark|file)\\b(\:)'
+				match: '\\b(include|initial time|final time|time step|min time step|max time ste|method|threads|eigenanalysis|abort after|tolerance|max iterations|derivatives tolerance|derivatives max iterations|derivatives coefficient|dummy steps tolerance|dummy steps max iterations|dummy steps number|dummy steps ratio|nonlinear solver|linear solver|reference|template|drive caller|drivers|force|air properties|gravity|c81 data|drive caller|template drive caller|module load|print symbol table|remark|file)\\b(\:)'
 
 				captures:
 					'1':
@@ -111,7 +111,7 @@ repository:
 	storage:
 			patterns: [
 				{
-					match: '\\b(integer|real|string|bool|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|NodeDof|ScalarValue|Shape|TplDriveCaller|HydraulicFluid)\\b'
+					match: '\\b(integer|real|string|bool|float|int8_t|uint8_t|int16_t|int32_t|uint32_t|double|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|NodeDof|ScalarValue|Shape|TplDriveCaller|HydraulicFluid)\\b'
 					name: 'storage.type.mbdyn'
 				}
 				{
@@ -309,6 +309,17 @@ repository:
 				contentName: 'source.mbdyn.section.controldata'
 				patterns: [
 					{
+						match: '\\b(output results|output|default orientation|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements)\\b'
+						name: 'keyword.control.mbdyn'
+					}
+					{
+						match: '\\b(dof stats|dof description|equation description|element connection|node connection|all|none|orientation matrix|reference frames|abstract nodes|electric nodes|hydraulic nodes|structural nodes accelerations|structural nodes|aerodynamic elements|air properties|beams|electric elements|forces|genels|gravity|hydraulic elements|joints|rigid bodies|induced velocity elements)\\b'
+						name: 'entity.name.type.mbdyn.print'
+					}
+					{
+
+					}
+					{
 						include: '$self'
 					}
 				]
@@ -355,6 +366,10 @@ repository:
 						]
 					}
 					{
+						match: '\\b(output)\\b'
+						name: 'keyword.control.mbdyn'
+					}
+					{
 						include: '$self'
 					}
 				]
@@ -382,6 +397,10 @@ repository:
 						name: 'punctuation.terminator.mbdyn'
 				contentName: 'source.mbdyn.section.drivers'
 				patterns: [
+					{
+						match: '\\b(create|port|host|blocking|non blocking|initial values|modifier|copy cast|copy|create|no signal|signal|receive first|precision|shift|skip)\\b'
+						name: 'keyword.other.mbdyn'
+					}
 					{
 						include: '$self'
 					}
@@ -555,6 +574,10 @@ repository:
 								name: 'punctuation.terminator.mbdyn'
 						contentName: 'source.mbdyn.element.streamoutput'
 						patterns: [
+							{
+								match: '\\b(create|port|host|blocking|non blocking|initial values|modifier|copy cast|copy|create|no signal|signal|receive first|precision|shift|skip)\\b'
+								name: 'keyword.other.mbdyn'
+							}
 							{
 								include: '$self'
 							}
@@ -893,10 +916,6 @@ repository:
 			{
 				match: '\\b(residual|solution|jacobian matrix|messages|counter|bailout|matrix condition number|solver condition number|none)\\b'
 				name: 'entity.name.type.mbdyn.output'
-			}
-			{
-				match: '\\b(dof stats|dof description|equation description|element connection|node connection|all|none)\\b'
-				name: 'entity.name.type.mbdyn.print'
 			}
 			{
 				# Structural node definition
