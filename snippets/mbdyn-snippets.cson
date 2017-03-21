@@ -474,6 +474,252 @@
   'constlaw-linear-elastic':
     'prefix': 'linear elastic'
     'body': 'linear elastic ${1:[isotropic]}, ${2:(real)<stiffness>}'
+    'description': 'Linear elastic constitutive law'
+  'constlaw-linear-elastic-generic':
+    'prefix': 'linear elastic generic'
+    'body': 'linear elastic generic, ${1:(DerivativeOfEntity)<stiffness>}'
+    'description': 'Linear elastic constitutive law. For N x 1 vectors, the
+       expected stiffness is a N x N matrix'
+  'constlaw-linear-elastic-generic-axial-torsion-coupling':
+    'prefix': 'linear elastic generic axial torsion coupling'
+    'body': """
+      linear elastic generic axial torsion coupling,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:(real)<coupling_coefficient>}
+    """
+    'description': 'Linear elastic 6D constitutive law, with torsion stiffness
+        directly proportional to axial strain, through <coupling_coefficient>'
+  'contlaw-cubic-elastic-generic':
+    'prefix': 'cubic elastic generic'
+    'body': """
+      cubic elastic generic,
+                ${1:(Entity)<stiffness_1>},
+                ${2:(Entity)<stiffness_2>},
+                ${3:(Entity)<stiffness_3>}
+    """
+    'description': 'Cubic elastic generic constitutive law: only 1D or 3D'
+  'constlaw-inverse-square-elastic':
+    'prefix': 'inverse square elastic'
+    'body': 'inverse square elastic, ${1:(real)<stiffness>}, ${2:(real)<ref_length>}'
+    'description': 'Inverse square elastic constitutive law. Only 1D.
+      f = stiffness*(ref_length(1 + eps))^(-2)'
+  'constlaw-log-elastic':
+    'prefix': 'log elastic'
+    'body': 'log elastic, ${1:(real)<stiffness>}'
+    'description': 'Log elastic constitutive law. Only 1D.
+       f = stiffness*log(1 + eps)'
+  'constlaw-linear-elastic-bistop':
+    'prefix': 'linear elastic bistop'
+    'body': """
+      linear elastic bistop,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:[initial status, \\{inactive | active | (bool) <status>\\}],}
+        ${3:(DriveCaller)<activating_condition>},
+        ${4:(DriveCaller)<deactivating_condition>}
+    """
+    'description': 'Linear elastic bistop consitutive law'
+  'constlaw-double-linear-elastic':
+    'prefix': 'double linear elastic'
+    'body': """
+      double linear elastic,
+        ${1:(real)<stiffness_1>},
+        ${2:(real)<upper_strain>},
+        ${3:(real)<lower_strain>},
+        ${4:(real)<stiffness_2>}
+    """
+    'description': 'Double linear elastic constitutive law. Only 1D or 3D'
+  'constlaw-isotropic-hardening-elastic':
+    'prefix': 'isotropic hardening elastic'
+    'body': """
+      isotropic hardening elastic,
+        ${1:(real)<stiffness>},
+        ${2:(real)<reference_strain>},
+        ${3:[, linear stiffness, (real)<linear_stiffness>]}
+    """
+    'description': 'Isotropic hardening elastic constitutive law. Only 1D.
+      f = stiffness*(beta + alpha|eps|^2)/(1 + alpha|eps|^2)eps
+      alpha = 3/|reference_strain|^2
+      beta = linear_stiffness/stiffness'
+  'constlaw-scalar-function-elastic':
+    'prefix': 'scalar function elastic'
+    'body': """
+      scalar function elastic,
+        ${1:\\{(DifferentiableScalarFunction)<function> | null\\}}
+        ${2:[, ...]}
+    """
+    'description': 'Differentiable scalar function constitutive law.'
+    'prefix': 'scalar function elastic orthotropic'
+    'body': """
+      scalar function elastic orthotropic,
+        ${1:\\{(DifferentiableScalarFunction)<function> | null\\}}
+        ${2:[, ...]}
+    """
+    'description': 'Differentiable scalar function orthotropic onstitutive law.
+      1D, 3D and 6D.'
+  'constlaw-linear-viscous':
+    'prefix': 'linear viscous'
+    'body': 'linear viscous, ${1:(real)<viscosity>}'
+    'description': 'Linear viscous constitutive law. 1D, 3D and 6D.'
+  'constlaw-linear-viscous-isotropic':
+    'prefix': 'linear viscous isotropic'
+    'body': 'linear viscous isotropic, ${1:(real)<viscosity>}'
+    'description': 'Linear viscous (isotropic) constitutive law. 1D, 3D and 6D.'
+  'constlaw-linear-viscous-generic':
+    'prefix': 'linear viscous generic',
+    'body': 'linear viscous generic, ${1(DerivativeOfEntity)<viscosity>}'
+    'description': 'Linear viscous generic constitutive law. 1D, 3D and 6D.
+      If force in N x 1, expected viscosity is a N x N matrix'
+  'constlaw-linear-viscoelastic':
+    'prefix': 'linear viscoelastic',
+    'body': """
+      linear viscoelastic,
+        ${1:(real)<stiffness>},
+        ${2:\\{ (real)<viscosity> | proportional, (real)<factor>\\}}
+    """
+    'description': 'Linear viscoelastic (isotropic) constitutive law. 1D, 3D and 6D.'
+  'constlaw-linear-viscoelastic-isotropic':
+    'prefix': 'linear viscoelastic isotropic',
+    'body': """
+      linear viscoelastic isotropic,
+        ${1:(real)<stiffness>},
+        ${2:\\{ (real)<viscosity> | proportional, (real)<factor>\\}}
+    """
+    'description': 'Linear viscoelastic isotropic constitutive law. 1D, 3D and 6D.
+      If proportional is given, then viscosity = factor*stiffness'
+  'constlaw-linear-viscoelastic-generic':
+    'prefix': 'linear viscoelastic generic'
+    'body': """
+      linear viscoelastic generic,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:\\{ (DerivativeOfEntity)<viscosity> | proportional, (real)<factor>\\}}
+    """
+    'description': 'Linear viscoelastic isotropic constitutive law. 1D, 3D and 6D.
+    If force in N x 1, expected stiffness and viscosity are N x N matrices.
+    If proportional is given, then viscosity = factor*stiffness'
+  'constlaw-linear-time-variant-viscoelastic-generic':
+    'prefix': 'linear time variant viscoelastic generic'
+    'body': """
+      linear time variant viscoelastic generic,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:(DriveCaller)<stiffness_scale>},
+        ${3:\\{ (DerivativeOfEntity)<viscosity> | proportional, (real)<factor>\\}},
+        ${4:(DriveCaller)<viscosity_scale>}
+    """
+    'description': 'Linear time variant viscoelastic isotropic constitutive law.
+      1D, 3D and 6D. If force in N x 1, expected stiffness and viscosity are
+      N x N matrices. If proportional is given, then viscosity = factor*stiffness.
+      f = stiffness*stiffness_scale(t)*eps + viscosity*viscosity_scale*dot_eps'
+  'constlaw-linear-viscoelastic-generic-axial-torsion-coupling':
+    'prefix': 'linear viscoelastic generic axial torsion coupling'
+    'body': """
+      linear viscoelastic generic axial torsion coupling,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:\\{(DerivativeOfEntity)<viscosity> | proportional, (real)<factor>\\}},
+        ${3:(real)<coupling_coefficient>}
+    """
+    'description': 'Linear viscoelastic generic axial torsion coupling. Only 6D.'
+  'constlaw-cubic-viscoelastic-generic':
+    'prefix': 'cubic viscoelastic generic'
+    'body': """
+      cubic viscoelstic generic,
+        ${1:(DerivativeOfEntity)<stiffness_1>},
+        ${2:(DerivativeOfEntity)<stiffness_2>},
+        ${3:(DerivativeOfEntity)<stiffness_3>},
+        ${4:(DerivativeOfEntity)<viscosity>},
+    """
+    'description': 'Cubic viscoelstic generic constitutive law. Only 1D and 3D.
+      f = stiffness_1*eps + stiffness_2*|eps|*eps + stiffness_3*eps^3 + viscosity*dot_eps'
+  'costlaw-double-linear-viscoelastic':
+    'prefix': 'double linear viscoelastic'
+    'body': """
+        double linear viscoelastic,
+        ${1:(real)<stiffness_1>},
+        ${2:(real)<upper_strain>},
+        ${3:(real)<lower_strain>},
+        ${4:(real)<stiffness_2>},
+        ${5:(real)<viscosity>}
+        %{6:[, second damping, (real)<viscosity_2>]}
+    """
+    'description': 'Double linear viscoelastic constitutive law. Only 1D or 3D'
+  'constlaw-turbulent-viscoelastic':
+    'prefix': 'turbulent viscoelstic'
+    'body': """
+      ${1:(real)<stiffness>},
+      ${2:(real)<parabolic_viscosity>}
+      ${3:[, (real)<threshold>, [, (real)<linear_viscosity>] ]}
+    """
+    'description': 'Turbulent viscoelastic constitutive law. Only 1D.'
+  'constlaw-linear-viscoelastic-bistop':
+    'prefix': 'linear viscoelastic bistop'
+    'body': """
+      linear viscoelastic bistop,
+        ${1:(DerivativeOfEntity)<stiffness>},
+        ${2:(DerivativeOfEntity)<viscosity>},
+        ${3:[initial status, \\{inactive | active | (bool)<status>\\},]}
+        ${1:(DriveCaller)<activating_condition>},
+        ${1:(DriveCaller)<deactivating_condition>}
+    """
+    'description': 'Linear viscoelastic bistop constitutive law. 1D, 3D and 6D.'
+  'constlaw-shock-absorber':
+    'prefix': 'shock absorber'
+    'body': """
+      shock absorber,
+        ${1:[prestrain, (real)<prestrain>], }
+        ${2:(real)<reference_pressure>},
+        ${3:(real)<reference_area_for_force_computation>},
+        ${4:(real)<interaction_coefficient>},
+        ${5:(real)<polytropic_exponent>},
+        ${6:[epsilon max, (real)<upper_strain_bound>, ]}
+        ${7:[epsilon min, (real)<lower_strain_bound>, ]}
+        ${8:[penalty, (real)<penalty_factor_for_strain>,
+                      (real)<penalty_factor_for_strain_rate>]}
+        ${9:[metering, (DriveCaller)<metering_area>, ]}
+          ${10:[negative, (DriveCaller)<metering_area_for_negative_strain_rate>, ]}
+        ${9:[orifice, (DriveCaller)<orifice_area>, ]}
+        ${10:(real)<fluid_area>},
+        ${11:(real)<fluid_density>},
+        ${12:(real)<drag_coefficient_/_reference_length>}
+        ${13:[, friction, (real)<reference_epsilon_prime>,
+                          (real)<friction_amplitude_coefficient>]}
+    """
+    'description': 'Shock absorber constitutive law. Only 1D.
+      Models an hydraulic shock absorber.'
+  'constlaw-symbolic-elastic':
+    'prefix': 'symbolic elastic'
+    'body': """
+      symbolic elastic,
+        epsilon, ${1:"<epsilon>" [, ...]},
+        expression, ${2:"<expression>" [, ...]},
+    """
+    'description': 'Symbolic elastic consitutive law. 1D, 3D or 6D.
+      Needs GiNaC support.'
+  'constlaw-symbolic-viscous':
+    'prefix': 'symbolic viscous'
+    'body': """
+      symbolic viscous,
+        epsilon prime, ${1:"<epsilon_prime>" [, ...]},
+        expression, ${2:"<expression>" [, ...]},
+    """
+    'description': 'Symbolic viscous consitutive law. 1D, 3D or 6D.
+      Needs GiNaC support.'
+  'constlaw-symbolic-viscoelastic':
+    'prefix': 'symbolic viscoelastic'
+    'body': """
+      symbolic viscoelastic,
+        epsilon, ${1:"<epsilon>" [, ...]},
+        epsilon prime, ${2:"<epsilon_prime>" [, ...]},
+        expression, ${3:"<expression>" [, ...]},
+    """
+    'description': 'Symbolic viscoelastic consitutive law. 1D, 3D or 6D.
+      Needs GiNaC support'
+  'constlaw-ann-elastic':
+    'prefix': 'ann elastic'
+    'body': 'ann elastic, "${1:<file_name>}"'
+    'description': 'Artificial Neural Network elastic consitutive law. 1D, 3D or 6D'
+  'constlaw-ann-viscoelastic':
+    'prefix': 'ann viscoelastic'
+    'body': 'ann viscoelastic, "${1:<file_name>}"'
+    'description': 'Artificial Neural Network viscoelastic consitutive law. 1D, 3D or 6D'
 '.source.mbdyn.section.nodes':
   'node-structural':
     'prefix': 'structural:'

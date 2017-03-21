@@ -111,7 +111,7 @@ repository:
 	storage:
 			patterns: [
 				{
-					match: '\\b(integer|real|string|bool|float|int8_t|uint8_t|int16_t|int32_t|uint32_t|double|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|NodeDof|ScalarValue|Shape|TplDriveCaller|HydraulicFluid)\\b'
+					match: '\\b(integer|real|string|bool|float|int8_t|uint8_t|int16_t|int32_t|uint32_t|double|Mat3x3|Mat6xN|Vec3|OrientationMatrix|ConstitutiveLaw|DriveCaller|NodeDof|ScalarValue|Shape|TplDriveCaller|HydraulicFluid|DerivativeOfEntity|DifferentiableScalarFunction)\\b'
 					name: 'storage.type.mbdyn'
 				}
 				{
@@ -220,6 +220,24 @@ repository:
 				]
 			}
 			{
+				begin: '\\b(template drive caller)\\b\:'
+				beginCaptures:
+					'1':
+						name: 'keyword.control.mbdyn'
+					'2':
+						name: 'punctiation.definition.mbdyn'
+				end: '\;'
+				endCaptures:
+					'1':
+						name: 'punctuation.terminator.mdbyn'
+			  contentName: 'source.mbdyn.definition.drivecaller'
+				patterns: [
+					{
+						include: '$self'
+					}
+				]
+			}
+			{
 				begin: '\\b(strategy)\\b\:'
 				beginCaptures:
 					'1':
@@ -251,8 +269,12 @@ repository:
 				contentName: 'source.mbdyn.definition.constlaw'
 				patterns: [
 					{
-						match: '\\b(linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
+						match: '\\b(ann viscoelastic|ann elastic|symbolic elastic|symbolic viscous|symbolic viscoelastic|shock absorber|linear viscoelastic bistop|turbulent viscosity|double linear viscoelastic|cubic viscoelastic generic|linear viscoelastic generic axial torsion coupling|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
 						name: 'entity.name.type.mbdyn.constlaw'
+					}
+					{
+						match: '\\b(friction|orifice|negative|metering|penalty|epsilon min|epsilon max|epsilon|epsilon prime|expression|prestrain|prestress|second damping|proportional|linear stiffness|initial status|inactive|active)\\b'
+						name: 'keyword.other.mbdyn.constlaw'
 					}
 					{
 					include: '$self'
@@ -364,6 +386,10 @@ repository:
 								include: '$self'
 							}
 						]
+					}
+					{
+						match: '\\b(static|dynamic|modal|dummy)\\b(?![^\\<]*\\>)'
+						name: 'entity.name.type.mbdyn.strnode'
 					}
 					{
 						match: '\\b(output)\\b'
@@ -897,6 +923,14 @@ repository:
 						]
 					}
 					{
+						match: '\\b(ann viscoelastic|ann elastic|symbolic elastic|symbolic viscous|symbolic viscoelastic|shock absorber|linear viscoelastic bistop|turbulent viscosity|double linear viscoelastic|cubic viscoelastic generic|linear viscoelastic generic axial torsion coupling|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
+						name: 'entity.name.type.mbdyn.constlaw'
+					}
+					{
+						match: '\\b(friction|orifice|negative|metering|penalty|epsilon min|epsilon max|epsilon|epsilon prime|expression|prestrain|prestress|second damping|proportional|linear stiffness|initial status|inactive|active)\\b'
+						name: 'keyword.other.mbdyn.constlaw'
+					}
+					{
 						include: '$self'
 					}
 				]
@@ -997,10 +1031,6 @@ repository:
 						name: 'entity.name.type.mbdyn.genelements'
 					'2':
 						name: 'punctuation.definition.mbdyn'
-			}
-			{
-				match: '\\b(static|dynamic|modal|dummy)\\b(?![^\\<]*\\>)'
-				name: 'entity.name.type.mbdyn.strnode'
 			}
 			{
 				match: '\\b(array|closest next|const|cosine|cubic|direct|dof|double ramp|double step|drive|element|exponential|ginac|file|fourier series|frequency sweep|meter|mult|node|parabolic|periodic|piecewise linear|ramp|random|sample and hold|scalar function|sine|step|string|tanh|time|timestep|unit|linear)\\b(?![^\\<]*\\>)'
