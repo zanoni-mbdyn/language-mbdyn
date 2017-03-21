@@ -4,8 +4,7 @@ Syntax highlighting plugin for general purpose, free multibody analysis software
 ## Features
 
  * Fully context-depending syntax highlighting
- * Autocompletion snippets for control data, nodes, elements (still missing as
-   of current version: drives, constitutive laws, some global entities)
+ * Autocompletion snippets for (almost) full input syntax
 
 ## Examples
 
