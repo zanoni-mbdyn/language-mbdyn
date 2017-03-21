@@ -269,7 +269,7 @@ repository:
 				contentName: 'source.mbdyn.definition.constlaw'
 				patterns: [
 					{
-						match: '\\b(ann viscoelastic|ann elastic|symbolic elastic|symbolic viscous|symbolic viscoelastic|shock absorber|linear viscoelastic bistop|turbulent viscosity|double linear viscoelastic|cubic viscoelastic generic|linear viscoelastic generic axial torsion coupling|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
+						match: '\\b(nlp elastic|nlp viscous|nlp viscoelastic|nlsf elastic|nlsf viscous|nlsf viscoelastic|cubic elastic generic|ann viscoelastic|ann elastic|symbolic elastic|linear elastic generic axial torsion coupling|symbolic viscous|symbolic viscoelastic|shock absorber|linear viscoelastic generic axial torsion coupling|linear viscoelastic generic|linear viscoelastic bistop|turbulent viscoelastic|double linear viscoelastic|cubic viscoelastic generic|cubic viscoelastic|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic|bistop|array|invariant angular)\\b'
 						name: 'entity.name.type.mbdyn.constlaw'
 					}
 					{
@@ -923,7 +923,7 @@ repository:
 						]
 					}
 					{
-						match: '\\b(ann viscoelastic|ann elastic|symbolic elastic|symbolic viscous|symbolic viscoelastic|shock absorber|linear viscoelastic bistop|turbulent viscosity|double linear viscoelastic|cubic viscoelastic generic|linear viscoelastic generic axial torsion coupling|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic axial torsion coupling|linear elastic)\\b'
+						match: '\\b(nlp elastic|nlp viscous|nlp viscoelastic|nlsf elastic|nlsf viscous|nlsf viscoelastic|ubic elastic generic|ann viscoelastic|ann elastic|symbolic elastic|linear elastic generic axial torsion coupling|symbolic viscous|symbolic viscoelastic|shock absorber|cubic viscoelastic generic|cubic viscoelastic|linear viscoelastic generic axial torsion coupling|linear viscoelastic generic|linear viscoelastic bistop|turbulent viscoelastic|double linear viscoelastic|linear time variant viscoelastic generic|linear viscoelastic|linear viscous generic|linear viscous isotropic|linear viscous|scalar function elastic orthotropic|scalar function elastic|inverse square elastic|log elastic|isotropic hardening elastic|double linear elastic|linear elastic bistop|linear elastic isotropic|linear elastic generic|linear elastic|bistop|array|invariant angular)\\b'
 						name: 'entity.name.type.mbdyn.constlaw'
 					}
 					{
