@@ -22,4 +22,4 @@ Autocompletion at work in the definition of a structural node:
 
 ![strutural node autocompletion][autocompletion-node]
  
- [autocompletion-node]: http://github.com/zanoni-mbdyn/language-mbdyn/blob/master/docs/gifs/atom-mbdyn-node.gif
+ [autocompletion-node]: https://github.com/zanoni-mbdyn/language-mbdyn/blob/master/docs/gifs/atom-mbdyn-node.gif
