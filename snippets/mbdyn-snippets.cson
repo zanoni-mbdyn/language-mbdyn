@@ -447,6 +447,28 @@
       ${2:[(DriveCaller)<algebraic_radius>]};
     """
     'description': 'Multistep method.'
+  'eigenanalysis':
+    'prefix': 'eigenanalysis:'
+    'body': """
+      eigenanalysis:
+        ${1:\\{(real)<when> | list, (integer)<num_times>, (real)<when> [, ...]\\}}
+        ${2:[, ${3:{\\{output [full] matrices,}
+          | ${4:output sparse matrices,}
+          | ${4:output eigenvectors,}
+          | ${5:output geometry,}
+          | ${6:matrix output precision, (int)<matrix_precision>,}
+          | ${7:results output precision, (int)<results_precision>,}
+          | ${8:parameter, (real)<param>,}
+          | ${9:lower frequency limit, (real)<lower>,}
+          | ${10:upper frequency limit, (real)<upper>,}
+          | ${11:\\{use lapack [, balance, \\{no | scale | permute | all\\}]\\}
+              | use arpack, (integer)<nev>, (integer)<ncv>, (real)<tol>
+              | use jdqz, (integer)<nev>, (integer)<ncv>, (real)<tol>
+              }
+        ]}
+        ;
+    """
+    'description': 'Eigenanalysis'
 '.source.mbdyn.definition.strategy':
   'strategy-factor':
     'prefix': 'factor:'

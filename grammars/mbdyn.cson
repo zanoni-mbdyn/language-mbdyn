@@ -215,6 +215,27 @@ repository:
 				contentName: 'source.mbdyn.section.initialvalue'
 				patterns: [
 					{
+						begin: '\\b(eigenanalysis)\\b\:'
+						beginCaptures:
+							'1':
+								name: 'keyword.control.mbdyn'
+							'2':
+								name: 'punctuation.definition.mbdyn'
+						end: '\;'
+						endCaptures:
+							'punctuation.terminator.mbdyn'
+						contentName: 'source.mbdyn.eigenanalysis'
+						patterns: [
+							{
+							match: '\\b(list|output full matrices|output sparse matrices|output matrices|output eigenvectors|output geometry|matrix output precision|results output precision|parameter|lower frequency limit|upper frequency limit|use lapack|balance|no|scale|permute|all|use arpack|use jdqz)\\b'
+							name: 'keyword.other.mbdyn'
+							}
+							{
+								include: '$self'
+							}
+						]
+					}
+					{
 						include: '$self'
 					}
 				]
