@@ -358,7 +358,7 @@
   'module-load':
     'prefix': 'module load:'
     'body': """
-      module load: ${1:"<file_name>"},
+      module load: "${1:<file_name>}",
         ${2:[, <module_arglist>]}
         ;
     """
