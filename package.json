@@ -1,6 +1,6 @@
 {
   "name": "language-mbdyn",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Syntax highlighting support for free, general purpose, multibody analysis software MBDyn (https://www.mbdyn.org/)",
   "engines": {
     "atom": "*"
