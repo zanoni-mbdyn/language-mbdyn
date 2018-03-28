@@ -2502,7 +2502,7 @@
           ${5:[position, ] (Vec3)<relative_offset>}
     """
     'description': 'In plane joint element.'
-  'joint-deformable-hinge':
+  'joint-invariant-deformable-hinge':
     'prefix': 'invariant deformable hinge'
     'body': """
       invariant deformable hinge,
