@@ -378,7 +378,7 @@ repository:
 				contentName: 'source.mbdyn.section.controldata'
 				patterns: [
 					{
-						match: '\\b(output results|output|default orientation|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements)\\b'
+						match: '\\b(output results|output|default orientation|default output|default aerodynamic output|default beam output|default scale|model|rigid body kinematics|loadable path|output frequency|output meter|output precision|print|real time|use|initial stiffness|omega rotates|title|structural nodes|electric nodes|hydraulic nodes|parameter nodes|thermal nodes|rigid bodies|aerodynamic elements|aeromodals|automatic structural elements|beams|bulk elements|electric bulk elements|electric elements|external elements|genels|hydraulic elements|loadable elements|output elements|induced velocity elements|joints|forces|aerodynamic elements|joint regularizations)\\b'
 						name: 'keyword.control.mbdyn'
 					}
 					{
