@@ -167,7 +167,7 @@
         ${2:(real)<angular_velocity>},
         ${3:(integer)<number_of_terms>},
           ${4:(real)<a_0>},
-          ${5:(real)<a_1>}, ${6:(real)<a_2>},
+          ${5:(real)<a_1>}, ${6:(real)<b_1>},
           ${7:[, ...]}
           ${8:\\{(integer)<number_of_cycles> | one | forever\\}},
           ${9:(real)<initial_value>}
